@@ -4,6 +4,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="request">
+
+	<select id="list" resultType="RequestDTO" parameterType="Map" >
+		SELECT rev_no, ID, coID, req_date, accept,  r
+		FROM(
+			SELECT rev_no, ID, coID, req_date, accept, rownum r
+			FROM(
+				SELECT rev_no, ID, coID, req_date, accept 
+				FROM request
+					ORDER BY rev_no DESC
+				)
+			)
+			<![CDATA[
+			where r>=#{sno} and r<=#{eno}
+			]]>
+	</select>
 	
+	<select id="read" resultType="RequestDTO" parameterType="String">
+		select rev_no, ID, coID, req_date, accept
+		FROM request
+		WHERE rev_no = #{rev_no}
+	</select>
 	
+	<insert id="create" parameterType="RequestDTO" >
+		INSERT INTO request (rev_no, ID, coID, req_date, accept)
+		VALUES((SELECT NVL(MAX(rev_no), 0) + 1 as rev_no FROM request),
+		#{ID} , #{coID}, #{req_date}, #{accept)
+	</insert>
+	
+	<update id="update" parameterType="RequestDTO">
+		UPDATE request
+		SET req_date = #{req_date},
+		accept = #{accept}
+		WHERE rev_no = #{rev_no}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM request 
+		WHERE rev_no = #{rev_no}
+	</delete>
+
 </mapper>

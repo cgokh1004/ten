@@ -4,6 +4,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="bus_reply">
+
+	<select id="list" resultType="Bus_replyDTO" parameterType="Map">
+		SELECT rev_no, busno, ID, price, content, car_num, bid_req, deal_comp,  r
+		FROM(
+			SELECT rev_no, busno, ID, price, content, car_num, bid_req, deal_comp, rownum r
+			FROM(
+				SELECT rev_no, busno, ID, price, content, car_num, bid_req, deal_comp 
+				FROM bus_reply
+					ORDER BY busno DESC
+				)
+			)
+			<![CDATA[
+			where r>=#{sno} and r<=#{eno}
+			]]>
+	</select>
 	
+	<select id="read" resultType="Bus_replyDTO" parameterType="String">
+		select rev_no, busno, ID, price, content, car_num, bid_req, deal_comp
+		FROM bus_reply
+		WHERE rev_no = #{rev_no}
+	</select>
+	
+	<insert id="create" parameterType="Bus_replyDTO">
+		INSERT INTO bus_reply (rev_no, busno, ID, price, content, car_num, bid_req, deal_comp)
+		VALUES((SELECT NVL(MAX(rev_no), 0) + 1 as rev_no FROM bus_reply),
+		'2', 'user2', '260000', '25인승소형버스', '23가1234', '0', '0');
+	</insert>
+	
+	<update id="update" parameterType="Bus_replyDTO">
+		UPDATE bus_reply
+		SET price = #{price},
+		content = #{content},
+		car_num = #{car_num},
+		bid_req = #{bid_req},
+		deal_comp = #{deal_comp}
+		WHERE rev_no = #{rev_no};
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM bus_reply 
+		WHERE rev_no = #{rev_no}
+	</delete>
 	
 </mapper>

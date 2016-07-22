@@ -4,6 +4,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="bus">
+
+	<select id="list" resultType="BusDTO" parameterType="Map">
+		SELECT busno, ID, regdate, startdate, enddate, price, b_start, b_end, ways,  r
+		FROM(
+			SELECT busno, ID, regdate, startdate, enddate, price, b_start, b_end, ways, rownum r
+			FROM(
+				SELECT busno, ID, regdate, startdate, enddate, price, b_start, b_end, ways 
+				FROM bus
+					ORDER BY busno DESC
+				)
+			)
+			<![CDATA[
+			where r>=#{sno} and r<=#{eno}
+			]]>
+	</select>
 	
+	<select id="read" resultType="BusDTO" parameterType="String">
+		SELECT busno, ID, regdate, startdate, enddate, price, b_start, b_end, ways 
+		FROM bus
+		WHERE busno = #{busno};
+	</select>
 	
+	<select id="total" resultType="int" parameterType="String">
+	select count(*)
+	from bus
+	where busno like '%' || #{word} || '%'
+	</select>
+	
+	<insert id="create" parameterType="BusDTO">
+		INSERT INTO bus(busno, ID, regdate, startdate, enddate, price, b_start, b_end, ways)
+		VALUES((SELECT NVL(MAX(busno), 0) + 1 as busno FROM bus), #{ID}, #{regdate}, #{startdate}, #{enddate}, 
+		#{price}, #{b_start}, #{b_end}, #{ways})
+	</insert>
+	
+	<update id="update" parameterType="BusDTO">
+		UPDATE bus
+		SET startdate = #{startdate},
+		enddate = #{enddate},
+		price = #{price},
+		b_start = #{b_start},
+		b_end = #{b_end},
+		ways = #{ways}	
+		WHERE ID = #{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM bus 
+		WHERE busno = #{busno};
+	</delete>
+
 </mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reser_comp">
+
+	<select id="list" resultType="Reser_compDTO" parameterType="Map">
+		SELECT rev_no, price, b_start, startdate, b_end, enddate, comp_date, ways, car_num, ID, coID,  r
+		FROM(
+			SELECT rev_no, price, b_start, startdate, b_end, enddate, comp_date, ways, car_num, ID, coID, rownum r
+			FROM(
+				SELECT rev_no, price, b_start, startdate, b_end, enddate, comp_date, ways, car_num, ID, coID 
+				FROM reser_comp
+					ORDER BY rev_no DESC
+				)
+			)
+			<![CDATA[
+			where r>=#{sno} and r<=#{eno}
+			]]>
+	</select>
+	
+	<select id="read" resultType="Reser_compDTO" parameterType="String">
+		rev_no, price, b_start, startdate, b_end, enddate, comp_date, ways, car_num, ID, coID
+		FROM reser_comp
+		WHERE rev_no = #{rev_no}
+	</select>
+	
+	<insert id="create" parameterType="Reser_compDTO" >
+		INSERT INTO reser_comp (rev_no, price, b_start, startdate, b_end, enddate, comp_date, ways, car_num, ID, coID)
+		VALUES((SELECT NVL(MAX(rev_no), 0) + 1 as rev_no FROM reser_comp),
+		 #{price}, #{b_start}, #{startdate}, #{b_end}, #{enddate}, #{comp_date}, 
+		 #{ways}, #{car_num}, #{ID}, #{coID})
+	</insert>
+	
+	<update id="update" parameterType="Reser_compDTO">
+		UPDATE reser_comp
+		SET price = #{price},
+		b_start = #{b_start},
+		startdate = #{startdate},
+		b_end = #{b_end},
+		enddate = #{enddate},
+		comp_date = #{comp_date},
+		ways = #{ways},
+		car_num = #{car_num}
+		WHERE rev_no = #{rev_no}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM reser_comp 
+		WHERE rev_no = #{rev_no}
+	</delete>
+	
+</mapper>
