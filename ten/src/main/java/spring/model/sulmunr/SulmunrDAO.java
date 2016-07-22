@@ -10,6 +10,7 @@ import spring.model.ten.DAOMyBatisInter;
 public class SulmunrDAO implements DAOMyBatisInter {
 //테스트
 	//커밋1
+	//커밋2
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		// TODO Auto-generated method stub
