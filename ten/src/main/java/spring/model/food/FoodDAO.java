@@ -15,6 +15,7 @@ public class FoodDAO implements DAOMyBatisInter {
 		//수정테스트
 		//마스터 계정으로 올려봅니다.
 		//브런치 한번 더 수정
+		//다시수정
 		return mybatis.insert("food.create", dto);
 	}
 
