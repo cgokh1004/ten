@@ -13,6 +13,7 @@ public class FoodDAO implements DAOMyBatisInter {
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		// TODO Auto-generated method stub
 		//수정테스트
+		//마스터 계정으로 올려봅니다.
 		return mybatis.insert("food.create", dto);
 	}
 
