@@ -26,7 +26,7 @@ public class NoticeDAO {
 	
 	public void upViewcnt(int noticeno){
 
-		mybatis.update("notice.upViewcnt", noticeno);
+		mybatis.update("notice.increaseViewcnt", noticeno);
 	}
 	
 	public List<NoticeDTO> list(Map map){// 밑에 where r>=? and r<=?가 map에 들어감

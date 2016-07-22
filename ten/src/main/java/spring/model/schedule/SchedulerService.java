@@ -9,7 +9,7 @@ import com.dhtmlx.planner.DHXEv;
 public class SchedulerService {
 	
 	@Autowired
-	private ShedulerDao eventManagerDao;
+	private ShedulerDao2 eventManagerDao;
 
 	public Iterable<DHXEv> getEvent() {
 		return eventManagerDao.getEvent();

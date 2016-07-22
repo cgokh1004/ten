@@ -63,10 +63,10 @@ public class AdviseDAO {
 	   return mybatis.insert("advise.reply", dto); 
 	  } 
 
-	  public void addAnsnum(int grpno, int ansnum){
+	  public void addAnsnum(int groupno, int ansnum){
 		  
 		  Map map = new HashMap();
-		  map.put("groupno", grpno);
+		  map.put("groupno", groupno);
 		  map.put("ansnum", ansnum);
 		  
 	    mybatis.update("advise.addAnsnum", map);
@@ -80,12 +80,12 @@ public class AdviseDAO {
 	  
 	public int delete(int advno) {
 		
-		return mybatis.delete("bbs.delete", advno);
+		return mybatis.delete("advise.delete", advno);
 	}
 	
 	public int update(AdviseDTO dto){
 		
-		return mybatis.update("bbs.update", dto);
+		return mybatis.update("advise.update", dto);
 	}
 
 	  public int checkID(int advno, String id){
@@ -94,6 +94,6 @@ public class AdviseDAO {
 		  map.put("advno", advno);
 		  map.put("id", id);
 		  
-	    return mybatis.selectOne("bbs.checkID", map);
+	    return mybatis.selectOne("advise.checkID", map);
 	  }
 }
