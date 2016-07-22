@@ -15,6 +15,6 @@ public class FoodDAO {
 	}
 	
 	public int create(FoodDTO foodDTO) {
-		return mybatis.insert("food.create", foodDTO);
+		return mybatis.insert("food.create", foodDTO);//수정
 	}	
 }
