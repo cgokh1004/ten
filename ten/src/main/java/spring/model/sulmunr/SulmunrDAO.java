@@ -8,7 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import spring.model.ten.DAOMyBatisInter;
 
 public class SulmunrDAO implements DAOMyBatisInter {
-
+//테스트
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		// TODO Auto-generated method stub
