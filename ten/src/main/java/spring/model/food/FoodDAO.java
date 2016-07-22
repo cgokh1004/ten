@@ -12,6 +12,7 @@ public class FoodDAO implements DAOMyBatisInter {
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		// TODO Auto-generated method stub
+		//수정테스트
 		return mybatis.insert("food.create", dto);
 	}
 
