@@ -1,4 +1,4 @@
-package spring.model.food;
+package spring.model.schedule;
 
 import java.util.List;
 import java.util.Map;
@@ -7,12 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.model.ten.DAOMyBatisInter;
 
-public class FoodDAO implements DAOMyBatisInter {
+public class SchedulerDAO implements DAOMyBatisInter {
 
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		// TODO Auto-generated method stub
-		return mybatis.insert("food.create", dto);
+		return 0;
 	}
 
 	@Override
