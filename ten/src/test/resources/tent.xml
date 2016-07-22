@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 데이터베이스 접속 설정 -->
+	<bean id="dataSource1" destroy-method="close"
+		class="org.apache.commons.dbcp.BasicDataSource" p:driverClassName="oracle.jdbc.driver.OracleDriver"
+		p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE" p:username="ten"
+		p:password="1010" />
+
+	<!-- MyBatis SQL 실행 클래스 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource1" />
+		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+		<property name="typeAliasesPackage" value="spring.model" />
+		<property name="mapperLocations" value="classpath:mybatis/*.xml" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- 이용조, food_reviewdao, fooddao 객체생성 -->
+	<bean id="food_reviewdao" class="spring.model.food_review.Food_ReviewDAO"
+		p:mybatis-ref="sqlSession" />
+	<bean id="fooddao" class="spring.model.food.FoodDAO"
+		p:mybatis-ref="sqlSession" />
+
+	
+	<!-- 김현, surveydao, sulmunrdao, sulconfirmdao, schedulerdao 객체생성 -->
+	<bean id="surveydao" class="spring.model.survey.SurveyDAO"
+		p:mybatis-ref="sqlSession" />
+	<bean id="sulmunrdao" class="spring.model.sulmunr.SulmunrDAO"
+		p:mybatis-ref="sqlSession" />
+	<bean id="sulconfirmdao" class="spring.model.sulconfirm.SulconfirmDAO"
+		p:mybatis-ref="sqlSession" />
+	<bean id="schedulerdao" class="spring.model.schedule.SchedulerVO"
+		p:mybatis-ref="sqlSession" />
+
+<!-- 신승형, ktxdao, ktx_replydao, ktx_reviewdao객체생성 -->
+<bean id="ktxdao" class="spring.model.ktx.KtxDAO"
+		p:mybatis-ref="sqlSession" />
+<bean id="ktx_replydao" class="spring.model.ktx_reply.Ktx_ReplyDAO"
+		p:mybatis-ref="sqlSession" />
+<bean id="ktx_reviewdao" class="spring.model.ktx_review.Ktx_ReviewDAO"
+		p:mybatis-ref="sqlSession" />
+
+<!-- 최민서, cardao, car_bookeddao 객체생성 -->
+<bean id="cardao" class="spring.model.car.CarDAO"
+		p:mybatis-ref="sqlSession" />
+<bean id="car_bookeddao" class="spring.model.car.Car_BookedDAO"
+		p:mybatis-ref="sqlSession" />		
+
+<!-- 김성빈, carpooldao, carpool_bookeddao, carpool_replydao, carpool_reviewdao, member 객체생성 -->
+<bean id="carpooldao" class="spring.model.carpool.CarpoolDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="carpool_bookeddao" class="spring.model.carpool_booked.Carpool_BookedDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="carpool_replydao" class="spring.model.carpool_reply.Carpool_ReplyDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="carpool_reviewdao" class="spring.model.carpool_review.Carpool_ReviewDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="member" class="spring.model.member.MemberDAO"
+		p:mybatis-ref="sqlSession" />	
+
+<!-- 류제만, fes_replydao, festivaldao, tra_replydao, traveldao객체생성 -->
+<bean id="fes_replydao" class="spring.model.fes_reply.Fes_ReplyDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="festivaldao" class="spring.model.festival.FesDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="tra_replydao" class="spring.model.tra_reply.Tra_ReplyDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="traveldao" class="spring.model.travel.TraDAO"
+		p:mybatis-ref="sqlSession" />	
+
+<!-- 진가슬, advisedao, noticedao, qquestiondao, questiondao 객체생성 -->
+<bean id="advisedao" class="spring.model.advise.AdviseDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="noticedao" class="spring.model.notice.NoticeDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="qquestiondao" class="spring.model.qquestion.QquestionDAO"
+		p:mybatis-ref="sqlSession" />	
+<bean id="questiondao" class="spring.model.question.QuestionDAO"
+		p:mybatis-ref="sqlSession" />	
+		
+<!-- 고솔아, bus_replydao, bus_infodao, busdao, requestdao 객체생성 -->
+<bean id="bus_replydao" class="spring.model.bus_reply.Bus_ReplyDAO"
+		p:mybatis-ref="sqlSession" />			
+<bean id="bus_infodao" class="spring.model.bus_info.Bus_InfoDAO"
+		p:mybatis-ref="sqlSession" />			
+<bean id="busdao" class="spring.model.bus.BusDAO"
+		p:mybatis-ref="sqlSession" />			
+<bean id="requestdao" class="spring.model.request.RequestDAO"
+		p:mybatis-ref="sqlSession" />			
+
+
+</beans>

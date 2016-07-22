@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="travel">
+	
+	<insert id="create" parameterType="TraDTO">	
+		INSERT INTO travel (tra_no, tdate, location, title, filename, content)
+		values((SELECT NVL(MAX(tra_no), 0) + 1 as tra_no FROM travel), sysdate, 
+		{location},{title},{filename},{content})	
+	</insert>
+			
+	<update id="update" parameterType="TraDTO">
+	UPDATE travel
+	set location=#{location}, title=#{title}, filename=#{filename},#{content}
+	where tra_no=#{tra_no}	
+	</update>
+
+	<select id="read" resultType="TraDTO" parameterType="int">
+	SELECT tra_no, tdate, location, title, filename, content 
+	from travel
+	where tra_no=#{tra_no}		
+	</select>
+	
+	<delete id="delete" parameterType="int">
+	DELETE FROM travel
+	WHERE tra_no = #{tra_no}</delete>
+	
+	<select id="list" resultType="TraDTO" parameterType="Map">
+	SELECT tra_no, tdate, location, title,filename,  content, r
+	FROM(
+		SELECT tra_no, tdate, location, title, filename, content, rownum r
+			FROM(
+				SELECT tra_no, tdate, location, title, filename, content
+					FROM travel
+	order by tra_no desc
+	)
+	)
+	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>		
+	</select>
+	
+	<select id="total">
+	SELECT count(*)
+	from travel
+	where title like '%전주%'
+	</select>	
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="carpool_booked">
+<insert id="create" parameterType="Carpool_BookedDTO">
+insert into carpool_booked
+(cp_bookedno,appli_id,writer_id,type,kind,appli_seat,carpoolno)
+values
+((SELECT NVL(MAX(cp_bookedno), 0) + 1 as cp_bookedno FROM carpool_booked)
+,#{appli_id},#{writer_id},#{type},#{kind},#{appli_seat},#{carpoolno})
+</insert>
+
+<select id="read" parameterType="int" resultType="Carpool_BookedDTO">
+select cp_bookedno,appli_id,writer_id,type,kind,appli_seat,carpoolno
+from carpool_booked
+where cp_bookedno=#{cp_bookedno}
+</select>
+
+<update id="update" parameterType="Carpool_BookedDTO">
+update carpool_booked
+set 
+type=#{type},kind=#{kind},appli_seat=#{appli_seat}
+where cp_bookedno=#{cp_bookedno}
+</update>
+
+<delete id="delete" parameterType="int">
+delete from carpool_booked
+where cp_bookedno=#{cp_bookedno}
+</delete>
+
+<resultMap type="Carpool_BookedDTO" id="Carpool_BookedDTOResultMap">
+<result column="type" property="type"/>
+<result column="kind" property="kind"/>
+<result column="name" property="memberDTO.name"/>
+<result column="c_start" property="carpoolDTO.c_start"/>
+<result column="c_end" property="carpoolDTO.c_end"/>
+</resultMap>
+
+<select id="list" parameterType="Map" resultMap="Carpool_BookedDTOResultMap">
+SELECT cp_bookedno,name,c_start,c_end,type,kind,carpoolno, r
+		from(
+			 SELECT cp_bookedno,name,c_start,c_end,type,kind,carpoolno, rownum r  
+				from(SELECT b.cp_bookedno,k.name,c.c_start,c.c_end,b.type,b.kind,b.carpoolno  
+						FROM carpool_booked b join member k
+						on b.appli_id=k.id
+						join carpool c on c.id=b.appli_id
+						<where>
+							<choose>
+								<when test="col=='name'">
+									name like'%'||#{word}||'%'
+								</when>
+								<when test="col=='c_start'">
+									c_start like'%'||#{word}||'%'
+								</when>
+								<when test="col=='c_end'">
+									c_end like'%'||#{word}||'%'
+								</when>
+								<when test="col=='type'">
+									type like'%'||#{word}||'%'
+								</when>
+								<when test="col=='kind'">
+									kind like'%'||#{word}||'%'
+								</when>
+							</choose>
+						</where>
+						ORDER BY appli_id
+			)
+)
+<![CDATA[
+	where r>=#{sno} AND r<=#{eno}
+	]]>
+</select>
+
+<select id="total" parameterType="Map" resultType="int">
+select count(*)
+from carpool_booked b join member k
+on b.appli_id=k.id 
+	<where>
+		<choose>
+			<when test="col=='name'">
+				name like'%'||#{word}||'%'
+			</when>
+			<when test="col=='c_start'">
+				c_start like'%'||#{word}||'%'
+			</when>
+			<when test="col=='c_end'">
+				c_end like'%'||#{word}||'%'
+			</when>
+			<when test="col=='type'">
+				type like'%'||#{word}||'%'
+			</when>
+			<when test="col=='kind'">
+				kind like'%'||#{word}||'%'
+			</when>
+		</choose>
+	</where>
+</select>
+</mapper>

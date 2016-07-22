@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="carpool_reply">
+<insert id="create" parameterType="Carpool_ReplyDTO">
+insert into carpool_reply 
+(crep_no,crep_date,id,content,carpoolno) 
+values 
+( (SELECT NVL(MAX(crev_no), 0) + 1 as crev_no FROM carpool_review),
+(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),#{id},#{content},#{carpoolno})
+</insert>
+
+<select id="read" parameterType="int" resultType="Carpool_ReplyDTO">
+SELECT crep_no,crep_date,id,content,carpoolno 
+FROM carpool_reply 
+WHERE crep_no=#{crep_no}
+</select>
+
+<update id="update" parameterType="Carpool_ReplyDTO">
+update carpool_reply
+set 
+crep_date=(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),content=#{content}
+where crep_no=#{crep_no}
+</update>
+
+<delete id="delete" parameterType="int">
+delete from carpool_reply 
+where crep_no=#{crep_no}
+</delete>
+
+<resultMap type="Carpool_ReplyDTO" id="Carpool_ReplyDTOResultMap">
+<result column="crep_no" property="crep_no"/>
+<result column="crep_date" property="crep_date"/>
+<result column="content" property="content"/>
+<result column="carpoolno" property="carpoolno"/>
+<result column="name" property="memdto.name"/>
+</resultMap>
+
+<select id="list" parameterType="Map" resultMap="Carpool_ReplyDTOResultMap">
+SELECT crep_no,name,crep_date,content,carpoolno , r
+		from(
+			 SELECT crep_no,name,crep_date,content,carpoolno , rownum r  
+				from(SELECT crep_no,name,crep_date,content,carpoolno  
+						FROM carpool_reply join member
+						on carpool_reply.id=member.id
+						<where>
+							<choose>
+								<when test="col=='name'">
+									name like'%'||#{word}||'%'
+								</when>
+								<when test="col=='content'">
+									content like'%'||#{word}||'%'
+								</when>
+							</choose>
+						</where>
+						ORDER BY crep_no desc
+			)
+)
+<![CDATA[
+	where r>=#{sno} AND r<=#{eno}
+	]]>
+</select>
+<select id="total" parameterType="Map" resultType="int">
+select count(*)
+FROM carpool_reply join member
+on carpool_reply.id=member.id
+	<where>
+		<choose>
+			<when test="col=='name'">
+				name like'%'||#{word}||'%'
+			</when>
+			<when test="col=='content'">
+				content like'%'||#{word}||'%'
+			</when>
+		</choose>
+	</where>
+</select>
+</mapper>

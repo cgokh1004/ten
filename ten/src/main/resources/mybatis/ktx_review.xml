@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ktx_review">
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM ktx_review
+		WHERE ktxrep_no=#{ktxrep_no}
+	</delete>
+		
+	<update id="update" parameterType="Ktx_ReviewDTO">
+		UPDATE ktx_review
+		SET content = #{content} ,score=#{score}
+		WHERE krev_no = #{krev_no}
+	</update>
+	
+	<insert id="create" parameterType="Ktx_ReviewDTO">
+		INSERT INTO ktx_review(krev_no,score,content,ktx_no,ID )  
+		VALUES((SELECT NVL(MAX(krev_no), 0) + 1 as krev_no FROM ktx_review),
+		#{score},#{content},#{ktx_no},#{id});   
+
+	</insert>
+
+	<select id="list" resultType="Ktx_ReviewDTO" parameterType="Map">
+	
+		SELECT krev_no,score,content,ktx_no,ID, r
+		FROM(
+			SELECT krev_no,score,content,ktx_no,ID, rownum r
+			  FROM(
+				SELECT krev_no,score,content,ktx_no,ID
+				FROM ktx_review
+				ORDER BY ktxrep_no DESC
+			)
+			)                                                                            
+	   <![CDATA[                                                                        
+	   where r>=#{sno} and r<=#{eno}  
+	   ]]>
+		</select>  
+                                      
+						
+						
+
+
+
+
+	<select id="read" resultType="Ktx_ReviewDTO" parameterType="int">
+		SELECT krev_no,score,content,ktx_no,ID
+		FROM ktx_review
+		WHERE krev_no = #{krev_no}
+	</select>
+
+</mapper>
+ 

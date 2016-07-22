@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	<insert id="create1" parameterType="MemberDTO">
+		insert into member
+		(id,gender,mem_type,name,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi)
+		values
+		(#{id},#{gender},#{mem_type},#{name},#{phone_certi},#{addr_certi},#{sns_certi},#{mail_certi},#{passport_certi})
+	</insert>
+	<update id="create2" parameterType="String">
+		update member
+		set certi_num=(select
+		sum(phone_certi+addr_certi+sns_certi+mail_certi+passport_certi) from
+		member where id=#{id})
+		where id=#{id}
+	</update>
+
+	<select id="read" parameterType="String" resultType="MemberDTO">
+		select
+		id,gender,mem_type,name,certi_num,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi
+		from member
+		where id=#{id}
+	</select>
+
+	<update id="update1" parameterType="MemberDTO">
+		update member
+		set
+		phone_certi=#{phone_certi},addr_certi=#{addr_certi},sns_certi=#{sns_certi},mail_certi=#{mail_certi},passport_certi=#{passport_certi}
+		where id=#{id}
+	</update>
+	<update id="update2" parameterType="String">
+		update member
+		set certi_num=(select
+		sum(phone_certi+addr_certi+sns_certi+mail_certi+passport_certi) from
+		member where id=#{id})
+		where id=#{id}
+	</update>
+
+
+	<delete id="delete" parameterType="String">
+		delete from member
+		where id=#{id}
+	</delete>
+
+	<select id="list" parameterType="Map" resultType="MemberDTO">
+		SELECT
+		id,gender,mem_type,name,certi_num,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,
+		r
+		from(
+		SELECT
+		id,gender,mem_type,name,certi_num,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,
+		rownum r
+		from(SELECT
+		id,gender,mem_type,name,certi_num,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi
+		FROM member
+		<where>
+			<choose>
+				<when test="col=='name'">
+					name like'%'||#{word}||'%'
+				</when>
+				<when test="col=='id'">
+					id like'%'||#{word}||'%'
+				</when>
+				<when test="col=='certi_num'">
+					certi_num like'%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY id
+		)
+		)
+<![CDATA[
+	where r>=#{sno} AND r<=#{eno}
+]]>
+	</select>
+
+
+	<select id="total" parameterType="map" resultType="int">
+		select count(*)
+		from member
+		<where>
+			<choose>
+				<when test="col=='name'">
+					name like'%'||#{word}||'%'
+				</when>
+				<when test="col=='id'">
+					id like'%'||#{word}||'%'
+				</when>
+				<when test="col=='certi_num'">
+					certi_num like'%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+</mapper>
