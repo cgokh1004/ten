@@ -11,6 +11,7 @@ public class SulmunrDAO implements DAOMyBatisInter {
 //테스트
 	//커밋1
 	//커밋2
+	//커밋4
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		// TODO Auto-generated method stub
