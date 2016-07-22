@@ -21,6 +21,7 @@ public class FoodDAO implements DAOMyBatisInter {
 		//커밋1
 		//커밋2
 		//커밋3
+		//커밋4
 
 		return mybatis.insert("food.create", dto);
 	}
