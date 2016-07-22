@@ -24,7 +24,6 @@ public class Carpool_BookedDAO implements DAOMyBatisInter {
 		return mybatis.selectOne("carpool_booked.read", pk);
 
 	}
-
 	@Override
 	public int update(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		return mybatis.update("carpool_booked.update", dto);
