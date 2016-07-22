@@ -20,7 +20,7 @@ public class Ktx_ReviewDAO implements DAOMyBatisInter {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//asdfsda
 	@Override
 	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
 		// TODO Auto-generated method stub
