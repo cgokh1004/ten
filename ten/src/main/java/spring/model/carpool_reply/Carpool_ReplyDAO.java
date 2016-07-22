@@ -37,7 +37,7 @@ public class Carpool_ReplyDAO {
 	public List<Carpool_ReplyDTO> list(Map map){
 		return mybatis.selectList("carpool_reply.list", map);
 	}
-	///asdfasdfasdfsdaf
+	//1234
 	public int total(String col,String word){
 		Map map=new HashMap();
 		map.put("col", "");
