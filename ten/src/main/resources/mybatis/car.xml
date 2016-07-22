@@ -46,9 +46,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where carno=#{carno}
 	</delete>
 	
-	<select id="total" resultType="int" parameterType="String">
-	select count(*)
-	from car
-	where carno like '%' || #{word} || '%'
+	<select id="total" resultType="int" parameterType="map">
+		SELECT count(*) FROM car
+		<where>
+			<choose>
+				<when test="col=='carno'">
+					carno LIKE '%' || #{word} || '%'
+				</when>
+				<when test="col=='place'">
+					place LIKE '%' || #{word} || '%'
+				</when>
+				<when test="col=='brand'">
+					content LIKE '%' || #{word} || '%'
+				</when>
+			</choose>
+		</where>
 	</select>
+	
 </mapper>

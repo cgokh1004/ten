@@ -1,5 +1,6 @@
 package spring.model.car_booked;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,9 +44,13 @@ public List<Car_BookedDTO> list(Map map){
 	
 }
 
-public int total(){
+public int total(String col, String word){
 	
-	return mybatis.selectOne("car_booked.total", "");
+	Map map = new HashMap();
+	map.put("col", col);
+	map.put("word", word);
+	
+	return mybatis.selectOne("car_booked.total", map);
 	
 }
 

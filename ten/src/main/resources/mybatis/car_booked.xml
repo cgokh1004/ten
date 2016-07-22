@@ -42,9 +42,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where carbook_no = #{carbook_no}
 	</delete>
 	
-	<select id="total" resultType="int" parameterType="Map">
-	select count(*)
-	from car_booked
-	where carbook_no like '%book%'
+	<select id="total" resultType="int" parameterType="map">
+		SELECT count(*) FROM car_booked
+		<where>
+			<choose>
+				<when test="col=='carbook_no'">
+					carbook_no LIKE '%' || #{word} || '%'
+				</when>
+				<when test="col=='ID'">
+					ID LIKE '%' || #{word} || '%'
+				</when>
+			</choose>
+		</where>
 	</select>
+	
+
 </mapper>
