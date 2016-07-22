@@ -47,12 +47,4 @@ public class Fes_ReplyDAO {
 		return mybatis.selectList("fes_reply.list", map);
 	}
 	
-	public int total(String col, String word){
-		
-			Map map = new HashMap();
-			map.put("col", col);
-			map.put("word", word);
-					
-		return mybatis.selectOne("total",map);
-	}
 }

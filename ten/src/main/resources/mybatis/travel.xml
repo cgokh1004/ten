@@ -8,12 +8,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="TraDTO">	
 		INSERT INTO travel (tra_no, tdate, location, title, filename, content)
 		values((SELECT NVL(MAX(tra_no), 0) + 1 as tra_no FROM travel), sysdate, 
-		{location},{title},{filename},{content})	
+		#{location},#{title},#{filename},#{content})	
 	</insert>
+			
+			
 			
 	<update id="update" parameterType="TraDTO">
 	UPDATE travel
-	set location=#{location}, title=#{title}, filename=#{filename},#{content}
+	set title=#{title}, location=#{location}, filename=#{filename}, content=#{content}
 	where tra_no=#{tra_no}	
 	</update>
 
@@ -42,9 +44,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>		
 	</select>
 	
-	<select id="total">
-	SELECT count(*)
-	from travel
-	where title like '%전주%'
+	<select id="total" resultType="int" parameterType="map">
+	SELECT count(*) from travel
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title LIKE '%'||#{word}||'%'					
+				</when>
+				<when test="col='content'">
+					content LIKE '%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
 	</select>	
 </mapper>

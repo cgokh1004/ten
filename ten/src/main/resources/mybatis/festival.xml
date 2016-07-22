@@ -42,9 +42,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>		
 	</select>
 	
-	<select id="total">
-	SELECT count(*)
-	from festival
-	where title like '%불꽃축제%'
+	<select id="total" resultType="int" parameterType="map">
+	SELECT count(*) from festival
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title LIKE '%'||#{word}||'%'					
+				</when>
+				<when test="col='content'">
+					content LIKE '%'||#{word}||'%'
+				</when>
+			</choose>
+		
+		</where>	
 	</select>	
 </mapper>

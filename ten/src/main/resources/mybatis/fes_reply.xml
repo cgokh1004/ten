@@ -41,10 +41,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where r>=#{sno} and r<=#{eno}
 	]]>		
 	</select>
-	
-	<select id="total">
-	SELECT count(*)
-	from fes_reply
-	where id like '%user1%'
-	</select>	
 </mapper>

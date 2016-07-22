@@ -7,8 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="create" parameterType="Tra_ReplyDTO">	
 		INSERT INTO tra_reply (treply_no, tra_no, trep_date, ID,content)
-		values((SELECT NVL(MAX(treply_no), 0) + 1 as treply_no FROM tra_reply), sysdate, 
-		{tra_no},sysdate,{ID},{content})	
+		values((SELECT NVL(MAX(treply_no), 0) + 1 as treply_no FROM tra_reply), 
+		#{tra_no},sysdate,#{ID},#{content})	
 	</insert>
 			
 	<update id="update" parameterType="Tra_ReplyDTO">
@@ -42,9 +42,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>		
 	</select>
 	
-	<select id="total">
-	SELECT count(*)
-	from tra_reply
-	where title like '%전주%'
-	</select>	
 </mapper>

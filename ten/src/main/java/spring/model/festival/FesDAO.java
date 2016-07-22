@@ -51,6 +51,6 @@ public class FesDAO {
 			map.put("col", col);
 			map.put("word", word);
 					
-		return mybatis.selectOne("total",map);
+		return mybatis.selectOne("festival.total",map);
 	}
 }
