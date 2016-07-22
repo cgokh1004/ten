@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import spring.model.ten.DAOMyBatisInter;
 
 public class Carpool_BookedDAO implements DAOMyBatisInter {
-
+	
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
 		return mybatis.insert("carpool_booked.create", dto);
