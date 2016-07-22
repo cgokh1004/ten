@@ -15,6 +15,7 @@ public class FoodDAO implements DAOMyBatisInter {
 		//동시테스트
 		//테스트1
 		//테스트2
+		//테스트3
 		return mybatis.insert("food.create", dto);
 	}
 
