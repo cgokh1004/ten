@@ -1,4 +1,4 @@
-package spring.model.sulmunr;
+package spring.model.survey;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.model.ten.DAOMyBatisInter;
 
-public class SulmunrDAO implements DAOMyBatisInter {
+public class Survey implements DAOMyBatisInter {
 
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
