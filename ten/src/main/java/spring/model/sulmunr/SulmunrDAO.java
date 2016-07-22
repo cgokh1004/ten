@@ -13,6 +13,7 @@ public class SulmunrDAO implements DAOMyBatisInter {
 	//커밋2
 	//커밋3
 	//커밋4
+	//커밋56
 
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
