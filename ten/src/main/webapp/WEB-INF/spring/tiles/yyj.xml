@@ -20,10 +20,10 @@
 	
 	
 	<!--  여기 아래는 예제 -->
-<!-- 	<definition name="/img/createForm" extends="main"> -->
-<!-- 		<put-attribute name="title" value="Memo Create Page"></put-attribute> -->
-<!-- 		<put-attribute name="body" value="/WEB-INF/views/img/createForm.jsp" /> -->
-<!-- 	</definition> -->
+	<definition name="/food/list" extends="main">
+		<put-attribute name="title" value="Memo Create Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/yyj/matzip.jsp" />
+	</definition>
 
 </tiles-definitions> 
 
