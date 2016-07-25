@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ktx_booked">
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM ktx_booked
+		WHERE booked_no=#{booked_no}
+	</delete>
+		
+	<update id="update" parameterType="Ktx_ReplyDTO">
+		UPDATE ktx_booked
+		SET appli_seat = #{appli_seat}
+		WHERE booked_no = #{booked_no}
+	</update>
+	
+	<insert id="create" parameterType="Ktx_ReplyDTO">
+	INSERT INTO ktx_booked(booked_no,ktx_no,appli_id,writer_id,appli_seat)  
+	VALUES((SELECT NVL(MAX(booked_no), 0) + 1 as booked_no FROM ktx_booked),#{ktx_no},#{appli_id},#{writer_id},#{appli_seat});   
+
+	</insert>
+
+	<select id="list" resultType="MemberDTO" parameterType="Map">
+	
+		SELECT booked_no,ktx_no,appli_id,writer_id,appli_seat, r
+		FROM(
+			SELECT booked_no,ktx_no,appli_id,writer_id,appli_seat, rownum r
+	 		 FROM(
+				SELECT booked_no,ktx_no,appli_id,writer_id,appli_seat
+				FROM ktx_booked
+				ORDER BY booked_no DESC
+			)
+			)	   
+		<![CDATA[                                                                        
+		where r>=#{sno} and r<=#{eno}  
+		]]>
+		
+		</select>                                          
+						
+						
+
+
+
+
+	<select id="read" resultType="MemberDTO" parameterType="int">
+		SELECT booked_no,ktx_no,appli_id,writer_id,appli_seat
+		FROM ktx_booked
+		WHERE booked_no = #{booked_no}  
+	</select>
+
+</mapper>
+ 

@@ -4,45 +4,34 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import spring.model.ten.DAOMyBatisInter;
+import spring.model.ktx.KtxDTO;
 
-public class KtxDAO implements DAOMyBatisInter {
+@Component
+public class KtxDAO {
 
-	@Override
-	public boolean create(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	@Autowired
+	private SqlSessionTemplate mybatis;
+	
+	public int create(KtxDTO dto){
+		return mybatis.insert("ktx.create", dto);
 	}
-
-	@Override
-	public List list(Map map, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public KtxDTO read(int ktx_no){
+		return mybatis.selectOne("ktx.read", ktx_no);
 	}
-
-	@Override
-	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public int update(KtxDTO dto){
+		return mybatis.update("ktx.update", dto);
 	}
-
-	@Override
-	public boolean update(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public int delete(int ktx_no){
+		return mybatis.delete("ktx.delete", ktx_no);
 	}
-
-	@Override
-	public boolean delete(Object pk, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public List<KtxDTO> list(Map map){
+		return mybatis.selectList("ktx.list",map);
 	}
-
-	@Override
-	public int total(Map map, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

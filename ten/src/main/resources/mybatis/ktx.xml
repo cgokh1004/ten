@@ -6,42 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="ktx">
 
 	<delete id="delete" parameterType="int">
-		DELETE FROM member 
-		WHERE ID= #{id}
+		DELETE FROM ktx
+		WHERE ktx_no=#{ktx_no};
 	</delete>
 		
 	<update id="update" parameterType="ktxDTO">
-		UPDATE member
-		SET name=#{name}, mem_type=#{mem_type} 
-		WHERE ID = #{id}
+		UPDATE ktx
+		SET s_point =#{s_point},s_date=#{s_date}
+		WHERE ktx_no = #{ktx_no}; 
 	</update>
 	
 	<insert id="create" parameterType="ktxDTO">
-		INSERT INTO member(ID, gender, mem_type, name,certi_num,
-		phone_certi, addr_certi, sns_certi, mail_certi, passport_certi)  
-		VALUES(#{id}, #{gender}, #{mem_type} ,#{name}, #{phone_certi}, #{addr_certi}, 
-		#{sns_certi},#{mail_certi},#{mail_certi},#{passport_certi});
+		INSERT INTO ktx(ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID )  
+		VALUES((SELECT NVL(MAX(ktx_no), 0) + 1 as ktx_no FROM ktx),#{s_point},#{r_point},#{purpose},#{s_date},
+		#{seat},#{price},#{content},sysdate,#{ID});   
+
 	</insert>
 
-	<select id="total" parameterType="Map" resultType="int">
-		select count(*) from member
-		<where>
-			<choose>
-				<when test="col=='name'">
-					name LIKE '%' || #{word} || '%'
-				</when>
-				<when test="col=='gender'">
-					gender LIKE '%'|| #{word} || '%'
-				</when>
-				<when test="col=='id'">
-					id LIKE '%' || #{word} || '%'
-				</when>
-				
-			</choose>
-		</where>
-	</select>
 
-	<select id="list" resultType="MemberDTO" parameterType="Map">
+	<select id="list" resultType="ktxDTO" parameterType="Map">
 	
 		SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID, r
 		FROM(
@@ -51,11 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				FROM ktx  
 		<where>
 			<choose>
-				<when test="col=='name'">
+				<when test="col=='ktx_no'">
 					name LIKE '%' || #{word} || '%'
-				</when>
-				<when test="col=='gender'">
-					gender LIKE '%'|| #{word} || '%'
 				</when>
 				<when test="col=='id'">
 					id LIKE '%' || #{word} || '%'
@@ -75,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-	<select id="read" resultType="MemberDTO" parameterType="int">
+	<select id="read" resultType="ktxDTO" parameterType="int">
 		SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID
 		FROM ktx
 		WHERE ktx_no = #{ktx_no}

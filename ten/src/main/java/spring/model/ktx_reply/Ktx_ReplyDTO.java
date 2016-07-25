@@ -2,11 +2,21 @@ package spring.model.ktx_reply;
 
 public class Ktx_ReplyDTO {
 	
+	private String ktxrep_no;
+	
 	private String ktx_no;
 	
 	private String content;
 	
 	private String id;
+	
+	public String getktxrep_no() {
+		return ktxrep_no;
+	}
+
+	public void setktxrep_no(String ktxrep_no) {
+		this.ktxrep_no = ktxrep_no;
+	}
 
 	public String getKtx_no() {
 		return ktx_no;

@@ -46,6 +46,8 @@
 		p:mybatis-ref="sqlSession" />
 <bean id="ktx_reviewdao" class="spring.model.ktx_review.Ktx_ReviewDAO"
 		p:mybatis-ref="sqlSession" />
+<bean id="ktx_bookeddao" class="spring.model.ktx_review.Ktx_BookedDAO"
+		p:mybatis-ref="sqlSession" />
 
 <!-- 최민서, cardao, car_bookeddao 객체생성 -->
 <bean id="cardao" class="spring.model.car.CarDAO"
