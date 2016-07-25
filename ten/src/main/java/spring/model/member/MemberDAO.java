@@ -7,57 +7,60 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
-
+import spring.model.ten.DAOMyBatisInter;
 @Component
-public class MemberDAO {
-	
+public class MemberDAO implements DAOMyBatisInter {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
 	public void setMybatis(SqlSessionTemplate mybatis) {
 		this.mybatis = mybatis;
 	}
-	
-	public int create1(MemberDTO memberDTO){
+	@Override
+	public int create(Object dto) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int create1(MemberDTO memberDTO) {
 		return mybatis.insert("member.create1", memberDTO);
 	}
 	
-	public int create2(String id){
+	public int create2(String id) throws Exception{
 		return mybatis.update("member.create2", id);		 
 	}
-	
-	
-	
-	public MemberDTO read(String id){
-		return mybatis.selectOne("member.read", id);
+	@Override
+	public List list(Map map) throws Exception {
+		return mybatis.selectList("member.list", map);
+	}
+
+	@Override
+	public Object read(Object pk) throws Exception {
+		return mybatis.selectOne("member.read", pk);
+	}
+
+	@Override
+	public int update(Object dto) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
-	
-	
-	public int update1(MemberDTO memberDTO){
+	public int update1(MemberDTO memberDTO) throws Exception{
 		return mybatis.update("member.update1", memberDTO);
 	}
-	public int update2(String id){
+	
+	public int update2(String id) throws Exception{
 		return mybatis.update("member.update2", id);
 	}
 	
-	
-	
-	public int delete(String id){
-		return mybatis.delete("member.delete", id);
+	@Override
+	public int delete(Object pk) throws Exception {
+		return mybatis.delete("member.delete", pk);
 	}
-	
-	
-	public List<MemberDTO> list(Map map){
-		return mybatis.selectList("member.list", map);
-	}
-	
-	public int total(String col,String word){
-		Map map=new HashMap();
-		map.put("col", col);
-		map.put("word", word);
+
+	@Override
+	public int total(Map map) throws Exception {
 		return mybatis.selectOne("member.total", map);
 	}
+
 }
