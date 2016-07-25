@@ -4,7 +4,7 @@ import spring.model.carpool.CarpoolDTO;
 import spring.model.member.MemberDTO;
 
 public class Carpool_BookedDTO {
-	private int cp_bookedno;
+	private int booked_no;
 	private int carpoolno; 
 	private String appli_id;  
 	private String writer_id; 
@@ -15,11 +15,11 @@ public class Carpool_BookedDTO {
 	private CarpoolDTO carpoolDTO;
 	
 	
-	public int getCp_bookedno() {
-		return cp_bookedno;
+	public int getBooked_no() {
+		return booked_no;
 	}
-	public void setCp_bookedno(int cp_bookedno) {
-		this.cp_bookedno = cp_bookedno;
+	public void setBooked_no(int booked_no) {
+		this.booked_no = booked_no;
 	}
 	public MemberDTO getMemberDTO() {
 		return memberDTO;
