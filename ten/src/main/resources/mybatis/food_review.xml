@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="id" column="id" />
 	</resultMap>
 
-	<select id="list" parameterType="String" resultMap="Food_ReviewDTOResultMap">
+	<select id="list" parameterType="Map" resultMap="Food_ReviewDTOResultMap">
 		select food_review.frev_no as frev_no, food.foodname as foodname, food_review.faddress as faddress, food_review.score as score,
 		food_review.content as content, food_review.fooddate as fooddate, food_review.id as id
 		from food_review join food
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{faddress}, #{score}, #{content}, (select to_char(sysdate,'yyyy-mm-dd') from dual), #{id})
 	</insert>
 	
-	<select id="total" parameterType="String" resultType="int">
+	<select id="total" parameterType="Map" resultType="int">
 		select count(*)
 		from food_review
 		where faddress = #{faddress}
