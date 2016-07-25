@@ -5,21 +5,19 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import spring.model.sulconfirm.SulconfirmDTO;
 import spring.model.ten.DAOMyBatisInter;
 
 public class SchedulerDAO implements DAOMyBatisInter {
 
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		return mybatis.insert("scheduler.insertEvent", dto);
-
-	
+		return mybatis.insert("scheduler.insertEvent", dto);	
 	}
 
 	@Override
-	public List list(Map map, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SchedulerVO> list(Map map, SqlSessionTemplate mybatis) throws Exception {
+		return mybatis.selectList("scheduler.list", map);
 	}
 
 	@Override

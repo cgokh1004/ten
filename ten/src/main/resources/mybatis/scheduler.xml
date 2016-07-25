@@ -37,5 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	DELETE FROM events WHERE event_id=#{event_id} 
   </delete>
 
+<!-- 5. list -->
+  <select id="list" parameterType="Map" resultType="int">
+    SELECT event_id, event_name, start_date, end_date, ID
+    FROM events
+    ORDER BY event_id DESC
+</select>
     
 </mapper>
