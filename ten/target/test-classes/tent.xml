@@ -62,7 +62,7 @@
 		p:mybatis-ref="sqlSession" />	
 <bean id="carpool_reviewdao" class="spring.model.carpool_review.Carpool_ReviewDAO"
 		p:mybatis-ref="sqlSession" />	
-<bean id="member" class="spring.model.member.MemberDAO"
+<bean id="memberdao" class="spring.model.member.MemberDAO"
 		p:mybatis-ref="sqlSession" />	
 
 <!-- 류제만, fes_replydao, festivaldao, tra_replydao, traveldao객체생성 -->
