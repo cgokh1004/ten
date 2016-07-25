@@ -1,16 +1,15 @@
 package spring.model.carpool_reply;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
+import spring.model.ten.DAOMyBatisInter;
 @Component
-public class Carpool_ReplyDAO {
+public class Carpool_ReplyDAO implements DAOMyBatisInter {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
@@ -18,30 +17,37 @@ public class Carpool_ReplyDAO {
 		this.mybatis = mybatis;
 	}
 	
-	public int create(Carpool_ReplyDTO carpool_replyDTO){
-		return mybatis.insert("carpool_reply.create", carpool_replyDTO);
+	@Override
+	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
+		return mybatis.insert("carpool_reply.create", dto);
 	}
-	
-	public Carpool_ReplyDTO read(int crep_no){
-		return mybatis.selectOne("carpool_reply.read", crep_no);
-	}
-	
-	public int update(Carpool_ReplyDTO carpool_replyDTO){
-		return mybatis.update("carpool_reply.update", carpool_replyDTO);
-	}
-	
-	public int delete(int crep_no){
-		return mybatis.delete("carpool_reply.delete", crep_no);
-	}
-	
-	public List<Carpool_ReplyDTO> list(Map map){
+
+	@Override
+	public List list(Map map, SqlSessionTemplate mybatis) throws Exception {
 		return mybatis.selectList("carpool_reply.list", map);
 	}
-	
-	public int total(String col,String word){
-		Map map=new HashMap();
-		map.put("col", "");
-		map.put("word", "");
+
+	@Override
+	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
+		return mybatis.selectOne("carpool_reply.read", pk);
+
+	}
+
+	@Override
+	public int update(Object dto, SqlSessionTemplate mybatis) throws Exception {
+		return mybatis.update("carpool_reply.update", dto);
+
+	}
+
+	@Override
+	public int delete(Object pk, SqlSessionTemplate mybatis) throws Exception {
+		return mybatis.delete("carpool_reply.delete", pk);
+
+	}
+
+	@Override
+	public int total(Map map, SqlSessionTemplate mybatis) throws Exception {
 		return mybatis.selectOne("carpool_reply.total", map);
 	}
+
 }
