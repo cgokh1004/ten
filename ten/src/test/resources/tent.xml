@@ -86,6 +86,8 @@
 		p:mybatis-ref="sqlSession" />	
 <bean id="questiondao" class="spring.model.question.QuestionDAO"
 		p:mybatis-ref="sqlSession" />	
+<bean id="ncommentdao" class="spring.model.ncomment.NcommentDAO"
+		p:mybatis-ref="sqlSession" />	
 		
 <!-- 고솔아, bus_replydao, bus_infodao, busdao, requestdao 객체생성 -->
 <bean id="bus_replydao" class="spring.model.bus_reply.Bus_ReplyDAO"

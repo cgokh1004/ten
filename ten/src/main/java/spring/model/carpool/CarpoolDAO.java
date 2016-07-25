@@ -7,12 +7,10 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
-import spring.model.member.MemberDTO;
-
+import spring.model.ten.DAOMyBatisInter;
 @Component
-public class CarpoolDAO {
+public class CarpoolDAO implements DAOMyBatisInter {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
@@ -20,30 +18,34 @@ public class CarpoolDAO {
 		this.mybatis = mybatis;
 	}
 	
-	public int create(CarpoolDTO carpoolDTO){
-		return mybatis.insert("carpool.create", carpoolDTO);
+	@Override
+	public int create(Object dto) throws Exception {
+			return mybatis.insert("carpool.create", dto);
 	}
-	
-	public CarpoolDTO read(int carpoolno){
-		return mybatis.selectOne("carpool.read", carpoolno);
-	}
-	
-	public int update(CarpoolDTO carpoolDTO){
-		return mybatis.update("carpool.update", carpoolDTO);
-	}
-	
-	public int delete(int carpoolno){
-		return mybatis.delete("carpool.delete", carpoolno);
-	}
-	
-	public List<CarpoolDTO> list(Map map){
+
+	@Override
+	public List list(Map map) throws Exception {
 		return mybatis.selectList("carpool.list", map);
 	}
-	
-	public int total(String col,String word){
-		Map map=new HashMap();
-		map.put("col","");
-		map.put("word","");
+
+	@Override
+	public Object read(Object pk) throws Exception {
+		return mybatis.selectOne("carpool.read", pk);
+	}
+
+	@Override
+	public int update(Object dto) throws Exception {
+		return mybatis.update("carpool.update", dto);
+	}
+
+	@Override
+	public int delete(Object pk) throws Exception {
+		return mybatis.delete("carpool.delete", pk);
+	}
+
+	@Override
+	public int total(Map map) throws Exception {
 		return mybatis.selectOne("carpool.total", map);
 	}
+
 }

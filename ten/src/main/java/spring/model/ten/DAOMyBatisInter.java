@@ -6,11 +6,15 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 public interface DAOMyBatisInter {
-public boolean create(Object dto,SqlSessionTemplate mybatis) throws Exception;
-public List list(Map map, SqlSessionTemplate mybatis) throws Exception;
-public Object read(Object pk,SqlSessionTemplate mybatis) throws Exception;
-public boolean update(Object dto, SqlSessionTemplate mybatis) throws Exception;
-public boolean delete(Object pk, SqlSessionTemplate mybatis) throws Exception;
-public int total(Map map, SqlSessionTemplate mybatis) throws Exception;
- 
+	public int create(Object dto) throws Exception;
+
+	public List list(Map map) throws Exception;
+
+	public Object read(Object pk) throws Exception;
+
+	public int update(Object dto) throws Exception;
+
+	public int delete(Object pk) throws Exception;
+
+	public int total(Map map) throws Exception;
 }

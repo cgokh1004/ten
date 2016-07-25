@@ -9,7 +9,7 @@ public class QuestionDTO {
 	private int groupno;
 	private int indent;
 	private int ansnum;
-	private String ID;
+	private String id;
 	
 	public int getQno() {
 		return qno;
@@ -67,10 +67,10 @@ public class QuestionDTO {
 		this.ansnum = ansnum;
 	}
 	
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 }

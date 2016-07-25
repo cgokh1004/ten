@@ -12,7 +12,7 @@ import com.dhtmlx.planner.DHXEvent;
 import com.dhtmlx.planner.DHXEventsManager;
 
 @Repository
-public class SchedulerImple implements ShedulerDao {
+public class SchedulerImple implements ShedulerDao2 {
 
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;

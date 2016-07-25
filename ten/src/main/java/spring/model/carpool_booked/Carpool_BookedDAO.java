@@ -1,47 +1,51 @@
 package spring.model.carpool_booked;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
+import spring.model.ten.DAOMyBatisInter;
 @Component
-public class Carpool_BookedDAO {
+public class Carpool_BookedDAO implements DAOMyBatisInter {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 
 	public void setMybatis(SqlSessionTemplate mybatis) {
 		this.mybatis = mybatis;
 	}
-
-	public int create(Carpool_BookedDTO carpool_bookedDTO) {
-		return mybatis.insert("carpool_booked.create", carpool_bookedDTO);
+	
+	@Override
+	public int create(Object dto) throws Exception {
+		return mybatis.insert("carpool_booked.create", dto);
 	}
 
-	public Carpool_BookedDTO read(int cp_bookedno) {
-		return mybatis.selectOne("carpool_booked.read", cp_bookedno);
-	}
-
-	public int update(Carpool_BookedDTO carpool_bookedDTO) {
-		return mybatis.update("carpool_booked.update", carpool_bookedDTO);
-	}
-
-	public int delete(int cp_bookedno) {
-		return mybatis.delete("carpool_booked.delete", cp_bookedno);
-	}
-
-	public List<Carpool_BookedDTO> list(Map map) {
+	@Override
+	public List list(Map map) throws Exception {
 		return mybatis.selectList("carpool_booked.list", map);
 	}
 
-	public int total(String col, String word) {
-		Map map = new HashMap();
-		map.put("col", "");
-		map.put("word", "");
+	@Override
+	public Object read(Object pk) throws Exception {
+		return mybatis.selectOne("carpool_booked.read", pk);
+
+	}
+	@Override
+	public int update(Object dto) throws Exception {
+		return mybatis.update("carpool_booked.update", dto);
+
+	}
+
+	@Override
+	public int delete(Object pk) throws Exception {
+		return mybatis.delete("carpool_booked.delete", pk);
+	}
+
+	@Override
+	public int total(Map map) throws Exception {
 		return mybatis.selectOne("carpool_booked.total", map);
 	}
+
 }
