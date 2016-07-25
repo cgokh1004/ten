@@ -18,7 +18,7 @@
 		<div style="padding-left: 40px;">
 			<div id="logo" style="z-index: 10; margin-left: -20px">
 				<img alt="logo"
-					src="${pageContext.request.contextPath}/image/로고.png" width="200px">
+					src="${pageContext.request.contextPath}/images/로고.png" width="200px">
 			</div>
 			<div>
 				<a href="http://www.naver.com"
