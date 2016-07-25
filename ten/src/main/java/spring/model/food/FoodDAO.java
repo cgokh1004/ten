@@ -10,7 +10,7 @@ import spring.model.ten.DAOMyBatisInter;
 public class FoodDAO implements DAOMyBatisInter {
 
 	@Override
-	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
+	public int create(Object dto) throws Exception {
 		// TODO Auto-generated method stub
 		//초기화 커밋
 
@@ -18,31 +18,31 @@ public class FoodDAO implements DAOMyBatisInter {
 	}
 
 	@Override
-	public List list(Map map, SqlSessionTemplate mybatis) throws Exception {
+	public List list(Map map) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
+	public Object read(Object pk) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int update(Object dto, SqlSessionTemplate mybatis) throws Exception {
+	public int update(Object dto) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int delete(Object pk, SqlSessionTemplate mybatis) throws Exception {
+	public int delete(Object pk) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int total(Map map, SqlSessionTemplate mybatis) throws Exception {
+	public int total(Map map) throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
 	}

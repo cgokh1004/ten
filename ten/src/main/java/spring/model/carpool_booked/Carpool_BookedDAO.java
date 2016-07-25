@@ -18,33 +18,33 @@ public class Carpool_BookedDAO implements DAOMyBatisInter {
 	}
 	
 	@Override
-	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
+	public int create(Object dto) throws Exception {
 		return mybatis.insert("carpool_booked.create", dto);
 	}
 
 	@Override
-	public List list(Map map, SqlSessionTemplate mybatis) throws Exception {
+	public List list(Map map) throws Exception {
 		return mybatis.selectList("carpool_booked.list", map);
 	}
 
 	@Override
-	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
+	public Object read(Object pk) throws Exception {
 		return mybatis.selectOne("carpool_booked.read", pk);
 
 	}
 	@Override
-	public int update(Object dto, SqlSessionTemplate mybatis) throws Exception {
+	public int update(Object dto) throws Exception {
 		return mybatis.update("carpool_booked.update", dto);
 
 	}
 
 	@Override
-	public int delete(Object pk, SqlSessionTemplate mybatis) throws Exception {
+	public int delete(Object pk) throws Exception {
 		return mybatis.delete("carpool_booked.delete", pk);
 	}
 
 	@Override
-	public int total(Map map, SqlSessionTemplate mybatis) throws Exception {
+	public int total(Map map) throws Exception {
 		return mybatis.selectOne("carpool_booked.total", map);
 	}
 
