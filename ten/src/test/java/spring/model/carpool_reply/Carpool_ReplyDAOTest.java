@@ -91,7 +91,7 @@ public class Carpool_ReplyDAOTest {
 	public void testDelete() {
 		Carpool_ReplyDAO dao=(Carpool_ReplyDAO) beans.getBean("carpool_replydao");
 		try {
-			assertEquals(1, dao.delete(3));
+			assertEquals(1, dao.delete(2));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

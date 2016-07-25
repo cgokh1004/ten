@@ -1,0 +1,169 @@
+html{
+background-color: #eeeeee;
+height: 100%;
+overflow-x: hidden;
+}
+body{
+margin:0px;
+padding: 2% 5%;
+text-align: center;
+}
+#content {
+	position: relative; 
+	width: 100%;
+	height: 100%;
+	margin: -250px 0px 0px 0px;
+}
+
+
+#carpool {
+	background-color: #aac803;
+	float: left;
+	margin: 1%;
+	border: 0px solid;
+	border-radius: 20px;
+	width: 20%;
+	height: 40%;
+	min-width: 320px;
+	min-height: 500px
+}
+
+#bus {
+	background-color: #fdb800;
+	float: left;
+	margin: 1%;
+	border: 0px solid;
+	border-radius: 20px;
+	width: 20%;
+	height: 40%;
+	min-width: 320px;
+	min-height: 500px
+}
+
+#ktx {
+	background-color: #608efb;
+	float: left;
+	margin: 1%;
+	border: 0px solid;
+	border-radius: 20px;
+	width: 20%;
+	height: 40%;
+	min-width: 320px;
+	min-height: 500px
+}
+
+#carsharing {
+	background-color: #f1665d;
+	float: left;
+	margin: 1%;
+	border: 0px solid;
+	border-radius: 20px;
+	width: 20%;
+	height: 40%;
+	min-width: 320px;
+	min-height: 500px
+}
+
+#carpool .circle_div {
+	background-color: white;
+	margin: 30px auto 0px auto;
+	width: 30%;
+	height: 30%;
+	min-height: 240px;
+	min-width: 240px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+#bus .circle_div {
+	background-color: white;
+	margin: 30px auto 0px auto;
+	width: 30%;
+	height: 30%;
+	min-height: 240px;
+	min-width: 240px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+#ktx .circle_div {
+	background-color: white;
+	margin: 30px auto 0px auto;
+	width: 30%;
+	height: 30%;
+	min-height: 240px;
+	min-width: 240px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+#carsharing .circle_div {
+	background-color: white;
+	margin: 30px auto 0px auto;
+	width: 30%;
+	height: 30%;
+	min-height: 240px;
+	min-width: 240px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+#food {
+	float: left;
+	clear: left;
+	margin-left: 20px;
+	text-align: center;
+	vertical-align: middle;
+	border: 0px solid;
+	background-image: url("../image/맛집.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 340px;
+	height: 300px
+}
+
+#travel {
+	float: left;
+	text-align: center;
+	border: 0px solid;
+	background-image: url("../image/여행지.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 340px;
+	height: 300px;
+}
+
+#help {
+	float: left;
+	text-align: center;
+	border: 0px solid;
+	background-image: url("../image/고객센터.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 340px;
+	height: 300px
+}
+
+#research {
+	float: left;
+	text-align: center;
+	margin-right: 20px;
+	border: 0px solid;
+	background-image: url("../image/설문조사.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 340px;
+	height: 300px
+	}
