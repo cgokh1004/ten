@@ -10,26 +10,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <result property="event_name" column="event_name"/>
   <result property="start_date" column="start_date"/>
   <result property="end_date" column="end_date"/>	
+  <result property="ID" column="ID"/>	
  </resultMap>
  
- <select id="getEvent" resultMap="scheduler"> 
- 	SELECT event_id, event_name, start_date, end_date FROM events
- 	
- </select>
-
+  <!-- 1. create  -->
+ <insert id="insertEvent" parameterType="SchedulerVO"> 
+ 	<selectKey keyProperty="event_id" resultType="Integer" order="BEFORE">
+ 		SELECT events.nextval FROM DUAL
+ 	</selectKey>
+ 	INSERT INTO events (event_id, event_name, start_date, end_date) VALUES (#{event_id}, #{event_name}, #{start_date}, #{end_date})
+ </insert>
+ 
+<!-- 2. update -->
  <update id="updateEvent" parameterType="SchedulerVO"> 
  	UPDATE events SET event_name=#{event_name}, start_date=#{start_date}, end_date=#{end_date} WHERE event_id=#{event_id}
  </update>
  
- <insert id="insertEvent" parameterType="SchedulerVO"> 
- 	INSERT INTO events (event_id, event_name, start_date, end_date) VALUES (null, #{event_name}, #{start_date}, #{end_date})
- 	<selectKey keyProperty="event_id" resultType="Integer">
- 		SELECT LAST_INSERT_ID()
- 	</selectKey>
- </insert>
+ <!-- 3. read -->
+ <select id="getEvent" resultMap="scheduler"> 
+ 	SELECT event_id, event_name, start_date, end_date, ID FROM events 
+ 	WHERE ID = #{ID} 	
+ </select>
  
+ <!-- 4. delete -->
   <delete id="deleteEvent" parameterType="int">
-  	DELETE FROM events WHERE event_id=#{event_id} LIMIT 1
+  	DELETE FROM events WHERE event_id=#{event_id} 
   </delete>
- 
+
+    
 </mapper>

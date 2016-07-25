@@ -2,9 +2,22 @@ package spring.model.schedule;
 public class SchedulerVO {
 	
 	private Integer event_id;
+	/**플래너 일련번호 */ 
 	private String event_name;  
+	/**플래너 글제목*/ 
 	private String start_date;  
+	/**플래너 시작일 */ 
 	private String end_date;
+	/**플래너 종료일 */ 
+	private String ID;
+	/**회원 아이디(FK) */ 
+	
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
 	
 	public Integer getEvent_id() {
 		return event_id;

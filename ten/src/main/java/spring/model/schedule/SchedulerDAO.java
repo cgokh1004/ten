@@ -11,8 +11,9 @@ public class SchedulerDAO implements DAOMyBatisInter {
 
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.insert("scheduler.insertEvent", dto);
+
+	
 	}
 
 	@Override
@@ -23,20 +24,17 @@ public class SchedulerDAO implements DAOMyBatisInter {
 
 	@Override
 	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mybatis.selectOne("scheduler.getEvent", pk);
 	}
 
 	@Override
 	public int update(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.update("scheduler.updateEvent", dto);
 	}
 
 	@Override
 	public int delete(Object pk, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.delete("scheduler.deleteEvent", pk);
 	}
 
 	@Override

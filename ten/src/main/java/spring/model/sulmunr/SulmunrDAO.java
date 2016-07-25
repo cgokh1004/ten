@@ -7,48 +7,36 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import spring.model.ten.DAOMyBatisInter;
 
-public class SulmunrDAO implements DAOMyBatisInter {
-//테스트
-	//커밋1
-	//커밋2
-	//커밋3
-	//커밋4
-	//커밋56
+public class SulmunrDAO implements DAOMyBatisInter {   
 
 	@Override
 	public int create(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.insert("sulmunr.create", dto);
 	}
 
 	@Override
-	public List list(Map map, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public  List<SulmunrDTO> list(Map map, SqlSessionTemplate mybatis) throws Exception {
+		 return mybatis.selectList("sulmunr.list", map);
 	}
 
 	@Override
 	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mybatis.selectOne("sulmunr.read", pk);
 	}
 
 	@Override
 	public int update(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.update("sulmunr.update", dto);
 	}
 
 	@Override
 	public int delete(Object pk, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.delete("sulmunr.delete", pk);
 	}
 
 	@Override
 	public int total(Map map, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.selectOne("sulmunr.total", map);
 	}
 
 }
