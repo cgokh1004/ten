@@ -24,6 +24,11 @@
 		<put-attribute name="title" value="Memo Create Page"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/yyj/matzip.jsp" />
 	</definition>
+	
+	<definition name="/food/test" extends="main">
+		<put-attribute name="title" value="Memo Create Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/yyj/test.jsp" />
+	</definition>
 
 </tiles-definitions> 
 

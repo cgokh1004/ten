@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spring.model.ten.DAOMyBatisInter;
 
+@Component
 public class Food_ReviewDAO implements DAOMyBatisInter {
 
 	@Autowired

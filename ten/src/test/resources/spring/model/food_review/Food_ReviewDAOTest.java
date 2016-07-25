@@ -39,7 +39,7 @@ public class Food_ReviewDAOTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test @Ignore
+	@Test //@Ignore
 	public void testList() {
 		Food_ReviewDAO food_reviewDAO = (Food_ReviewDAO) beans.getBean("food_reviewdao");
 		Map map = new HashMap();

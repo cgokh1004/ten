@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +51,22 @@
 	overflow-y: auto;
 	background: rgba(255, 255, 255, 0.7);
 	z-index: 1;
-	font-size: 30px;
+	font-size: 12px;
+	border-radius: 10px;
+}
+
+#create_wrap {
+	position: absolute;
+	top: 350;
+	right: 0;
+	bottom: 0;
+	width: 350px;
+	margin: 10px 0 30px 10px;
+	padding: 5px;
+	overflow-y: auto;
+	background: rgba(255, 255, 255, 0.7);
+	z-index: 1;
+	font-size: 12px;
 	border-radius: 10px;
 }
 
@@ -228,16 +242,16 @@
 			<div id="pagination"></div>
 		</div>
 		
-		<div id="info_wrap" class="bg_white">맛집을 눌러주세요.
-		<div>
-		여기는  리뷰보이는곳
-		</div>
+		<div id="info_wrap" class="bg_white">맛집을 눌러주세요.	</div>
 		
-		<div style="position: absolute; bottom: 0">
-		<Form name='frm' method='POST' action='./createProc.jsp'>
-		<input type="text" name="title" size="30"  placeholder="평가해 주세요.">
+		<div id="create_wrap" class="bg_white">
+			<Form name='frm' method='POST' action='./create'>
+			id <input type="text" name="id" size="30" value="guest"><br>
+			평가 <input type="text" name="content" size="30"  placeholder="평가해주세요."><br>
+			별점 <input type="text" name="score" size="30"  placeholder="별점입력해주세요."><br>
+			주소 <input type="text" name="faddress" size="30"><br>
+			<input type="submit" value="글남기기">
 		</Form>
-		</div>
 		</div>
 		
 	</div>
@@ -247,7 +261,7 @@
 	<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script type="text/javascript"
-		src="//apis.daum.net/maps/maps3.js?apikey=c980d3ec52eae6d4b2770029ff87d5da&libraries=services"></script>
+		src="//apis.daum.net/maps/maps3.js?apikey=e05d5deb555b9c04c859528c47de1962&libraries=services"></script>
 
 	<script>
 	//우측 div영역
@@ -366,8 +380,9 @@
 					//리스트를 마우스 클릭했을때
 					itemEl.onclick = function() {
 						infoview.innerHTML = title + "<br>" + marker.getPosition();
+						alert("리스트 클릭함");
 						map.setCenter(marker.getPosition());
-
+						
 					};
 
 					itemEl.onmouseover = function() {
@@ -438,7 +453,33 @@
 			daum.maps.event.addListener(marker, 'click', function() {
 				// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
 				infoview.innerHTML = title + "<br>" + position;
+				document.frm.faddress.value = position;
 				map.setCenter(position);
+				
+				//비동기로 리스트 결과 불러오기.
+				var xhttp;
+				  if (window.XMLHttpRequest) {
+				    // code for modern browsers
+				    xhttp = new XMLHttpRequest();
+				    } else {
+				    // code for IE6, IE5
+				    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+				  xhttp.onreadystatechange = function() {
+				    if (xhttp.readyState == 4 && xhttp.status == 200) {
+				      alert(xhttp.responseText);
+				      
+				   	  // JSON 표기법 문자열로 인식
+				      var resulttext = eval("(" + xhttp.responseText + ")");
+				      var jsontext = resulttext.data.member;
+				      for(i=0; i< jsontext.length; i++){
+	                        infoview.innerHTML = infoview.innerHTML + "<br>" + jsontext[i].id + "님의 점수는 " + jsontext[i].score + "점이고 "+ jsontext[i].content +"라고 코멘트를 " + jsontext[i].fooddate + " 일자에 남겼습니다.";		
+	                    }
+				    }
+				  };
+				  var getwayajaxlist = "ajaxlist?faddress=" + position + "&foodname=" + title;
+				  xhttp.open("GET", getwayajaxlist, true);
+				  xhttp.send();
 
 			});
 
