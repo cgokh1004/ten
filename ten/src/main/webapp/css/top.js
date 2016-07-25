@@ -12,7 +12,7 @@ $(function() {
 		$("#button").animate({
 			left : '250px'
 		}, 500).css({
-			"background-image" : "url('../images/close.png')",
+			"background-image" : "url('images/close.png')",
 			"background-repeat" : "no-repeat",
 			"background-position" : "center",
 			"background-color" : "#0db14b"
@@ -30,7 +30,7 @@ $(function() {
 		jQuery("#button").animate({
 			left : '0'
 		}, 500).css({
-			"background-image" : "url('../images/menu.png')",
+			"background-image" : "url('images/menu.png')",
 			"background-repeat" : "no-repeat",
 			"background-position" : "center",
 			"background-color" : "#0db14b"
