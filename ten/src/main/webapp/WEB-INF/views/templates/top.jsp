@@ -18,11 +18,11 @@ $(function() {
 		$("#menu").animate({
 			left : '0'
 		}, 500);
-		$("#content").animate({
+		$("body").animate({
 			left : '250px'
 		}, 500);
 		$("#button").animate({
-			left : '250px'
+			left : '0px'
 		}, 500).css({
 			"background-image" : "url('${pageContext.request.contextPath}/images/close.png')",
 			"background-repeat" : "no-repeat",
@@ -36,7 +36,7 @@ $(function() {
 		jQuery("#menu").animate({
 			left : '-250px'
 		}, 500);
-		jQuery("#content").animate({
+		jQuery("body").animate({
 			left : '0'
 		}, 500);
 		jQuery("#button").animate({

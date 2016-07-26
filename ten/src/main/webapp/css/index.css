@@ -2,19 +2,17 @@ html{
 background-color: #eeeeee;
 height: 100%;
 overflow-x: hidden;
+margin:0px;
+padding:0px;
 }
 body{
 margin:0px;
-padding: 2% 5%;
+padding: 5% 5%;
 text-align: center;
-}
-#content {
 	position: relative; 
 	width: 100%;
 	height: 100%;
-	margin: -250px 0px 0px 0px;
 }
-
 
 #carpool {
 	background-color: #aac803;

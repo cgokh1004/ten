@@ -12,18 +12,19 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/css/index.js"></script>
 </head>
-<body>
-	<div id="content">
-		<div id="logo" style="text-align: center; margin: 0px">
+<body style="padding-top: 0">
+		<div id="logo" style="text-align: center;">
 			<img alt="logo" src="${pageContext.request.contextPath}/images/로고.png"
 				width="200px">
 		</div>
 		<div id="carpool">
 			<div class="circle_div">
-				<span class="text1"
-					style="display: none; z-index: 9; position: relative; margin-left: 3.9%; margin-top: 34%; font-size: 50px; font-weight: bolder;; color: white; text-shadow: black 0px 0px 10px;">카풀</span><img
-					id="carimg"
-					style="margin: auto; width: 100%; height: 100%; min-width: 240px; min-height: 240px; border-radius: 30%;"
+				<a href="carpool/list" style="text-decoration:none"><span class="text1"
+					style="display: none; z-index: 9; position: relative; margin-left: 3.9%; 
+					margin-top: 34%; font-size: 50px; font-weight: bolder; color: white; 
+					text-shadow: black 0px 0px 10px;">카풀</span></a>
+					<img id="carimg" style="margin: auto; width: 100%; height: 100%; min-width: 240px; 
+					min-height: 240px; border-radius: 30%"
 					src="${pageContext.request.contextPath}/images/카풀.png">
 			</div>
 			<form style="text-align: center;">
@@ -111,6 +112,5 @@
 				style="padding-top: 120px; z-index: 3; width: 350px; height: 180px; font-size: 30px; font-weight: bolder; text-shadow: black 0px 0px 10px; color: white;">몇가지만
 				물어볼께요~</div>
 		</div>
-	</div>
 </body>
 </html>
