@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ktx_reply">
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM ktx_reply 
+		WHERE ktxrep_no= #{ktxrep_no} 
+	</delete>
+		
+	<update id="update" parameterType="Ktx_ReplyDTO">
+		UPDATE ktx_reply
+		SET content = #{content}
+		WHERE ktxrep_no = #{ktxrep_no}
+	</update>
+	
+	<insert id="create" parameterType="Ktx_ReplyDTO">
+		INSERT INTO ktx_reply(ktxrep_no,content,ktx_no,ID )  
+		VALUES((SELECT NVL(MAX(ktxrep_no), 0) + 1 as ktxrep_no FROM ktx_reply),
+		#{content},#{no},#{id});   
+	</insert>
+
+	<select id="list" resultType="MemberDTO" parameterType="Map">
+	
+		SELECT ktxrep_no,content,ktx_no,ID, r
+		FROM(
+			SELECT ktxrep_no,content,ktx_no,ID, rownum r
+			  FROM(
+				SELECT ktxrep_no,content,ktx_no,ID
+				FROM ktx_reply
+			ORDER BY ktxrep_no DESC
+			)
+			)                                                                            
+	   <![CDATA[                                                                        
+	   where r>=#{sno} and r<=#{eno}  
+	   ]]>
+		</select>                                          
+						
+						
+
+
+
+
+	<select id="read" resultType="MemberDTO" parameterType="int">
+		SELECT ktxrep_no,content,ktx_no,ID
+		FROM ktx_reply
+		WHERE #{ktxrep_no} 
+	</select>
+
+</mapper>
+ 

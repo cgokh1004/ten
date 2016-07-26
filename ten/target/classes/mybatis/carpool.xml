@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="carpool">
+	<insert id="create" parameterType="CarpoolDTO">
+		insert into carpool
+		(carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
+		purpose,c_type,kind,startdate,seat,price,smoke,c_comment)
+		values (
+		(SELECT NVL(MAX(carpoolno), 0) + 1 as carpoolno FROM carpool),
+		#{id},
+		(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from
+		dual),
+		#{c_start},#{c_startv},#{c_end},#{c_endv},#{via},#{viav},#{purpose},#{c_type},
+		#{kind},#{startdate},#{seat},#{price},#{smoke},#{c_comment})
+	</insert>
+
+	<select id="read" parameterType="int" resultType="CarpoolDTO">
+		SELECT
+		carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
+		purpose,c_type,kind,startdate,seat,price,smoke,c_comment
+		FROM carpool
+		WHERE carpoolno =#{carpoolno}
+	</select>
+
+	<update id="update" parameterType="CarpoolDTO">
+		update carpool set
+		c_start=#{c_start},c_startv=#{c_startv},c_end=#{c_end},c_endv=#{c_endv},
+		via=#{via},viav=#{viav},
+		purpose=#{purpose},c_type=#{c_type},kind=#{kind},startdate=#{startdate},
+		seat=#{seat},price=#{price},smoke=#{smoke},c_comment=#{c_comment}
+		where carpoolno=#{carpoolno}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from carpool
+		where
+		carpoolno=#{carpoolno}
+	</delete>
+	
+	<resultMap type="CarpoolDTO" id="CarpoolDTOResultMap">
+	<result column="carpoolno" property="carpoolno"/>
+	<result column="startdate" property="startdate"/>
+	<result column="c_start" property="c_start"/>
+	<result column="c_end" property="c_end"/>
+	<result column="purpose" property="purpose"/>
+	<result column="c_type" property="c_type"/>
+	<result column="kind" property="kind"/>
+	<result column="carpooldate" property="carpooldate"/>
+	<result column="name" property="memberDTO.name"/>
+	</resultMap>
+	
+	<select id="list" parameterType="Map" resultMap="CarpoolDTOResultMap">
+		SELECT
+		carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate,r
+		from(
+				SELECT
+				carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate,rownum r
+				from(SELECT
+						carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate
+						FROM carpool c,member k
+							<where>
+								c.id=k.id
+								<choose>
+									<when test="col=='c_type'">
+										c_type like'%'||#{word}||'%'
+									</when>
+									<when test="col=='kind'">
+										kind like'%'||#{word}||'%'
+									</when>
+									<when test="col=='c_start'">
+										c_start like'%'||#{word}||'%'
+									</when>
+									<when test="col=='c_end'">
+										c_end like'%'||#{word}||'%'
+									</when>
+								</choose>
+							</where>
+		ORDER BY carpoolno, carpooldate desc
+		)
+		)
+<![CDATA[
+	where r>=#{sno} AND r<=#{eno}
+	]]>
+	</select>
+
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*)
+		from carpool
+		<where>
+			<choose>
+				<when test="col=='c_type'">
+					c_type like'%'||#{word}||'%'
+				</when>
+				<when test="col=='kind'">
+					kind like'%'||#{word}||'%'
+				</when>
+				<when test="col=='c_start'">
+					c_start like'%'||#{word}||'%'
+				</when>
+				<when test="col=='c_end'">
+					c_end like'%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+	</select>
+</mapper>
