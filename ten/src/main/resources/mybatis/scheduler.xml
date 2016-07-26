@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<selectKey keyProperty="event_id" resultType="Integer" order="BEFORE">
  		SELECT events.nextval FROM DUAL
  	</selectKey>
- 	INSERT INTO events (event_id, event_name, start_date, end_date) VALUES (#{event_id}, #{event_name}, #{start_date}, #{end_date})
+ 	INSERT INTO events (event_id, event_name, start_date, end_date, id) VALUES (#{event_id}, #{event_name}, #{start_date}, #{end_date}, #{id})
  </insert>
  
 <!-- 2. update -->

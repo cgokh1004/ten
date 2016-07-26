@@ -36,7 +36,7 @@
 		p:mybatis-ref="sqlSession" />
 	<bean id="sulconfirmdao" class="spring.model.sulconfirm.SulconfirmDAO"
 		p:mybatis-ref="sqlSession" />
-	<bean id="schedulerdao" class="spring.model.schedule.SchedulerVO"
+	<bean id="schedulerdao" class="spring.model.schedule.SchedulerDAO"
 		p:mybatis-ref="sqlSession" />
 
 <!-- 신승형, ktxdao, ktx_replydao, ktx_reviewdao객체생성 -->

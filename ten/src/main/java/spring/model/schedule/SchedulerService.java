@@ -1,5 +1,7 @@
 package spring.model.schedule;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,21 +11,22 @@ import com.dhtmlx.planner.DHXEv;
 public class SchedulerService {
 	
 	@Autowired
-	private ShedulerDao2 eventManagerDao;
+	private SchedulerDAO eventManagerDao;
 
-	public Iterable<DHXEv> getEvent() {
-		return eventManagerDao.getEvent();
+	public Iterable<DHXEv> getEvent() throws Exception {
+		Map map = null;
+		return eventManagerDao.list(map);
 	}
 
-	public void updateEvent(SchedulerVO schedule) {
-		eventManagerDao.updateEvent(schedule);
+	public void updateEvent(SchedulerVO schedule) throws Exception {
+		eventManagerDao.update(schedule);
 	}
 
-	public void insertEvent(SchedulerVO schedule) {
-		eventManagerDao.insertEvent(schedule);
+	public void insertEvent(SchedulerVO schedule) throws Exception {
+		eventManagerDao.create(schedule);
 	}
 
-	public void deleteEvent(Integer id) {
-		eventManagerDao.deleteEvent(id);
+	public void deleteEvent(Integer id) throws Exception {
+		eventManagerDao.delete(id);
 	}
 }

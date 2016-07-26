@@ -80,7 +80,7 @@ public class SchedulerController {
        return (new StringBuilder()).append("<?xml version=\"1.0\"?><data>").append(actions).append("</data>").toString();	   
    }
    
-   private String saveOne(HttpServletRequest request, String id, String prefix)
+   private String saveOne(HttpServletRequest request, String id, String prefix) throws Exception
    {
 	    security = new DHXSecurity();
 	    attributes = new HashMap();
@@ -185,7 +185,7 @@ public class SchedulerController {
       	return new DHXEvent();
 }
   	
-   	public DHXStatus saveEvent(DHXEv event, DHXStatus status) {
+   	public DHXStatus saveEvent(DHXEv event, DHXStatus status) throws Exception {
 
 		String start_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(event.getStart_date());
 		String end_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(event.getEnd_date());

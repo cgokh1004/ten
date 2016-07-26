@@ -9,19 +9,22 @@ public class SchedulerVO {
 	/**플래너 시작일 */ 
 	private String end_date;
 	/**플래너 종료일 */ 
-	private String ID;
+	private String id;
 	/**회원 아이디(FK) */ 
 	
-	public String getID() {
-		return ID;
+
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
+	
 	
 	public Integer getEvent_id() {
 		return event_id;
 	}
+
 	public void setEvent_id(Integer event_id) {
 		this.event_id = event_id;
 	}
