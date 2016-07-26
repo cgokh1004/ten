@@ -36,7 +36,7 @@
 		p:mybatis-ref="sqlSession" />
 	<bean id="sulconfirmdao" class="spring.model.sulconfirm.SulconfirmDAO"
 		p:mybatis-ref="sqlSession" />
-	<bean id="schedulerdao" class="spring.model.schedule.SchedulerDAO"
+	<bean id="schedulerdao" class="spring.model.schedule.SchedulerVO"
 		p:mybatis-ref="sqlSession" />
 
 <!-- 신승형, ktxdao, ktx_replydao, ktx_reviewdao객체생성 -->
@@ -62,7 +62,7 @@
 		p:mybatis-ref="sqlSession" />	
 <bean id="carpool_reviewdao" class="spring.model.carpool_review.Carpool_ReviewDAO"
 		p:mybatis-ref="sqlSession" />	
-<bean id="member" class="spring.model.member.MemberDAO"
+<bean id="memberdao" class="spring.model.member.MemberDAO"
 		p:mybatis-ref="sqlSession" />	
 
 <!-- 류제만, fes_replydao, festivaldao, tra_replydao, traveldao객체생성 -->

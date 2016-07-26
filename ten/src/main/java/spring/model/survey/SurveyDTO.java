@@ -1,7 +1,5 @@
 package spring.model.survey;
 
-import java.util.List;
-
 public class SurveyDTO {
 	
 	private int sulno;
@@ -10,17 +8,8 @@ public class SurveyDTO {
 	  /**질문내용 */ 
 	private String sulgroupname;
 	  /**설문지이름(첫설문, 둘째설문, 셋째설문 등).... */ 
-	private List sulmunrList; //1:N 
-	
 
-
-	  public List getSulmunrList() {
-		return sulmunrList;
-	}
-	public void setSulmunrList(List sulmunrList) {
-		this.sulmunrList = sulmunrList;
-	}
-	public int getSulno() {
+	  public int getSulno() {
 		return sulno;
 	}
 	public void setSulno(int sulno) {
