@@ -10,15 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <result property="event_name" column="event_name"/>
   <result property="start_date" column="start_date"/>
   <result property="end_date" column="end_date"/>	
-  <result property="ID" column="ID"/>	
+  <result property="id" column="id"/>	
  </resultMap>
  
   <!-- 1. create  -->
  <insert id="insertEvent" parameterType="SchedulerVO"> 
- 	<selectKey keyProperty="event_id" resultType="Integer" order="BEFORE">
- 		SELECT events.nextval FROM DUAL
- 	</selectKey>
- 	INSERT INTO events (event_id, event_name, start_date, end_date, id) VALUES (#{event_id}, #{event_name}, #{start_date}, #{end_date}, #{id})
+ 	INSERT INTO events (event_id,	 event_name, start_date, end_date, id) 
+ 	VALUES ((select nvl(max(event_id), 0) +1 from events),
+ 	#{event_name}, #{start_date}, #{end_date}, #{id})
  </insert>
  
 <!-- 2. update -->
@@ -27,9 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </update>
  
  <!-- 3. read -->
- <select id="getEvent" resultMap="scheduler"> 
- 	SELECT event_id, event_name, start_date, end_date, ID FROM events 
- 	WHERE ID = #{ID} 	
+ <select id="getEvent" resultMap="scheduler" > 
+ 	SELECT event_id, event_name, start_date, end_date, id FROM events 
  </select>
  
  <!-- 4. delete -->

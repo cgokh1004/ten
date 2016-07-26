@@ -14,8 +14,7 @@ public class SchedulerService {
 	private SchedulerDAO eventManagerDao;
 
 	public Iterable<DHXEv> getEvent() throws Exception {
-		Map map = null;
-		return eventManagerDao.list(map);
+		return eventManagerDao.list();
 	}
 
 	public void updateEvent(SchedulerVO schedule) throws Exception {

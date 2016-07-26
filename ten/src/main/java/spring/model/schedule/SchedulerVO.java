@@ -10,21 +10,10 @@ public class SchedulerVO {
 	private String end_date;
 	/**플래너 종료일 */ 
 	private String id;
-	/**회원 아이디(FK) */ 
-	
-
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	
+	/**회원 아이디(FK) */
 	public Integer getEvent_id() {
 		return event_id;
 	}
-
 	public void setEvent_id(Integer event_id) {
 		this.event_id = event_id;
 	}
@@ -37,13 +26,21 @@ public class SchedulerVO {
 	public String getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(String start_date2) {
-		this.start_date = start_date2;
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
 	}
 	public String getEnd_date() {
 		return end_date;
 	}
 	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
-	}  
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	} 
+	
+
 }
