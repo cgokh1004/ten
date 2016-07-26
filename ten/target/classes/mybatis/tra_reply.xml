@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tra_reply">
+	
+	<insert id="create" parameterType="Tra_ReplyDTO">	
+		INSERT INTO tra_reply (treply_no, tra_no, trep_date, ID,content)
+		values((SELECT NVL(MAX(treply_no), 0) + 1 as treply_no FROM tra_reply), sysdate, 
+		{tra_no},sysdate,{ID},{content})	
+	</insert>
+			
+	<update id="update" parameterType="Tra_ReplyDTO">
+	UPDATE tra_reply
+	set content=#{content}
+	where treply_no=#{treply_no}	
+	</update>
+
+	<select id="read" resultType="Tra_ReplyDTO" parameterType="int">
+	SELECT treply_no, tra_no, trep_date,ID, content 
+	from tra_reply
+	where treply_no=#{treply_no}		
+	</select>
+	
+	<delete id="delete" parameterType="int">
+	DELETE FROM tra_reply
+	WHERE treply_no = #{treply_no}</delete>
+	
+	<select id="list" resultType="Tra_ReplyDTO" parameterType="Map">
+	SELECT treply_no, tra_no, trep_date, id, content, r
+		FROM(
+			SELECT treply_no, tra_no, trep_date, id, content, rownum r
+				FROM(
+					SELECT treply_no, tra_no, trep_date, id, content
+						FROM tra_reply
+	order by treply_no desc
+	)
+	)
+	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>		
+	</select>
+	
+	<select id="total">
+	SELECT count(*)
+	from tra_reply
+	where title like '%전주%'
+	</select>	
+</mapper>

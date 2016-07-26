@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="car_booked">
+
+	<insert id="create" parameterType="Car_bookedDTO">
+	insert into car_booked(carbook_no, carno, ID, carbookdate)
+	values(#{carbook_no},#{carno},#{ID},(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carbookdate from dual))
+	</insert>
+	
+	<update id="update" parameterType="Car_bookedDTO">
+	update car_booked
+	set ID=#{ID}
+	where carbook_no = #{carbook_no}
+	</update>
+	
+	<select id="read" resultType="Car_bookedDTO" parameterType="String">
+	select carbook_no, carno, ID, carbookdate
+	from car_booked
+	where carbook_no = #{carbook_no}
+	</select>
+
+	<select id="list" resultType="Car_bookedDTO" parameterType="Map">
+	select carbook_no, carno, ID, carbookdate, r
+		from(
+		select carbook_no, carno, ID, carbookdate, rownum r
+		from(
+			select carbook_no, carno, ID, carbookdate
+			from car_booked
+			order by carbook_no desc
+		)
+	)
+	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	delete from car_booked
+	where carbook_no = #{carbook_no}
+	</delete>
+	
+	<select id="total" resultType="int" parameterType="Map">
+	select count(*)
+	from car_booked
+	where carbook_no like '%book%'
+	</select>
+</mapper>
