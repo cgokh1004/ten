@@ -36,4 +36,9 @@ public class HomeController {
 		return "/home";
 	}
 	
+	@RequestMapping("/food/list")
+	public String list(Model model){
+		return "/food/list";
+	}
+	
 }

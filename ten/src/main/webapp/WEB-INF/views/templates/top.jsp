@@ -9,8 +9,50 @@
 	href="${pageContext.request.contextPath}/css/top.css">
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/css/top.js"></script>
+<script type="text/javascript">
+$(function() {
+	$("#button").toggle(function() {
+		$("#effect").animate({
+			left : '0'
+		}, 500);
+		$("#menu").animate({
+			left : '0'
+		}, 500);
+		$("#content").animate({
+			left : '250px'
+		}, 500);
+		$("#button").animate({
+			left : '250px'
+		}, 500).css({
+			"background-image" : "url('${pageContext.request.contextPath}/images/close.png')",
+			"background-repeat" : "no-repeat",
+			"background-position" : "center",
+			"background-color" : "#0db14b"
+		});
+	}, function() {
+		jQuery("#effect").animate({
+			left : '-100%'
+		}, 500);
+		jQuery("#menu").animate({
+			left : '-250px'
+		}, 500);
+		jQuery("#content").animate({
+			left : '0'
+		}, 500);
+		jQuery("#button").animate({
+			left : '0'
+		}, 500).css({
+			"background-image" : "url('${pageContext.request.contextPath}/images/menu.png')",
+			"background-repeat" : "no-repeat",
+			"background-position" : "center",
+			"background-color" : "#0db14b"
+		});
+	});
+	$("#effect").click(function() {
+		$("#button").trigger("click");
+	})
+});
+</script>
 </head>
 <body>
 	<div id="effect"></div>
