@@ -19,10 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="Ktx_ReplyDTO">
 		INSERT INTO ktx_reply(ktxrep_no,content,ktx_no,ID )  
 		VALUES((SELECT NVL(MAX(ktxrep_no), 0) + 1 as ktxrep_no FROM ktx_reply),
-		#{content},#{no},#{id});   
+		#{content},#{ktx_no},#{id})   
 	</insert>
 
-	<select id="list" resultType="MemberDTO" parameterType="Map">
+	<select id="list" resultType="Ktx_ReplyDTO" parameterType="Map">
 	
 		SELECT ktxrep_no,content,ktx_no,ID, r
 		FROM(
@@ -39,14 +39,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</select>                                          
 						
 						
+	<select id="total" parameterType="map" resultType="int">
+		select count(*)
+		from ktx_reply
+	</select>
 
 
 
-
-	<select id="read" resultType="MemberDTO" parameterType="int">
+	<select id="read" resultType="Ktx_ReplyDTO" parameterType="int">
 		SELECT ktxrep_no,content,ktx_no,ID
 		FROM ktx_reply
-		WHERE #{ktxrep_no} 
+		WHERE ktxrep_no = #{ktxrep_no} 
 	</select>
 
 </mapper>

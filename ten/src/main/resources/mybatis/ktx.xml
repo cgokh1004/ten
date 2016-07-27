@@ -7,19 +7,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<delete id="delete" parameterType="int">
 		DELETE FROM ktx
-		WHERE ktx_no=#{ktx_no};
+		WHERE ktx_no=#{ktx_no}
 	</delete>
 		
 	<update id="update" parameterType="ktxDTO">
 		UPDATE ktx
-		SET s_point =#{s_point},s_date=#{s_date}
-		WHERE ktx_no = #{ktx_no}; 
+		SET r_point = #{r_point}, s_point =#{s_point},s_date=#{s_date},purpose=#{purpose},content=#{content},price=#{price},seat=#{seat}
+		WHERE ktx_no = #{ktx_no}
 	</update>
 	
 	<insert id="create" parameterType="ktxDTO">
 		INSERT INTO ktx(ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID )  
 		VALUES((SELECT NVL(MAX(ktx_no), 0) + 1 as ktx_no FROM ktx),#{s_point},#{r_point},#{purpose},#{s_date},
-		#{seat},#{price},#{content},sysdate,#{ID});   
+		#{seat},#{price},#{content},sysdate,#{ID})   
 
 	</insert>
 
@@ -32,16 +32,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  FROM(
 				SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID
 				FROM ktx  
-		<where>
-			<choose>
-				<when test="col=='ktx_no'">
-					name LIKE '%' || #{word} || '%'
-				</when>
-				<when test="col=='id'">
-					id LIKE '%' || #{word} || '%'
-				</when>
-			</choose>
-		</where>
 			ORDER BY ktx_no DESC
 			)
 			)                                                                            
@@ -50,15 +40,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   ]]>
 		</select>                                          
 						
-						
-
-
-
 
 	<select id="read" resultType="ktxDTO" parameterType="int">
 		SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID
 		FROM ktx
 		WHERE ktx_no = #{ktx_no}
+	</select>
+
+	<select id="total" parameterType="map" resultType="int">
+		select count(*)
+		from ktx
 	</select>
 
 </mapper>

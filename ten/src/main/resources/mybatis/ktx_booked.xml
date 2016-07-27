@@ -10,19 +10,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE booked_no=#{booked_no}
 	</delete>
 		
-	<update id="update" parameterType="Ktx_ReplyDTO">
+	<update id="update" parameterType="Ktx_BookedDTO">
 		UPDATE ktx_booked
 		SET appli_seat = #{appli_seat}
 		WHERE booked_no = #{booked_no}
 	</update>
 	
-	<insert id="create" parameterType="Ktx_ReplyDTO">
+	<insert id="create" parameterType="Ktx_BookedDTO">
 	INSERT INTO ktx_booked(booked_no,ktx_no,appli_id,writer_id,appli_seat)  
-	VALUES((SELECT NVL(MAX(booked_no), 0) + 1 as booked_no FROM ktx_booked),#{ktx_no},#{appli_id},#{writer_id},#{appli_seat});   
+	VALUES((SELECT NVL(MAX(booked_no), 0) + 1 as booked_no FROM ktx_booked),#{ktx_no},#{appli_id},#{writer_id},#{appli_seat})   
 
 	</insert>
 
-	<select id="list" resultType="MemberDTO" parameterType="Map">
+	<select id="list" resultType="Ktx_BookedDTO" parameterType="Map">
 	
 		SELECT booked_no,ktx_no,appli_id,writer_id,appli_seat, r
 		FROM(
@@ -39,15 +39,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		</select>                                          
 						
-						
 
-
-
-
-	<select id="read" resultType="MemberDTO" parameterType="int">
+	<select id="read" resultType="Ktx_BookedDTO" parameterType="int">
 		SELECT booked_no,ktx_no,appli_id,writer_id,appli_seat
 		FROM ktx_booked
-		WHERE booked_no = #{booked_no}  
+		WHERE booked_no = #{booked_no}
+	</select>
+	
+	<select id="total" parameterType="map" resultType="int">
+		select count(*)
+		from ktx_booked
 	</select>
 
 </mapper>

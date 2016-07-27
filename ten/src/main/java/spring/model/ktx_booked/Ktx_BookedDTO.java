@@ -2,29 +2,29 @@ package spring.model.ktx_booked;
 
 public class Ktx_BookedDTO {
 	
-	private String booked_no;
+	private int booked_no;
 	
-	private String ktx_no;
+	private int ktx_no;
 	
 	private String appli_id;
 	
 	private String writer_id;
 	
-	private String appli_seat;
+	private int appli_seat;
 
-	public String getBooked_no() {
+	public int getBooked_no() {
 		return booked_no;
 	}
 
-	public void setBooked_no(String booked_no) {
+	public void setBooked_no(int booked_no) {
 		this.booked_no = booked_no;
 	}
 
-	public String getKtx_no() {
+	public int getKtx_no() {
 		return ktx_no;
 	}
 
-	public void setKtx_no(String ktx_no) {
+	public void setKtx_no(int ktx_no) {
 		this.ktx_no = ktx_no;
 	}
 
@@ -44,11 +44,11 @@ public class Ktx_BookedDTO {
 		this.writer_id = writer_id;
 	}
 
-	public String getAppli_seat() {
+	public int getAppli_seat() {
 		return appli_seat;
 	}
 
-	public void setAppli_seat(String appli_seat) {
+	public void setAppli_seat(int appli_seat) {
 		this.appli_seat = appli_seat;
 	}
 	
