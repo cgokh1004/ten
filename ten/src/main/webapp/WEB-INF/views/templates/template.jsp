@@ -6,11 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:getAsString name="title"/></title>
-<!-- <link href="../css/style.css" rel="Stylesheet" type="text/css"> -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/index.css">
 </head>
 <body>
 <tiles:insertAttribute name="header"/>
 <tiles:insertAttribute name="body"/>
-<tiles:insertAttribute name="footer"/>
 </body>
 </html>
