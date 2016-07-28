@@ -18,15 +18,17 @@
 				width="200px">
 		</div>
 		<div id="carpool">
+		<a href="carpool/list" style="text-decoration:none">
 			<div class="circle_div">
-				<a href="carpool/list" style="text-decoration:none"><span class="text1"
+				<span class="text1"
 					style="display: none; z-index: 9; position: relative; margin-left: 3.9%; 
 					margin-top: 34%; font-size: 50px; font-weight: bolder; color: white; 
-					text-shadow: black 0px 0px 10px;">카풀</span></a>
+					text-shadow: black 0px 0px 10px;">카풀</span>
 					<img id="carimg" style="margin: auto; width: 100%; height: 100%; min-width: 240px; 
 					min-height: 240px; border-radius: 30%"
 					src="${pageContext.request.contextPath}/images/카풀.png">
 			</div>
+			</a>
 			<form style="text-align: center;">
 
 				<select name='kind1' id='kind1'

@@ -20,9 +20,9 @@
 		<put-attribute name="title" value="Carpool List"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolList.jsp" />
 	</definition>
-	<definition name="/food/list" extends="main">
-		<put-attribute name="title" value="Carpool List"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/ksb/NewFile.jsp" />
+	<definition name="/carpool/create" extends="main">
+		<put-attribute name="title" value="Carpool Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolCreate.jsp" />
 	</definition>
 </tiles-definitions> 
 

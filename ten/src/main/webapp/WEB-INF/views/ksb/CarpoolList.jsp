@@ -1,110 +1,126 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+#list{
+box-shadow : 2px 2px 10px silver;
+}
+table tr td{
+border-top:1px solid gray;
+}
 </style>
 </head>
 <body>
-	<form style="text-align: center;">
+	<div style="float: left; width: 80%">
+	<form method="post" action="/ten/carpool/list">
 		<div class="search_wrap">
-			<select name='kind1' id='kind1'
+			<select name='kind1'
 				style="border: none; border: 1px solid #d8d8d8; width: 10%; height: 35px">
-				<option value="0">전체</option>
-				<option value="1">정기 카풀</option>
-				<option value="2">단기 카풀</option>
-				<option value="3">여성전용 카풀</option>
+				<option value="total"
+				<c:if test="${kind1=='total'}">selected</c:if>
+				>전체</option>
+				<option value="regularly"
+				<c:if test="${kind1=='regularly'}">selected</c:if>
+				>정기 카풀</option>
+				<option value="short"
+				<c:if test="${kind1=='short'}">selected</c:if>
+				>단기 카풀</option>
+				<option value="woman"
+				<c:if test="${kind1=='woman'}">selected</c:if>
+				>여성전용 카풀</option>
 			</select>
-			<select name='kind2' id='kind2'
+			<select name='kind2'
 				style="border: none; border: 1px solid #d8d8d8; width: 10%; height: 35px">
-				<option value="0">전체</option>
-				<option value="1">타세요</option>
-				<option value="2">태워주세요</option>
+				<option value="total"
+				<c:if test="${kind2=='total'}">selected</c:if>
+				>전체</option>
+				<option value="take_it"
+				<c:if test="${kind2=='take_it'}">selected</c:if>
+				>타세요</option>
+				<option value="plz_ride"
+				<c:if test="${kind2=='plz_ride'}">selected</c:if>
+				>태워주세요</option>
 			</select>
 		
-				<img src="../image/ico_start.gif" title="출발지" alt="출발지" width="12px"
+				<img src="${pageContext.request.contextPath}/image/ico_start.gif" title="출발지" alt="출발지" width="12px"
 					height="20px"> 
-					<input type="search" name="src_key_1"
-					value="" title="출발지를 입력해주세요" size="10" maxlength="100"
+					<input type="search" name="word1"
+					value="${word1}" title="출발지를 입력해주세요" size="10" maxlength="100"
 					placeholder="서울"
 					style="border: none; border: 1px solid #d8d8d8; width: 20%; height: 35px">
-				<img src="../image/ico_arrival.gif" title="도착지" alt="도착지" width="12px"
+				<img src="${pageContext.request.contextPath}/image/ico_arrival.gif" title="도착지" alt="도착지" width="12px"
 					height="20px"> 
-					<input type="search" name="src_key_2"
-					value="" title="도착지를 입력해주세요" size="10" maxlength="100"
+					<input type="search" name="word2"
+					value="${word2}" title="도착지를 입력해주세요" size="10" maxlength="100"
 					placeholder="부산"
 					style="border: none; border: 1px solid #d8d8d8; width: 20%; height: 35px">
 		
-			<input type="submit" name="" value="검색" title="검색">
+			<input style="height: 35px;width: 50px" type="submit" name="" value="검색" title="검색">
+			<input style="border: 0px solid; background-color: #ffcf0f;border-radius:5px;width: 120px;height: 35px;
+			box-shadow: 1px 2px 1px #b1b5ba;margin-left: 30px" type="button"  onclick="self.location='/ten/carpool/create'" value="등록하기">
 		</div>
 	</form>
-	<table border="1" style="width: 85%;float: left;">
+		
+	<br>
+	<table id="list" style="border: 1px solid gray;width: 100%;background-color: white;
+	Border-collapse: collapse" align="center">
+		<tr >
+			<th style="width: 7%;border:1px solid gray">프로필</th>
+			<th style="width: 7%;border:1px solid gray">인증단계</th>
+			<th style="width: 20%;border:1px solid gray">출발</th>
+			<th style="width: 20%;border:1px solid gray">도착</th>
+			<th style="width: 12%;border:1px solid gray">유형</th>
+			<th style="width: 9%;border:1px solid gray">자리/금액</th>
+		</tr>
+		<c:choose>
+			<c:when test="${empty list}">
+				<TR>
+					<TD colspan="8" align="center">등록된 글이 없습니다.</TD>
+				</TR>
+			</c:when>
+			<c:otherwise>
+		<c:forEach items="${list}" var="carpoolDTO">
 		<tr>
-			<th style="width: 7%">프로필</th>
-			<th style="width: 7%">인증단계</th>
-			<th style="width: 25%">출발</th>
-			<th style="width: 25%">도착</th>
-			<th style="width: 7%">유형</th>
-			<th style="width: 7%">자리/금액</th>
+			<td style="text-align: center"><img alt="photo"
+				src="${pageContext.request.contextPath}/storage/${carpoolDTO.memberDTO.mfile}"
+				width="100%"><br>${carpoolDTO.memberDTO.name}</td>
+			<td style="text-align: center">
+			<span style="font-weight: bolder;">${carpoolDTO.memberDTO.certi_num}단계</span><br>
+			<c:if test="${carpoolDTO.memberDTO.phone_certi==1}">휴대폰번호<br></c:if>
+			<c:if test="${carpoolDTO.memberDTO.addr_certi==1}">주소<br></c:if>
+			<c:if test="${carpoolDTO.memberDTO.sns_certi==1}">SNS<br></c:if>
+			<c:if test="${carpoolDTO.memberDTO.mail_certi==1}">E-mail<br></c:if>
+			<c:if test="${carpoolDTO.memberDTO.passport_certi==1}">여권<br></c:if>
+			</td>			
+			<td style="text-align: left">${carpoolDTO.c_start}<br>${carpoolDTO.startdate.substring(0,16)}</td>
+			<td style="text-align: left">${carpoolDTO.c_end}</td>
+			<td style="text-align: left">${carpoolDTO.c_type}<br>${carpoolDTO.kind}</td>
+			<td style="text-align: left">${carpoolDTO.seat}자리/<br>${carpoolDTO.price}원/인당</td>
+		</tr>
+		</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	</table>
+<br>
+    ${paging}
+
+</div>
+	<table style="float: left;margin-left: 100px">
+		<tr>
+			<td style="border: 1px solid">
+				운전자리스트
+			</td>
 		</tr>
 		<tr>
-		<td style="text-align: center;"><img alt="photo" src="../image/photo.jpg" width="100%"><br>김성빈</td>
-		<td style="text-align: center;">3</td>
-		<td style="text-align: left;">경기도 이천시 사음동 182-4번지<br>2016.07.15 오전 7시 16분</td>
-		<td style="text-align: left;">서울특별시 관철동 19-7번지</td>
-		<td style="text-align: left;">단기 카풀<br>태워주세요</td>
-		<td style="text-align: left;">1자리/<br>5000원/인</td>
-		</tr>
-		<tr>
-		<td style="text-align: center;"><img alt="photo" src="../image/photo.jpg" width="100%"><br>김성빈</td>
-		<td style="text-align: center;">3</td>
-		<td style="text-align: left;">경기도 이천시 사음동 182-4번지<br>2016.07.15 오전 7시 16분</td>
-		<td style="text-align: left;">서울특별시 관철동 19-7번지</td>
-		<td style="text-align: left;">단기 카풀<br>태워주세요</td>
-		<td style="text-align: left;">1자리/<br>5000원/인</td>
-		</tr>
-		<tr>
-		<td style="text-align: center;"><img alt="photo" src="../image/photo.jpg" width="100%"><br>김성빈</td>
-		<td style="text-align: center;">3</td>
-		<td style="text-align: left;">경기도 이천시 사음동 182-4번지<br>2016.07.15 오전 7시 16분</td>
-		<td style="text-align: left;">서울특별시 관철동 19-7번지</td>
-		<td style="text-align: left;">단기 카풀<br>태워주세요</td>
-		<td style="text-align: left;">1자리/<br>5000원/인</td>
-		</tr>
-		<tr>
-		<td style="text-align: center;"><img alt="photo" src="../image/photo.jpg" width="100%"><br>김성빈</td>
-		<td style="text-align: center;">3</td>
-		<td style="text-align: left;">경기도 이천시 사음동 182-4번지<br>2016.07.15 오전 7시 16분</td>
-		<td style="text-align: left;">서울특별시 관철동 19-7번지</td>
-		<td style="text-align: left;">단기 카풀<br>태워주세요</td>
-		<td style="text-align: left;">1자리/<br>5000원/인</td>
-		</tr>
-		<tr>
-		<td style="text-align: center;"><img alt="photo" src="../image/photo.jpg" width="100%"><br>김성빈</td>
-		<td style="text-align: center;">3</td>
-		<td style="text-align: left;">경기도 이천시 사음동 182-4번지<br>2016.07.15 오전 7시 16분</td>
-		<td style="text-align: left;">서울특별시 관철동 19-7번지</td>
-		<td style="text-align: left;">단기 카풀<br>태워주세요</td>
-		<td style="text-align: left;">1자리/<br>5000원/인</td>
+			<td style="border: 1px solid">
+				지역별 <br>글 리스트
+			</td>
 		</tr>
 	</table>
-	<div style="float:right;border: 1px solid;width: 100px ;text-align: center;padding:3% 0px ">등록하기</div>
-	<div style="float:right;border: 1px solid red;width: 100px ;text-align: center;padding:3% 0px;margin-top: 20px">운전자리스트</div>
-	<div style="float:right;border: 1px solid red;width: 100px ;text-align: center;padding:3% 0px;margin-top: 20px">지역별 <br>글 리스트</div>
-		<input type="button" value="이전페이지" style="float: left;margin: 10px;margin-left: 130px">
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">1</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">2</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">3</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">4</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">5</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">6</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">7</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">8</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">9</div>
-		<div style="margin:10px;float:left; border: 1px solid;width: 20px;text-align: center;">10</div>
-		<input type="button" value="다음페이지" style="float: left;margin: 10px">
 </body>
 </html>

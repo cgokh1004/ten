@@ -139,8 +139,8 @@ insert into carpool
 purpose,c_type,kind,startdate,seat,price,smoke,c_comment) 
 values ( (SELECT NVL(MAX(carpoolno), 0) + 1 as carpoolno FROM carpool),
 'ktw3722', (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),
-'동서울터미널','127.123124', '이천시외버스터미널','142.123124','','','출퇴근','단기카풀',
-'태워주세요','2016-07-21','1','5000','비흡연','같이가실분구합니다.');
+'동서울터미널','127.123124', '우리집','142.123124','','','출퇴근','단기카풀',
+'타세요',to_date('20070525084214', 'yyyymmddhh24miss'),'1','5000','비흡연','같이가실분구합니다.');
 
 --read--
 SELECT carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
@@ -157,13 +157,22 @@ delete from carpool
 where carpoolno=3;
 
 --list--
-SELECT carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate, r
-		from(
-			 SELECT carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate, rownum r  
-				from(SELECT carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate 
-						FROM carpool join member
-						on carpool.id = member.id
-						where c_start like '%터미널%'
+SELECT
+		carpoolno,mfile,name,certi_num,seat,price,startdate,c_start,c_end,purpose,
+		c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,
+		r
+			from(
+				SELECT
+				carpoolno,mfile,name,certi_num,seat,price,startdate,c_start,c_end,purpose,
+				c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,
+				rownum r
+					from(SELECT
+						carpoolno,mfile,certi_num,name,seat,price,startdate,c_start,c_end,purpose,
+						c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi
+							FROM carpool join member
+								on carpool.id = member.id
+						where c_type like '정기카풀' and kind like '타세요'
+						and c_start like '%%'and c_end like'%%'
 						ORDER BY carpoolno, carpooldate desc
 			)
 )
@@ -172,7 +181,8 @@ SELECT carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate, r
 --total--
 select count(*)
 from carpool
-where c_start like '%터미널%' 
+where c_type like '정기카풀' and kind like '타세요'
+						and c_start like '%터미널%'and c_end like'%터미널%'
 
 
 

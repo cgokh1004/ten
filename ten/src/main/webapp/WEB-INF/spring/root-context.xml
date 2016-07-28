@@ -43,7 +43,7 @@
 
 	<bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource" p:driverClassName="oracle.jdbc.driver.OracleDriver"
-		p:url="jdbc:oracle:thin:@172.16.12.11:1521:XE" p:username="ten"
+		p:url="jdbc:oracle:thin:@172.16.3.4:1521:XE" p:username="ten"
 		p:password="1010" />
 
 
