@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE qqno = #{qqno}
 	</update>
 
-	<select id="total" parameterType="map" resultType="int">
+	<select id="total" parameterType="Map" resultType="int">
 		SELECT count(*) FROM qquestion
 		<where>
 			<choose>

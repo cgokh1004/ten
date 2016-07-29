@@ -26,7 +26,7 @@ public class QquestionDAO {
 	
 	public void upViewcnt(int qqno){
 
-		mybatis.update("qquestion.upViewcnt", qqno);
+		mybatis.update("qquestion.increaseViewcnt", qqno);
 	}
 	
 	public List<QquestionDTO> list(Map map){// 밑에 where r>=? and r<=?가 map에 들어감

@@ -1,5 +1,7 @@
 package spring.model.notice;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class NoticeDTO {
 	private int noticeno;
 	private String title;
@@ -7,7 +9,14 @@ public class NoticeDTO {
 	private String imgname;
 	private int viewcnt;
 	private String wdate;
+	private MultipartFile imgnameMF;
 	
+	public MultipartFile getImgnameMF() {
+		return imgnameMF;
+	}
+	public void setImgnameMF(MultipartFile imgnameMF) {
+		this.imgnameMF = imgnameMF;
+	}
 	public int getNoticeno() {
 		return noticeno;
 	}
