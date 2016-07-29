@@ -22,22 +22,22 @@ public class AdviseController {
 	
 	@RequestMapping(value = "/advise/create", method = RequestMethod.GET)
 	public String create() {
-		return "/advise/create";
+		return "/ks/advise/create";
 	}
 	
 	@RequestMapping(value = "/advise/create", method = RequestMethod.POST)
 	public String create(AdviseDTO dto) {
 		if(dao.create(dto) > 0) {
-			return "/advise/list";
+			return "redirect:/advise/list";
 		} else {
-			return "/error/error";
+			return "/ks/error/error";
 		}
 	}
 	
 	@RequestMapping(value="/advise/delete", method=RequestMethod.GET)
 	public String delete(){
 		
-		return "/advise/delete";
+		return "/ks/advise/delete";
 	}
 	
 	@RequestMapping(value="/advise/delete", method=RequestMethod.POST)
@@ -57,7 +57,7 @@ public class AdviseController {
 		
 		model.addAttribute("dto", dao.read(advno));
 		
-		return "/advise/update";
+		return "/ks/advise/update";
 	}
 	
 	@RequestMapping(value="/advise/update", method=RequestMethod.POST)
@@ -93,15 +93,15 @@ public class AdviseController {
 
 		model.addAttribute("dto", dao.readReply(advno));
 
-		return "/advise/reply";
+		return "/ks/advise/reply";
 	}
 	
 	@RequestMapping("/advise/read")
 	public String read(int advno, Model model){
 		dao.increaseViewcnt(advno);
-		model.addAttribute("vo", dao.read(advno));
+		model.addAttribute("dto", dao.read(advno));
 		
-		return "/advise/read";
+		return "/ks/advise/read";
 	}
 	
 	@RequestMapping("/advise/list")
@@ -142,6 +142,6 @@ public class AdviseController {
 		model.addAttribute("word", word);
 		model.addAttribute("nowPage", nowPage);
 
-		return "/advise/list";
+		return "/ks/advise/list";
 	}
 }

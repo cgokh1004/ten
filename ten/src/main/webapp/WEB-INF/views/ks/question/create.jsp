@@ -49,6 +49,7 @@
 <body>
 <div class = "title">문의 게시판</div>
 <Form name='frm' method='POST' action='./create'>
+<input type = "hidden" name = "id" value = "user1">
 <table style = "margin : 0 auto">
 	<tr>
 		<td colspan="2"><hr></td>

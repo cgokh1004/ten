@@ -22,13 +22,13 @@ public class QuestionController {
 	
 	@RequestMapping(value = "/question/create", method = RequestMethod.GET)
 	public String create() {
-		return "/question/create";
+		return "/ks/question/create";
 	}
 	
 	@RequestMapping(value = "/question/create", method = RequestMethod.POST)
 	public String create(QuestionDTO dto) {
 		if(dao.create(dto) > 0) {
-			return "/question/list";
+			return "redirect:/question/list";
 		} else {
 			return "/error/error";
 		}
@@ -37,7 +37,7 @@ public class QuestionController {
 	@RequestMapping(value="/question/delete", method=RequestMethod.GET)
 	public String delete(){
 		
-		return "/question/delete";
+		return "/ks/question/delete";
 	}
 	
 	@RequestMapping(value="/question/delete", method=RequestMethod.POST)
@@ -57,7 +57,7 @@ public class QuestionController {
 		
 		model.addAttribute("dto", dao.read(qno));
 		
-		return "/question/update";
+		return "/ks/question/update";
 	}
 	
 	@RequestMapping(value="/question/update", method=RequestMethod.POST)
@@ -66,7 +66,7 @@ public class QuestionController {
 			model.addAttribute("col", request.getParameter("col"));
 			model.addAttribute("word", request.getParameter("word"));
 			model.addAttribute("nowPage", request.getParameter("nowPage"));
-			return "redirect:/advise/list";
+			return "redirect:/question/list";
 		}else{
 			return "error/error";
 		}
@@ -93,15 +93,15 @@ public class QuestionController {
 
 		model.addAttribute("dto", dao.readReply(qno));
 
-		return "/question/reply";
+		return "/ks/question/reply";
 	}
 	
 	@RequestMapping("/question/read")
 	public String read(int qno, Model model){
 		dao.increaseViewcnt(qno);
-		model.addAttribute("vo", dao.read(qno));
+		model.addAttribute("dto", dao.read(qno));
 		
-		return "/advise/read";
+		return "/ks/question/read";
 	}
 	
 	@RequestMapping("/question/list")
@@ -142,6 +142,6 @@ public class QuestionController {
 		model.addAttribute("word", word);
 		model.addAttribute("nowPage", nowPage);
 
-		return "/question/list";
+		return "/ks/question/list";
 	}
 }

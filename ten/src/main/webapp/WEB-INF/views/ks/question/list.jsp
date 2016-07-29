@@ -77,7 +77,7 @@
 	<c:choose>
 		<c:when test="${empty list}">
 			<TR>
-				<TD colspan='8' align='center'>자주 묻는 질문이 없습니다.</TD>
+				<TD colspan='8' align='center'>문의 게시판에 글이 없습니다.</TD>
 			</TR>
 		</c:when>
 		<c:otherwise>

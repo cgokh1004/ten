@@ -18,11 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="list" resultType="AdviseDTO" parameterType="Map">
-		SELECT advno, title, content, advdate, groupno, ID, r
+		SELECT advno, title, content, advdate, groupno, viewcnt, ID, r
 		FROM(
-		   SELECT advno, title, content, advdate, groupno, ID, rownum r 
+		   SELECT advno, title, content, advdate, groupno, viewcnt, ID, rownum r 
 			FROM(      
-				SELECT advno, title, content, advdate, groupno, ID
+				SELECT advno, title, content, advdate, groupno, viewcnt, ID
 				FROM advise  
 				<where>
 					<choose>
