@@ -5,6 +5,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+ <style>
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap {display:none;position:relative;width:100%;height:300px;margin-top: 5px;margin-bottom: 10px}
+#menu_wrap {width:99%;height:100%;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.bg_white {background:#fff;}
+#menu_wrap .option{text-align: center;}
+#menu_wrap .option button {margin-left:5px;}
+#placesList li {list-style: none;}
+#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList .item span {display: block;margin-top:4px;}
+#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList .item .info{padding:10px 0 10px 55px;}
+#placesList .info .gray {color:#8a8a8a;}
+#placesList .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList .info .tel {color:#009900;}
+#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList .item .marker_1 {background-position: 0 -10px;}
+#placesList .item .marker_2 {background-position: 0 -56px;}
+#placesList .item .marker_3 {background-position: 0 -102px}
+#placesList .item .marker_4 {background-position: 0 -148px;}
+#placesList .item .marker_5 {background-position: 0 -194px;}
+#placesList .item .marker_6 {background-position: 0 -240px;}
+#placesList .item .marker_7 {background-position: 0 -286px;}
+#placesList .item .marker_8 {background-position: 0 -332px;}
+#placesList .item .marker_9 {background-position: 0 -378px;}
+#placesList .item .marker_10 {background-position: 0 -423px;}
+#placesList .item .marker_11 {background-position: 0 -470px;}
+#placesList .item .marker_12 {background-position: 0 -516px;}
+#placesList .item .marker_13 {background-position: 0 -562px;}
+#placesList .item .marker_14 {background-position: 0 -608px;}
+#placesList .item .marker_15 {background-position: 0 -654px;}
+#pagination {margin:10px auto;text-align: center;}
+#pagination a {display:inline-block;margin-right:10px;}
+#pagination .on {font-weight: bold; cursor: default;color:#777;}
+</style>
 </head>
 <body>
 <h1>카풀 등록하기</h1>
@@ -24,7 +60,7 @@
 	<td>목적 : </td>
 	<td>
 	<select name='kind1' id='kind1'
-				style="border: none; border: 1px solid #d8d8d8; width: 40%; height: 35px">
+				style="border: none; border: 1px solid #d8d8d8; width: 100%; height: 35px">
 				<option value="1">정기 카풀</option>
 				<option value="2">단기 카풀</option>
 				<option value="3">여성전용 카풀</option>
@@ -34,9 +70,21 @@
 	<tr>
 	<td>출발지 : </td>
 	<td>
-	<form onsubmit="searchPlaces(); return false;">
-	<input type="text" id="출발지" style="width: 100%; height: 35px"><button type="submit">검색하기</button>
-	</form>
+        <div class="option">
+            <div>
+                <form name="frm" onsubmit="searchPlaces(); return false;">
+                	 <input type="hidden" id="출발지값" name="출발지값">
+                     <input type="text" value="" name="출발지" id="출발지" size="15" style="width: 88%;height: 35px"> 
+                    <button id="search1" type="submit" style="width: 10%;height: 35px">검색하기</button> 
+                </form>
+            </div>
+        </div>
+	<div class="map_wrap">
+    <div id="menu_wrap" class="bg_white">
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+</div>
 	</td>
 	</tr>
 	<tr>
@@ -57,7 +105,9 @@
 $("#타세요").click(
 		function(){$("#타세요").css("background-color","#d0d0ff"),$("#태워주세요").css("background-color","#ffffff")});
 $("#태워주세요").click(
-		function(){$("#태워주세요").css("background-color","#d0d0ff"),$("#타세요").css("background-color","#ffffff")}
+		function(){$("#태워주세요").css("background-color","#d0d0ff"),$("#타세요").css("background-color","#ffffff")});
+$("#목적지").click(
+		function(){$(".map_wrap").slideUp(),$("#search1").slideUp()}
 		);
 </script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=0c30b26bc118d624e0b4ddc88f6cadd1&libraries=services"></script>
@@ -84,15 +134,15 @@ var infowindow = new daum.maps.InfoWindow({zIndex:1});
 // 키워드로 장소를 검색합니다
 
 // 키워드 검색을 요청하는 함수입니다
+	
 function searchPlaces() {
-
     var keyword = document.getElementById('출발지').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
         return false;
     }
-
+	
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
     ps.keywordSearch( keyword, placesSearchCB); 
 }
@@ -120,10 +170,11 @@ function placesSearchCB(status, data, pagination) {
 
     }
 }
-
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
-
+	//검색시 장소검색 리스트를 보여줍니다.
+    $(".map_wrap").slideDown();
+    
     var listEl = document.getElementById('placesList'), 
     menuEl = document.getElementById('menu_wrap'),
     fragment = document.createDocumentFragment(), 
@@ -140,7 +191,7 @@ function displayPlaces(places) {
 
         // 마커를 생성하고 지도에 표시합니다
         var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
-            marker = addMarker(placePosition, i), 
+            marker = addMarker(placePosition, i, places[i].title), 
             itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -166,6 +217,11 @@ function displayPlaces(places) {
             itemEl.onmouseout =  function () {
                 infowindow.close();
             };
+            
+            itemEl.onclick=function(){
+            	document.frm.출발지값.value=marker.getPosition();
+            	document.frm.출발지.value=title;
+            }
         })(marker, places[i].title);
 
         fragment.appendChild(itemEl);
@@ -218,6 +274,11 @@ function addMarker(position, idx, title) {
             image: markerImage 
         });
 
+    
+    daum.maps.event.addListener(marker,'click',function(){
+    	document.frm.출발지값.value=marker.getPosition();
+    	document.frm.출발지.value=title;
+    });
     marker.setMap(map); // 지도 위에 마커를 표출합니다
     markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 
