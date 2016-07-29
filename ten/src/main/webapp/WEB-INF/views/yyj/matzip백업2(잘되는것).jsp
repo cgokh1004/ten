@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>맛집</title>
+<title>키워드로 장소검색하고 목록으로 표출하기</title>
 <style>
 body{
 text-align: left;
@@ -42,29 +44,13 @@ text-align: left;
 	border-radius: 10px;
 }
 
-#info_wrap {
-	position: absolute;
-	top: 55px;
-	right: 180px;
-	bottom: 0;
-	width: 400px;
-	height: 430px;
-	margin: 10px 0 30px 10px;
-	padding: 5px;
-	overflow-y: auto;
-	background: white;
-	z-index: 1;
-	font-size: 12px;
-	border-radius: 10px;
-}
-
 #name_wrap {
 	position: absolute;
 	top: 0;
 	right: 180px;
 	bottom: 0;
-	width: 400px;
-	height: 35px;
+	width: 350px;
+	height: 40px;
 	margin: 10px 0 30px 10px;
 	padding: 5px;
 	overflow-y: auto;
@@ -77,15 +63,28 @@ text-align: left;
 	
 }
 
-
+#info_wrap {
+	position: absolute;
+	top: 65px;
+	right: 180px;
+	bottom: 0;
+	width: 350px;
+	margin: 10px 0 30px 10px;
+	padding: 5px;
+	overflow-y: auto;
+	background: white;
+	z-index: 1;
+	font-size: 12px;
+	border-radius: 10px;
+}
 
 #create_wrap {
 	position: absolute;
-	top: 510px;
+	top: 470px;
 	right: 180px;
 	bottom: 0;
-	width: 400px;
-	height: 60px;
+	width: 350px;
+	height: 100px;
 	margin: 10px 0 30px 10px;
 	padding: 5px;
 	overflow-y: auto;
@@ -250,13 +249,15 @@ text-align: left;
 </style>
 </head>
 <body>
+
 	<div class="map_wrap">
 		<div id="map" style="width: 90%; height: 120%; position: relative; overflow: hidden;"></div>
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 				<div>
 					<form onsubmit="searchPlaces(); return false;">
-						키워드 : <input class="keywordin" type="text" value="종각역 맛집" id="keyword" size="15" onClick="{this.value='';}">
+						키워드 : <input class="keywordin" type="text" value="종각역 맛집"
+							id="keyword" size="15" onClick="{this.value='';}">
 						<button type="submit">검색하기</button>
 					</form>
 				</div>
@@ -265,67 +266,66 @@ text-align: left;
 			<ul id="placesList"></ul>
 			<div id="pagination"></div>
 		</div>
-		
-		<!-- 뷰의 디스플레이는 기본적으로 숨김상태 -->
-		<div id="name_wrap" class="bg_white" style="display: none;"></div>
-		<div id="info_wrap" class="bg_white" style="display: none;"></div>
-		<div id="create_wrap" class="bg_white" style="display: none;">
-			<Form name='frm' method='POST' onsubmit="asycreate(); return false;" style="text-align: center;">
-				<textarea name="content" rows="2" cols="60" placeholder="평가해주세요."></textarea>
-				<input type="hidden" name="score" size="30" value="0">
-				<input type="hidden" name="faddress" size="30">
-				<input type="hidden" name="id" size="30" value="guest">
-				<br><div style="float: right; margin-right: 15px;">
-				<img id="star1" src="${pageContext.request.contextPath}/images/star0.png" width="15px" height="15px">
-				<img id="star2" src="${pageContext.request.contextPath}/images/star0.png" width="15px" height="15px">
-				<img id="star3" src="${pageContext.request.contextPath}/images/star0.png" width="15px" height="15px">
-				<img id="star4" src="${pageContext.request.contextPath}/images/star0.png" width="15px" height="15px">
-				<img id="star5" src="${pageContext.request.contextPath}/images/star0.png" width="15px" height="15px">
-				<input type="submit" value="리뷰 등록"></div>		
-			</Form>
+		<div id="name_wrap" class="bg_white">맛집을 선택해주세요^^</div>
+		<div id="info_wrap" class="bg_white">맛집을 눌러주세요.</div>
+		<div id="create_wrap" class="bg_white">
+			<Form name='frm' method='POST' onsubmit="asycreate(); return false;">
+			id <input type="text" name="id" size="30" value="guest"><br>
+			평가 <input type="text" name="content" size="30"  placeholder="평가해주세요."><br>
+			별점 <input type="text" name="score" size="30"  placeholder="별점입력해주세요."><br>
+			주소 <input type="text" name="faddress" size="30"><br>
+			<input type="submit" value="글남기기">
+		</Form>
 		</div>
 	</div>
-	
-	<br> <br> <br> <br> <br>
-	<p id="result">현재위치</p>
+<br>dd<br>d<br>d<br>d<br>
+<p id="result">d</p>
 
-
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=2f7cab36a50762406c5cfab7655673b6&libraries=services"></script>
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="//apis.daum.net/maps/maps3.js?apikey=1e4ee77cddc5e8a90b815da8b6e0ce0a&libraries=services"></script>
 
 	<script>
-	
 	//글쓰기 비동기 방식
 	function asycreate(){
-		
-		//별점을 체크 해야지 기록하기
-		if(this.frm.content.value==0){
-			alert("내용을 입력해 주세요^^");
-			document.frm.content.focus();
-		}
-		else if(this.frm.score.value==0){
-			alert("별점을 선택해 주세요^^");
-		}
-		else{
-			//비동기로 리스트 결과 불러오기.
-			var getwaycreate = "create?content=" + this.frm.content.value + "&id=" + this.frm.id.value + "&score=" + this.frm.score.value + "&faddress=" + this.frm.faddress.value;
-			
-			//비동기통신
-			async(getwaycreate, "create");
-		}
+		//비동기로 리스트 결과 불러오기.
+		var xhttp;
+		  if (window.XMLHttpRequest) {
+		    // code for modern browsers
+		    xhttp = new XMLHttpRequest();
+		    } else {
+		    // code for IE6, IE5
+		    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  xhttp.onreadystatechange = function() {
+		    if (xhttp.readyState == 4 && xhttp.status == 200) {
+		    	alert("글 등록 성공");		   
+			   	  // JSON 표기법 문자열로 인식
+			      var resulttext = eval("(" + xhttp.responseText + ")");
+			      var jsontext = resulttext.data.member;
+			      infoview.innerHTML = "";
+			      for(i=0; i< jsontext.length; i++){
+                      infoview.innerHTML =  infoview.innerHTML + "<br>" + jsontext[i].id + "님의 점수는 " + jsontext[i].score + "점이고 "+ jsontext[i].content +"라고 코멘트를 " + jsontext[i].fooddate + " 일자에 남겼습니다.";		
+                  }
+		    }
+		  };
+		  var getwaycreate = "create?content=" + this.frm.content.value + "&id=" + this.frm.id.value + "&score=" + this.frm.score.value + "&faddress=" + this.frm.faddress.value;
+		  xhttp.open("get", getwaycreate, true);
+		  xhttp.send();
+
+
 	}	
 	
-	// 우측 div view 받아오기.
-		var nameview = document.getElementById('name_wrap');
-		var infoview = document.getElementById('info_wrap');
-		var createview = document.getElementById('create_wrap');
-		
-	// 하단 div view 받아오기.
-		var resultDiv = document.getElementById('result');
+	//우측 div영역
+		var nameview = document.getElementById('name_wrap')
+		var infoview = document.getElementById('info_wrap')
 		
 	
 	//검색체크
 		var searchcheck = false;
+
+
 		var keywordtext = document.getElementById('keyword')
 
 		// 마커를 담을 배열입니다
@@ -363,8 +363,10 @@ text-align: left;
 				return false;
 			}
 
+			var revisionkeyword = keyword;
+
 			// 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-			ps.keywordSearch(keyword, placesSearchCB);
+			ps.keywordSearch(revisionkeyword, placesSearchCB);
 		}
 
 		// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -435,8 +437,8 @@ text-align: left;
 						nameview.innerHTML = title;
 						alert("리스트 클릭함");
 						
-						// 클릭한 좌표를 맵의 정중앙으로 이동
 						map.setCenter(marker.getPosition());
+
 					};
 
 					itemEl.onmouseover = function() {
@@ -505,26 +507,38 @@ text-align: left;
 
 			// 마커에 클릭이벤트를 등록합니다
 			daum.maps.event.addListener(marker, 'click', function() {
-				// 마커를 클릭했을 때,
-				// 뷰의 디스플레이를 보여줌				
-				nameview.style.display="";
-				infoview.style.display="";
-				createview.style.display="";
-				
-				//컨텐트 입력박스의 글, 별의 점수, 선택된 별의 갯수도 초기화해줌
-				document.frm.content.value = "";
-				document.frm.content.score = 0;
-				starzero();
-				
+				// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
 				nameview.innerHTML = title;
 				document.frm.faddress.value = position;
-				
-				// 클릭한 좌표를 맵의 정중앙으로 이동
 				map.setCenter(position);
 				
 				//비동기로 리스트 결과 불러오기.
-				var getwayajaxlist = "ajaxlist?faddress=" + position + "&foodname=" + title;
-				async(getwayajaxlist);
+				var xhttp;
+				  if (window.XMLHttpRequest) {
+				    // code for modern browsers
+				    xhttp = new XMLHttpRequest();
+				    } else {
+				    // code for IE6, IE5
+				    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+				  xhttp.onreadystatechange = function() {
+				    if (xhttp.readyState == 4 && xhttp.status == 200) {
+				      alert(xhttp.responseText);
+				      
+				   	  // JSON 표기법 문자열로 인식
+				      var resulttext = eval("(" + xhttp.responseText + ")");
+				      var jsontext = resulttext.data.member;
+				      infoview.innerHTML = "";
+				      for(i=0; i< jsontext.length; i++){
+	                        infoview.innerHTML = infoview.innerHTML + "<br>" + jsontext[i].id + "님의 점수는 " + jsontext[i].score + "점이고 "+ jsontext[i].content +"라고 코멘트를 " + jsontext[i].fooddate + " 일자에 남겼습니다.";		
+	                    }
+				    }
+				  };
+				  var getwayajaxlist = "ajaxlist?faddress=" + position + "&foodname=" + title;
+				  xhttp.open("GET", getwayajaxlist, true);
+				  xhttp.send();
+
+
 			});
 
 			marker.setMap(map); // 지도 위에 마커를 표출합니다
@@ -591,44 +605,37 @@ text-align: left;
 		//마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 		daum.maps.event.addListener(map, 'dragend', function() {
 			var latlng = map.getCenter();
-			
-			
-			// 뷰의 디스플레이를 숨김				
-			nameview.style.display="none";
-			infoview.style.display="none";
-			createview.style.display="none";
-			
-			// 맵이 드래그로 이동되면 호출되는 함수
 			getloc(latlng);
+
 		});
 
-		
+		var resultDiv = document.getElementById('result');
 
-		// 맵이 드래그로 이동되면, 현재 맵의 정중앙 좌표의 주소를 받아오고, 받아온 주소에 맛집 단어를 추가하여 재검색
-		// 테스트 위치 출력해보기
+		//현재주소 찍어보고, 맛집 재검색
 		function getloc(latlng) {
 			var geocoder = new daum.maps.services.Geocoder();
+
+			var coord = latlng;
 
 			var address;
 			var callback = function(status, result) {
 				if (status === daum.maps.services.Status.OK) {
 					resultDiv.innerHTML = "현위치: " + result[0].fullName;
+					//console.log('그런 너를 마주칠까 ' + result[0].fullName + '을 못가');
 					address = result[0].fullName;
-					
-					//드래그 하면 이름으로 재검색
-					autoSearchPlaces(address);
+					searchPlaces2(address);
 				}
 			};
-			geocoder.coord2addr(latlng, callback);
+			geocoder.coord2addr(coord, callback);
+
 		}
 
-		//드래그 하면 이름으로 재검색
-		function autoSearchPlaces(address) {
+		//키워드 검색을 요쳥해봅시다.
+		function searchPlaces2(address) {
 			//alert(address)
 
 			var revisionkeyword = address + " 맛집";
 
-			//검색어에 자동으로 마지막 동의 주소만 찍어주고, 블러처리
 			$(function() {
 				$('#keyword').val(address.substr(address.lastIndexOf(" ") + 1));
 				$('#keyword').blur();
@@ -639,130 +646,6 @@ text-align: left;
 			ps.keywordSearch(revisionkeyword, placesSearchCB);
 
 		}
-		
-		
-		//비동기통신
-		function async(url, kind){
-			//비동기로 리스트 결과 불러오기.
-			var xhttp;
-			if (window.XMLHttpRequest) {
-			    // code for modern browsers
-			    xhttp = new XMLHttpRequest();
-			    } else {
-			    // code for IE6, IE5
-			    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-			  }
-			  xhttp.onreadystatechange = function() {
-			    if (xhttp.readyState == 4 && xhttp.status == 200) {
-			    	alert(xhttp.responseText);
-				      
-				   	  // JSON 표기법 문자열로 인식
-				      var resulttext = eval("(" + xhttp.responseText + ")");
-				      var jsontext = resulttext.data.member;
-				      //infoview.innerHTML = "";
-				      
-				      if(kind == 'create'){
-				    	  if(resulttext.result == 'success'){
-					    	  alert("리뷰를 남겨주셔서 감사합니다.");
-					    	  //입력창 초기화
-					    	  document.frm.content.value = "";
-					    	  document.frm.score.value = 0;
-					    	  starzero();
-					      }
-				    	  else{
-				    		  alert("리뷰를 등록하지 못하였습니다. 다시 시도해 주세요.");
-				    	  }
-				      }		     
-				      
-				      var resultmix;
-				      var scoreavg=0;
-				      if(jsontext.length > 0){
-				    	  resultmix = "<table style='width:380px;'>"; 
-					      for(i=0; i< jsontext.length; i++){
-					    	  scoreavg = scoreavg + parseInt(jsontext[i].score);
-		                      resultmix = resultmix + "<tr><td style='width: 40%;'>"
-							  + jsontext[i].id + "님의 글</td><td style='width: 20%; text-align: left;'>";
-							 
-		                      for(j=0; j<jsontext[i].score; j++){
-									 resultmix = resultmix + "<img src='${pageContext.request.contextPath}/images/star1.png' width='10px' height='10px'>"; 
-								  }
-							  resultmix = resultmix + "</td><td style='width: 40%; text-align: center;'>"
-		                      + jsontext[i].fooddate + "</td></tr><td colspan='3' style='border-bottom: 1px dotted; font-size: 14px;'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-		                      + jsontext[i].content + "</td></tr>";		
-		                    }			      
-					      
-					      resultmix = resultmix + "</table>" + resulttext.paging;
-					      scoreavg = scoreavg / jsontext.length;
-					      
-					      // 평균점수를 문자열로 바꿔주고, 총 길이가 5글자가 넘어가면 4글자로 짜르기.
-					      scoreavg = "" + scoreavg;
-					      if(scoreavg.length>4){
-					    	  scoreavg = scoreavg.substring(0, 4);
-					      }
-					      
-					      resultmix = "<div style='font-size: 15px; text-align: center; font-style: bold;'>총 평점 : " + scoreavg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;총 리뷰 갯수: " + jsontext.length + "</div><br><br>" + resultmix;
-					      }
-				      
-				      else{
-				    	  resultmix = "<div style='font-size: 25px; text-align: center; font-style: bold;'>등록된 리뷰가 없습니다.<br>첫 리뷰를 등록해주세요 ^^</div>";
-				    	  }
-				      
-				      infoview.innerHTML = resultmix;
-				      //alert(resultmix);
-			    }
-			  };
-			  xhttp.open("GET", url, true);
-			  xhttp.send();
-		}
-		
-		function starzero(){
-			$("#star1,#star2,#star3,#star4,#star5").attr("src","${pageContext.request.contextPath}/images/star0.png");
-		}
-		
-		function hehehe(){
-			alert("Asdf");
-		}
-		
-		
-		// 별 눌렀을때 보여줄 JQuery
-
-			$("#star1").click(function(){
-				document.frm.score.value = 1;
-				starzero();
-				$(this).attr("src","${pageContext.request.contextPath}/images/star1.png")})
-				
-			$("#star2").click(function(){
-				document.frm.score.value = 2;
-				starzero();
-				$("#star1").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$(this).attr("src","${pageContext.request.contextPath}/images/star1.png")})
-				
-			$("#star3").click(function(){
-				document.frm.score.value = 3;
-				starzero();
-				$("#star1").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$("#star2").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$(this).attr("src","${pageContext.request.contextPath}/images/star1.png")})
-			$("#star4").click(function(){
-				document.frm.score.value = 4;
-				starzero();
-				$("#star1").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$("#star2").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$("#star3").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$(this).attr("src","${pageContext.request.contextPath}/images/star1.png")})
-			$("#star5").click(function(){
-				document.frm.score.value = 5;
-				starzero();
-				$("#star1").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$("#star2").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$("#star3").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$("#star4").attr("src","${pageContext.request.contextPath}/images/star1.png"),
-				$(this).attr("src","${pageContext.request.contextPath}/images/star1.png")})
-		    
-			$("#star1,#star2,#star3,#star4,#star5").dblclick(function(){
-				document.frm.score.value = 0;
-				starzero();
-		    });
 	</script>
 </body>
 </html>
