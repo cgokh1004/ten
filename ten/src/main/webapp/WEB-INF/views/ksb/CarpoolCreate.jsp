@@ -6,40 +6,106 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
  <style>
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {display:none;position:relative;width:100%;height:300px;margin-top: 5px;margin-bottom: 10px}
-#menu_wrap {width:99%;height:100%;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap1, .map_wrap1 * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap1 a, .map_wrap1 a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap1 {display:none;position:relative;width:100%;height:300px;margin-top: 5px;margin-bottom: 10px}
+#menu_wrap1 {width:99%;height:100%;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap2, .map_wrap2 * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap2 a, .map_wrap2 a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap2 {display:none;position:relative;width:100%;height:300px;margin-top: 5px;margin-bottom: 10px}
+#menu_wrap2 {width:99%;height:100%;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+.map_wrap3, .map_wrap3 * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap3 a, .map_wrap3 a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+.map_wrap3 {display:none;position:relative;width:100%;height:300px;margin-top: 5px;margin-bottom: 10px}
+#menu_wrap3 {width:99%;height:100%;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
+#menu_wrap1 .option{text-align: center;}
+#menu_wrap1 .option button {margin-left:5px;}
+#menu_wrap2 .option{text-align: center;}
+#menu_wrap2 .option button {margin-left:5px;}
+#menu_wrap3 .option{text-align: center;}
+#menu_wrap3 .option button {margin-left:5px;}
+#placesList1 li {list-style: none;}
+#placesList1 .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList1 .item span {display: block;margin-top:4px;}
+#placesList1 .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList1 .item .info{padding:10px 0 10px 55px;}
+#placesList1 .info .gray {color:#8a8a8a;}
+#placesList1 .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList1 .info .tel {color:#009900;}
+#placesList1 .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList1 .item .marker_1 {background-position: 0 -10px;}
+#placesList1 .item .marker_2 {background-position: 0 -56px;}
+#placesList1 .item .marker_3 {background-position: 0 -102px}
+#placesList1 .item .marker_4 {background-position: 0 -148px;}
+#placesList1 .item .marker_5 {background-position: 0 -194px;}
+#placesList1 .item .marker_6 {background-position: 0 -240px;}
+#placesList1 .item .marker_7 {background-position: 0 -286px;}
+#placesList1 .item .marker_8 {background-position: 0 -332px;}
+#placesList1 .item .marker_9 {background-position: 0 -378px;}
+#placesList1 .item .marker_10 {background-position: 0 -423px;}
+#placesList1 .item .marker_11 {background-position: 0 -470px;}
+#placesList1 .item .marker_12 {background-position: 0 -516px;}
+#placesList1 .item .marker_13 {background-position: 0 -562px;}
+#placesList1 .item .marker_14 {background-position: 0 -608px;}
+#placesList1 .item .marker_15 {background-position: 0 -654px;}
+#placesList2 li {list-style: none;}
+#placesList2 .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList2 .item span {display: block;margin-top:4px;}
+#placesList2 .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList2 .item .info{padding:10px 0 10px 55px;}
+#placesList2 .info .gray {color:#8a8a8a;}
+#placesList2 .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList2 .info .tel {color:#009900;}
+#placesList2 .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList2 .item .marker_1 {background-position: 0 -10px;}
+#placesList2 .item .marker_2 {background-position: 0 -56px;}
+#placesList2 .item .marker_3 {background-position: 0 -102px}
+#placesList2 .item .marker_4 {background-position: 0 -148px;}
+#placesList2 .item .marker_5 {background-position: 0 -194px;}
+#placesList2 .item .marker_6 {background-position: 0 -240px;}
+#placesList2 .item .marker_7 {background-position: 0 -286px;}
+#placesList2 .item .marker_8 {background-position: 0 -332px;}
+#placesList2 .item .marker_9 {background-position: 0 -378px;}
+#placesList2 .item .marker_10 {background-position: 0 -423px;}
+#placesList2 .item .marker_11 {background-position: 0 -470px;}
+#placesList2 .item .marker_12 {background-position: 0 -516px;}
+#placesList2 .item .marker_13 {background-position: 0 -562px;}
+#placesList2 .item .marker_14 {background-position: 0 -608px;}
+#placesList2 .item .marker_15 {background-position: 0 -654px;}
+#placesList3 li {list-style: none;}
+#placesList3 .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+#placesList3 .item span {display: block;margin-top:4px;}
+#placesList3 .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#placesList3 .item .info{padding:10px 0 10px 55px;}
+#placesList3 .info .gray {color:#8a8a8a;}
+#placesList3 .info .jibun {padding-left:26px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+#placesList3 .info .tel {color:#009900;}
+#placesList3 .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+#placesList3 .item .marker_1 {background-position: 0 -10px;}
+#placesList3 .item .marker_2 {background-position: 0 -56px;}
+#placesList3 .item .marker_3 {background-position: 0 -102px}
+#placesList3 .item .marker_4 {background-position: 0 -148px;}
+#placesList3 .item .marker_5 {background-position: 0 -194px;}
+#placesList3 .item .marker_6 {background-position: 0 -240px;}
+#placesList3 .item .marker_7 {background-position: 0 -286px;}
+#placesList3 .item .marker_8 {background-position: 0 -332px;}
+#placesList3 .item .marker_9 {background-position: 0 -378px;}
+#placesList3 .item .marker_10 {background-position: 0 -423px;}
+#placesList3 .item .marker_11 {background-position: 0 -470px;}
+#placesList3 .item .marker_12 {background-position: 0 -516px;}
+#placesList3 .item .marker_13 {background-position: 0 -562px;}
+#placesList3 .item .marker_14 {background-position: 0 -608px;}
+#placesList3 .item .marker_15 {background-position: 0 -654px;}
+#pagination1 {margin:10px auto;text-align: center;}
+#pagination1 a {display:inline-block;margin-right:10px;}
+#pagination1 .on {font-weight: bold; cursor: default;color:#777;}
+#pagination2 {margin:10px auto;text-align: center;}
+#pagination2 a {display:inline-block;margin-right:10px;}
+#pagination2 .on {font-weight: bold; cursor: default;color:#777;}
+#pagination3 {margin:10px auto;text-align: center;}
+#pagination3 a {display:inline-block;margin-right:10px;}
+#pagination3 .on {font-weight: bold; cursor: default;color:#777;}
 </style>
 </head>
 <body>
@@ -72,33 +138,63 @@
 	<td>
         <div class="option">
             <div>
-                <form name="frm" onsubmit="searchPlaces(); return false;">
-                	 <input type="hidden" id="출발지값" name="출발지값">
+                <form name="frm1" onsubmit="searchPlaces('출발지','출발지값','.map_wrap1','menu_wrap1','placesList1','pagination1'); return false;">
+                	 <input type="text" id="출발지값" name="출발지값">
                      <input type="text" value="" name="출발지" id="출발지" size="15" style="width: 88%;height: 35px"> 
                     <button id="search1" type="submit" style="width: 10%;height: 35px">검색하기</button> 
                 </form>
             </div>
         </div>
-	<div class="map_wrap">
-    <div id="menu_wrap" class="bg_white">
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
+	<div class="map_wrap1">
+    <div id="menu_wrap1" class="bg_white">
+        <ul id="placesList1"></ul>
+        <div id="pagination1"></div>
+    </div>
+</div>
+	</td>
+	</tr>
+	<tr>
+	<td>경유지 : </td>
+	<td>
+	<div class="option">
+            <div>
+                <form name="frm2" onsubmit="searchPlaces('경유지','경유지값','.map_wrap2','menu_wrap2','placesList2','pagination2'); return false;">
+                	 <input type="text" id="경유지값" name="경유지값">
+                     <input type="text" value="" name="경유지" id="경유지" size="15" style="width: 88%;height: 35px"> 
+                    <button id="search2" type="submit" style="width: 10%;height: 35px">검색하기</button> 
+                </form>
+            </div>
+        </div>
+	<div class="map_wrap2">
+    <div id="menu_wrap2" class="bg_white">
+        <ul id="placesList2"></ul>
+        <div id="pagination2"></div>        
     </div>
 </div>
 	</td>
 	</tr>
 	<tr>
 	<td>목적지 : </td>
-	<td><input type="text" id="목적지" style="width: 100%; height: 35px"></td>
-	</tr>
-	<tr>
-	<td>경유지 : </td>
-	<td><input type="text" id="경유지" style="width: 100%; height: 35px"></td>
+	<td>
+	<div class="option">
+            <div>
+                <form name="frm3" onsubmit="searchPlaces('목적지','목적지값','.map_wrap3','menu_wrap3','placesList3','pagination3'); return false;">
+                	 <input type="text" id="목적지값" name="목적지값">
+                     <input type="text" value="" name="목적지" id="목적지" size="15" style="width: 88%;height: 35px"> 
+                    <button id="search3" type="submit" style="width: 10%;height: 35px">검색하기</button> 
+                </form>
+            </div>
+        </div>
+	<div class="map_wrap3">
+    <div id="menu_wrap3" class="bg_white">
+        <ul id="placesList3"></ul>
+        <div id="pagination3"></div>
+    </div>
+</div>
+	</td>
 	</tr>
 	</table>
-	<ul id="placesList"></ul>
-        <div id="pagination"></div>
-	<br><div align="center"><input type="button" value="이전" style="border:1px solid ;width: 200px;height: 35px"><input type="button" value="다음" style="border:1px solid ;width: 200px;height: 35px;margin-left: 60px"></div>
+	        	<br><div align="center"><input type="button" value="이전" style="border:1px solid ;width: 200px;height: 35px"><input type="button" value="다음" style="border:1px solid ;width: 200px;height: 35px;margin-left: 60px"></div>
 <!-- 여기 jquery -->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> 
 <script type="text/javascript">
@@ -106,9 +202,8 @@ $("#타세요").click(
 		function(){$("#타세요").css("background-color","#d0d0ff"),$("#태워주세요").css("background-color","#ffffff")});
 $("#태워주세요").click(
 		function(){$("#태워주세요").css("background-color","#d0d0ff"),$("#타세요").css("background-color","#ffffff")});
-$("#목적지").click(
-		function(){$(".map_wrap").slideUp(),$("#search1").slideUp()}
-		);
+$("#경유지").click(function(){$(".map_wrap1").slideUp()});
+$("#목적지").click(function(){$(".map_wrap2").slideUp()});
 </script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=0c30b26bc118d624e0b4ddc88f6cadd1&libraries=services"></script>
 <script type="text/javascript">
@@ -131,13 +226,26 @@ var ps = new daum.maps.services.Places();
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new daum.maps.InfoWindow({zIndex:1});
 
+
+var bounds2 = new daum.maps.LatLngBounds();
+
 // 키워드로 장소를 검색합니다
 
 // 키워드 검색을 요청하는 함수입니다
-	
-function searchPlaces() {
-    var keyword = document.getElementById('출발지').value;
-
+var rplace;
+var rgap;
+var rmenu;
+var rmap;
+var rlist;
+var rpage;
+function searchPlaces(place,gap,map,menu,list,page) {
+    	var keyword = document.getElementById(place).value;	
+		rplace=place;
+    	rgap=gap;
+		rmap=map;
+		rmenu=menu;
+		rlist=list;
+		rpage=page;
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
         return false;
@@ -170,13 +278,16 @@ function placesSearchCB(status, data, pagination) {
 
     }
 }
+
+
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
+	
 	//검색시 장소검색 리스트를 보여줍니다.
-    $(".map_wrap").slideDown();
+    $(rmap).slideDown();
     
-    var listEl = document.getElementById('placesList'), 
-    menuEl = document.getElementById('menu_wrap'),
+    var listEl = document.getElementById(rlist), 
+    menuEl = document.getElementById(rmenu),
     fragment = document.createDocumentFragment(), 
     bounds = new daum.maps.LatLngBounds(), 
     listStr = '';
@@ -197,7 +308,7 @@ function displayPlaces(places) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
-
+            
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
@@ -219,8 +330,8 @@ function displayPlaces(places) {
             };
             
             itemEl.onclick=function(){
-            	document.frm.출발지값.value=marker.getPosition();
-            	document.frm.출발지.value=title;
+            	
+            	ShareClick(marker, title);
             }
         })(marker, places[i].title);
 
@@ -274,15 +385,46 @@ function addMarker(position, idx, title) {
             image: markerImage 
         });
 
-    
+ 
+  
     daum.maps.event.addListener(marker,'click',function(){
-    	document.frm.출발지값.value=marker.getPosition();
-    	document.frm.출발지.value=title;
+
+     ShareClick(marker, title);
+
     });
     marker.setMap(map); // 지도 위에 마커를 표출합니다
     markers.push(marker);  // 배열에 생성된 마커를 추가합니다
 
     return marker;
+}
+
+//리스너 공용
+
+var rrplace = null;
+function ShareClick(marker, title){
+
+	document.getElementById(rgap).value=marker.getPosition();
+	document.getElementById(rplace).value=title;
+	var path=polyline.getPath();
+	path.push(marker.getPosition());
+	polyline.setPath(path);
+	
+ 	bounds2.extend(marker.getPosition());
+	var customOverlay=new daum.maps.CustomOverlay({
+    	position:marker.getPosition(),
+    	content:rplace
+    });
+
+    customOverlay.setMap(map);
+
+   
+    
+    if(rplace=='목적지'){
+    	removeMarker();
+    	map.setBounds(bounds2)
+    	polyline.getLength();
+    }
+    
 }
 
 // 지도 위에 표시되고 있는 마커를 모두 제거합니다
@@ -295,7 +437,7 @@ function removeMarker() {
 
 // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
 function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
+    var paginationEl = document.getElementById(rpage),
         fragment = document.createDocumentFragment(),
         i; 
 
@@ -339,6 +481,16 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
+ 
+	 var polyline = new daum.maps.Polyline({
+		    strokeWeight: 10,
+		    strokeColor: '#FF00FF',
+		    strokeOpacity: 0.8,
+		    strokeStyle: 'solid'
+		});
+		polyline.setMap(map)
+
+
 </script>
 </body>
 </html>
