@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.notice.*;
+import spring.model.advise.*;
+import spring.model.qquestion.*;
+import spring.model.question.*;
 import spring.model.ncomment.*;
 import spring.utility.ten.*;
 
@@ -52,7 +55,7 @@ public class NoticeController {
 	@RequestMapping("/notice/rupdate")
 	public String rupdate(NcommentDTO dto, int nowPage, int nPage, String col, String word, Model model) {
 		if (ndao.update(dto) > 0) {
-			model.addAttribute("bbsno", dto.getNoticeno());
+			model.addAttribute("noticeno", dto.getNoticeno());
 			model.addAttribute("nowPage", nowPage);
 			model.addAttribute("nPage", nPage);
 			model.addAttribute("col", col);
@@ -68,7 +71,7 @@ public class NoticeController {
 	public String rcreate(NcommentDTO dto, int nowPage, String col, String word, Model model) {
 
 		if (ndao.create(dto) > 0) {
-			model.addAttribute("bbsno", dto.getNoticeno());
+			model.addAttribute("noticeno", dto.getNoticeno());
 			model.addAttribute("nowPage", nowPage);
 			model.addAttribute("col", col);
 			model.addAttribute("word", word);
@@ -84,7 +87,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="/notice/create", method=RequestMethod.POST)
 	public String create(NoticeDTO dto, HttpServletRequest request) {
-		String basePath = request.getRealPath("./storage");
+		String basePath = request.getRealPath("./images/ks");
 		
 		String imgname = null;
 		
@@ -92,8 +95,8 @@ public class NoticeController {
 		
 		if(imgsize>0){
 			imgname=Utility.saveFile(dto.getImgnameMF(), basePath);
-		}else{
-			imgname="noimg.jpg";
+		} else {
+			imgname="noimg";
 		}
 		
 		dto.setImgname(imgname);
@@ -126,15 +129,15 @@ public class NoticeController {
 	
 	@RequestMapping(value="/notice/delete", method=RequestMethod.POST)
 	public String delete(String oldfile, int noticeno,Model model,HttpServletRequest request){
-		String basePath = request.getRealPath("/storage");
+		String basePath = request.getRealPath("./images/ks");
 		
 		if(dao.delete(noticeno)>0){
 			model.addAttribute("col", request.getParameter("col"));
 			model.addAttribute("word", request.getParameter("word"));
 			model.addAttribute("nowPage", request.getParameter("nowPage"));
 			
-			if(oldfile!=null&&oldfile.equals("member.jpg"));
-			Utility.deleteFile(basePath, oldfile);
+			if(oldfile!=null&&!(oldfile.equals("noimg")));
+				Utility.deleteFile(basePath, oldfile);
 			
 			return "redirect:/notice/list";
 		}else{
@@ -151,18 +154,23 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/notice/update", method=RequestMethod.POST)
-	public String update(NoticeDTO dto, Model model, HttpServletRequest request){
-		String basePath = request.getRealPath("/storage");
+	public String update(String oldfile, NoticeDTO dto, Model model, HttpServletRequest request){
+		String basePath = request.getRealPath("./images/ks");
 		
-		String imgname = "";
+		String imgname = null;
 		
 		int imgsize = (int)dto.getImgnameMF().getSize();
 		
-		if(imgsize>0){
-	
+		if(imgsize>0) {
 			imgname=Utility.saveFile(dto.getImgnameMF(), basePath);
-		}else{
+			
+			if(!(oldfile.equals("noimg")));
+			Utility.deleteFile(basePath, oldfile);
+		} else {
 			imgname="noimg.jpg";
+			if(!(oldfile.equals("noimg"))) {
+				imgname = oldfile;
+			}
 		}
 		
 		dto.setImgname(imgname);
@@ -171,6 +179,7 @@ public class NoticeController {
 			model.addAttribute("col", request.getParameter("col"));
 			model.addAttribute("word", request.getParameter("word"));
 			model.addAttribute("nowPage", request.getParameter("nowPage"));
+			
 			return "redirect:/notice/list";
 		}else{
 			return "error/error";
@@ -216,5 +225,59 @@ public class NoticeController {
 		model.addAttribute("nowPage", nowPage);
 		
 		return "/ks/notice/list";
+	}
+	
+	@Autowired
+	private QuestionDAO qdao;
+	
+	@Autowired
+	private QquestionDAO qqdao;
+	
+	@Autowired
+	private AdviseDAO adao;
+
+	@RequestMapping("/customer/list")
+	public String alist(HttpServletRequest request, Model model){
+		String col =Utility.nullCheck(request.getParameter("col"));
+		String word =Utility.nullCheck(request.getParameter("word"));
+		
+		if(col.equals("total"))word="";
+		//paging 관련
+		
+		
+		int nowPage=1;//현재 페이지
+		if(request.getParameter("nowPage")!=null){
+			nowPage= Integer.parseInt(request.getParameter("nowPage"));
+		}
+		int recordPerPage= 5;//한페이지당 보여줄 레코드(글의)갯수
+		
+		int sno=((nowPage-1)*recordPerPage)+1;
+		int eno=nowPage*recordPerPage;
+
+		Map map= new HashMap();
+		map.put("sno", sno);
+		map.put("eno", eno);
+		map.put("col", col);
+		map.put("word", word);
+
+		List<NoticeDTO> list =dao.list(map);
+		List<QquestionDTO> qqlist = qqdao.list(map);
+		List<QuestionDTO> qlist = qdao.list(map);
+		List<AdviseDTO> alist = adao.list(map);
+		
+		int total = dao.total(map);
+		
+		String paging =new Paging().paging3(total, nowPage, recordPerPage, col, word);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("qqlist", qqlist);
+		model.addAttribute("qlist", qlist);
+		model.addAttribute("alist", alist);
+		model.addAttribute("paging", paging);
+		model.addAttribute("col", col);
+		model.addAttribute("word", word);
+		model.addAttribute("nowPage", nowPage);
+		
+		return "/ks/list";
 	}
 }

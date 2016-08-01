@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="update" parameterType="NoticeDTO">
 		UPDATE notice
-		SET title = #{title}, content = #{content}
+		SET title = #{title}, content = #{content}, imgname = #{imgname}
 		WHERE noticeno = #{noticeno}
 	</update>
 

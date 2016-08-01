@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -52,6 +53,7 @@
 		url += "&col=${col}";
 		url += "&word=${word}";
 		url += "&nowPage=${nowPage}";
+		url += "&oldfile=${dto.imgname}";
 		
 		location.href=url;
 	}
@@ -61,6 +63,7 @@
 		url += "&col=${col}";
 		url += "&word=${word}";
 		url += "&nowPage=${nowPage}";
+		url += "&oldfile=${dto.imgname}";
 		
 		location.href=url;
 	}
@@ -83,7 +86,12 @@
 		<td style = "width : 300px">${dto.wdate}</td>
 	</tr>
 	<tr>
-		<td colspan="4">${dto.content}</td>
+		<td colspan="4">
+			<c:if test="${dto.imgname!='noimg'}">
+				<img src="../images/ks/${dto.imgname}" width="100%" height="350" border="0">
+			</c:if>
+			${dto.content}
+		</td>
 	</tr>
 	<tr>
 	<tr>

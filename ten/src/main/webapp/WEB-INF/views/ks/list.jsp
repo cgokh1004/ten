@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,6 +46,47 @@
 		text-decoration: none;
 	}
 </style>
+<script type="text/javascript">
+	function read(noticeno){
+		var url = "../notice/read";
+		url += "?noticeno="+noticeno;
+		url += "&col=${col}";
+		url += "&word=${word}";
+		url += "&nowPage=${nowPage}";
+		
+		location.href=url;
+	}
+	
+	function qqread(qqno){
+		var url = "../qquestion/read";
+		url += "?qqno="+qqno;
+		url += "&col=${col}";
+		url += "&word=${word}";
+		url += "&nowPage=${nowPage}";
+		
+		location.href=url;
+	}
+	
+	function qread(qno){
+		var url = "../question/read";
+		url += "?qno="+qno;
+		url += "&col=${col}";
+		url += "&word=${word}";
+		url += "&nowPage=${nowPage}";
+		
+		location.href=url;
+	}
+	
+	function aread(advno){
+		var url = "../advise/read";
+		url += "?advno="+advno;
+		url += "&col=${col}";
+		url += "&word=${word}";
+		url += "&nowPage=${nowPage}";
+		
+		location.href=url;
+	}
+</script>
 </head>
 <body>
 <div class = "title">고객센터</div>
@@ -53,44 +95,64 @@
 		<td colspan="2"><hr></td>
 	</tr>
 	<tr>
-		<th style = "width : 600px"><a href="list_sub1.html">공지게시판</a></th>
-		<th style = "width : 600px"><a href="list_sub2.html">자주 묻는 질문</a></th>
+		<th style = "width : 600px"><a href="../notice/list">공지게시판</a></th>
+		<th style = "width : 600px"><a href="../qquestion/list">자주 묻는 질문</a></th>
 	</tr>
 	<tr>
 		<td>
-			<a href="read.html">공지사항 1</a> <br>
-			<a href="read.html">공지사항 2</a> <br>
-			<a href="read.html">공지사항 3</a> <br>
-			<a href="read.html">공지사항 4</a> <br>
-			<a href="read.html">공지사항 5</a> <br>
+			<c:choose>
+				<c:when test="${empty list}">
+					공지 게시판에 글이 없습니다.
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${list}" var="dto">
+						<a href="javascript:read('${dto.noticeno}')">${dto.title}</a> <br>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</td>
 		<td>
-			<a href="read2.html">질문 1</a> <br>
-			<a href="read2.html">질문 2</a> <br>
-			<a href="read2.html">질문 3</a> <br>
-			<a href="read2.html">질문 4</a> <br>
-			<a href="read2.html">질문 5</a> <br>
+			<c:choose>
+				<c:when test="${empty list}">
+					자주 묻는 질문에 글이 없습니다.
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${qqlist}" var="qqdto">
+						<a href="javascript:qqread('${qqdto.qqno}')">${qqdto.title}</a> <br>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</td>
 	</tr>
 	
 	<tr>
-		<th style = "width : 600px"><a href="list_sub3.html">문의게시판</a></th>
-		<th style = "width : 600px"><a href="list_sub4.html">건의게시판</a></th>
+		<th style = "width : 600px"><a href="../question/list">문의게시판</a></th>
+		<th style = "width : 600px"><a href="../advise/list">건의게시판</a></th>
 	</tr>
 	<tr>
 		<td>
-			<a href="read3.html">문의 1</a> <br>
-			<a href="read3.html">문의 2</a> <br>
-			<a href="read3.html">문의 3</a> <br>
-			<a href="read3.html">문의 4</a> <br>
-			<a href="read3.html">문의 5</a> <br>
+			<c:choose>
+				<c:when test="${empty qlist}">
+					문의 게시판에 글이 없습니다.
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${qlist}" var="qdto">
+						<a href="javascript:qread('${qdto.qno}')">${qdto.title}</a> <br>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</td>
 		<td>
-			<a href="read4.html">건의 1</a> <br>
-			<a href="read4.html">건의 2</a> <br>
-			<a href="read4.html">건의 3</a> <br>
-			<a href="read4.html">건의 4</a> <br>
-			<a href="read4.html">건의 5</a> <br>
+			<c:choose>
+				<c:when test="${empty alist}">
+					건의 게시판에 글이 없습니다.
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${alist}" var="adto">
+						<a href="javascript:aread('${adto.advno}')">${adto.title}</a> <br>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</td>
 	</tr>
 	<tr>

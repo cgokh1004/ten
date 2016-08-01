@@ -113,7 +113,7 @@
 	</div> <br>
 <div style = "text-align: center;">${paging}</div><br>
 <div style="text-align: center;">
-	<input type = "button" value = "목록" onclick="location.href='./list'">
+	<input type = "button" value = "목록" onclick="location.href='../customer/list'">
 	<input type = "button" value = "등록" onclick="location.href='./create'">
 </div>
 </body>

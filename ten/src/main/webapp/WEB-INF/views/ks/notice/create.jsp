@@ -84,7 +84,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input class="button1" type='file' name='imgname'
+			<input class="button1" type='file' name='imgnameMF'
 				id="imgname" value='' onchange="imageChange(this)"> <br>
 			<br>
 				<img onerror="this.src='../images/ks/image.jpg'" id="original"

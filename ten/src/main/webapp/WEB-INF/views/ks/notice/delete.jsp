@@ -50,6 +50,7 @@
 <div class = "title">공지 게시판</div>
 <Form name='frm' method='POST' action='./delete'>
 <input type = "hidden" name = "noticeno" value = "${param.noticeno}">
+<input type = "hidden" name = "oldfile" value = "${param.oldfile}">
 <table style = "margin : 0 auto">
 	<tr>
 		<td>확인을 누르면 복구할 수 없습니다.</td>
