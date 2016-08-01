@@ -205,7 +205,7 @@ $("#태워주세요").click(
 $("#경유지").click(function(){$(".map_wrap1").slideUp()});
 $("#목적지").click(function(){$(".map_wrap2").slideUp()});
 </script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=0c30b26bc118d624e0b4ddc88f6cadd1&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5010e38594b50b718b45691e3f0c3609&libraries=services"></script>
 <script type="text/javascript">
 //마커를 담을 배열입니다
 var markers = [];
@@ -230,7 +230,10 @@ var infowindow = new daum.maps.InfoWindow({zIndex:1});
 var bounds2 = new daum.maps.LatLngBounds();
 
 // 키워드로 장소를 검색합니다
-
+//카운트 변수
+var count1=0;
+var count2=0;
+var count3=0;
 // 키워드 검색을 요청하는 함수입니다
 var rplace;
 var rgap;
@@ -330,8 +333,35 @@ function displayPlaces(places) {
             };
             
             itemEl.onclick=function(){
-            	
+            	if(count1!=0){
+                	if(rplace=='출발지'){  
+                		customOverlay1.setMap(null);
+                		polyline.setMap(null);
+                		path=polyline.getPath();
+                		path.shift();
+                		polyline.setPath(path);
+                		}
+                	}
+            	if(count2!=0){
+                	if(rplace=='경유지'){  
+                		customOverlay2.setMap(null);
+                		polyline.setMap(null);
+                		path=polyline.getPath();
+                		path.pop();
+                		polyline.setPath(path);
+                		}
+            		}
+            	if(count3!=0){
+                	if(rplace=='목적지'){  
+                		customOverlay3.setMap(null);
+                		polyline.setMap(null);
+                		path=polyline.getPath();
+                		path.pop();
+                		polyline.setPath(path);
+                		}
+            		}
             	ShareClick(marker, title);
+            	
             }
         })(marker, places[i].title);
 
@@ -369,7 +399,6 @@ function getListItem(index, places) {
 
     return el;
 }
-
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
     var imageSrc = 'http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -385,11 +414,39 @@ function addMarker(position, idx, title) {
             image: markerImage 
         });
 
- 
+
   
     daum.maps.event.addListener(marker,'click',function(){
+    	if(count1!=0){
+        	if(rplace=='출발지'){  
+        		customOverlay1.setMap(null);
+        		polyline.setMap(null);
+        		path=polyline.getPath();
+        		path.shift();
+        		polyline.setPath(path);
 
+        		}
+        	}
+    	if(count2!=0){
+        	if(rplace=='경유지'){  
+        		customOverlay2.setMap(null);
+        		polyline.setMap(null);
+        		path=polyline.getPath();
+        		path.pop();
+        		polyline.setPath(path);
+        		}
+    		}
+    	if(count3!=0){
+        	if(rplace=='목적지'){  
+        		customOverlay3.setMap(null);
+        		polyline.setMap(null);
+        		path=polyline.getPath();
+        		path.pop();
+        		polyline.setPath(path);
+        		}
+    		}
      ShareClick(marker, title);
+
 
     });
     marker.setMap(map); // 지도 위에 마커를 표출합니다
@@ -399,32 +456,59 @@ function addMarker(position, idx, title) {
 }
 
 //리스너 공용
-
-var rrplace = null;
+var customOverlay1;
+var customOverlay2;
+var customOverlay3;
+var path
 function ShareClick(marker, title){
-
+	
+	map.panTo(marker.getPosition());
 	document.getElementById(rgap).value=marker.getPosition();
 	document.getElementById(rplace).value=title;
-	var path=polyline.getPath();
-	path.push(marker.getPosition());
-	polyline.setPath(path);
+    path=polyline.getPath();
 	
  	bounds2.extend(marker.getPosition());
-	var customOverlay=new daum.maps.CustomOverlay({
+ 	if(rplace=='출발지'){
+	count1++;
+		customOverlay1=new daum.maps.CustomOverlay({
     	position:marker.getPosition(),
-    	content:rplace
+    	content:'출발지'
     });
+    customOverlay1.setMap(map);
+    path.push(marker.getPosition());
+    polyline.setPath(path);
+ 	};
+ 	if(rplace=='경유지'){
+ 		count2++;
+	    customOverlay2=new daum.maps.CustomOverlay({
+    	position:marker.getPosition(),
+    	content:'경유지'
+    });
+    customOverlay2.setMap(map);
+    path.push(marker.getPosition());
+    polyline.setPath(path);
+ 	};
 
-    customOverlay.setMap(map);
-
-   
-    
     if(rplace=='목적지'){
+    	count3++;
+    	    customOverlay3=new daum.maps.CustomOverlay({
+        	position:marker.getPosition(),
+        	content:'목적지'
+        });
+        customOverlay3.setMap(map);
+        path.push(marker.getPosition());
+        polyline.setPath(path);
+        
     	removeMarker();
     	map.setBounds(bounds2)
-    	polyline.getLength();
-    }
+    	polyline.setMap(map)
+    	var distanceOverlay=new daum.maps.CustomOverlay({
+        	position:(33.50441997495049, 126.95558225758215),
+        	content:polyline.getLength()
+        });
+    	distanceOverlay.setMap(map);
     
+    }
 }
 
 // 지도 위에 표시되고 있는 마커를 모두 제거합니다
