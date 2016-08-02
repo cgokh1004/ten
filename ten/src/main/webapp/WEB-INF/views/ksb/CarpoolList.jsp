@@ -62,7 +62,7 @@ border-top:1px solid gray;
 		
 			<input style="height: 35px;width: 50px" type="submit" name="" value="검색" title="검색">
 			<input style="border: 0px solid; background-color: #ffcf0f;border-radius:5px;width: 120px;height: 35px;
-			box-shadow: 1px 2px 1px #b1b5ba;margin-left: 30px" type="button"  onclick="self.location='/ten/carpool/create'" value="등록하기">
+			box-shadow: 1px 2px 1px #b1b5ba;margin-left: 30px" type="button"  onclick="self.location='/ten/carpool/create1'" value="등록하기">
 		</div>
 	</form>
 		

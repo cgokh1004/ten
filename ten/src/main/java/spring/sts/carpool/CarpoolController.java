@@ -72,8 +72,8 @@ public class CarpoolController {
 		model.addAttribute("nowPage", nowPage);
 		return "/carpool/list";
 	}
-	@RequestMapping("/carpool/create")
+	@RequestMapping("/carpool/create1")
 	public String read(){
-		return "/carpool/create";
+		return "/carpool/create1";
 	}
 }
