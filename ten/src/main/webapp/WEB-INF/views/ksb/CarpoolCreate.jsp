@@ -1,29 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/create1.css">
 </head>
 <body>
-	<h1>카풀 등록하기</h1>
+	<form name="frm" method="get" action="/ten/carpool/create1" onsubmit="return abc()">
+	<input type="hidden" name="c_start">
+	<input type="hidden" name="c_startv">
+	<input type="hidden" name="via">
+	<input type="hidden" name="viav">
+	<input type="hidden" name="c_end">
+	<input type="hidden" name="c_endv">
+		<h1>카풀 등록하기</h1>
 		<table style="width: 100%; border: 1px solid gray;">
 			<tr>
 				<td>유형 :</td>
-				<td><input type="hidden" id='kind' name="kind"> <span
-					id='타세요'
-					style="float: left; border: 1px solid #afafaf; width: 30%; display: inline-block; text-align: center; padding: 5%">
+				<td><input type="hidden" id='kind' name="kind">
+				<span id='타세요'style="float: left; border: 1px solid #afafaf; width: 30%; 
+					display: inline-block; text-align: center; padding: 5%">
 						<img height="100px" alt="타세요"
 						src="${pageContext.request.contextPath}/images/타세요.png"><br>
-					<br>타세요
-				</span> <span id='태워주세요'
-					style="float: left; border: 1px solid #afafaf; width: 30%; display: inline-block; text-align: center; padding: 5%">
+						<br>타세요
+				</span> <span id='태워주세요' style="float: left; border: 1px solid #afafaf; width: 30%; 
+					display: inline-block; text-align: center; padding: 5%">
 						<img height="100px" alt="타세요"
 						src="${pageContext.request.contextPath}/images/태워주세요.png"><br>
-					<br>태워주세요
+						<br>태워주세요
 				</span></td>
 				<td rowspan="5" width="40%" style="padding-left: 70px">
 					<div id='map' style="width: 450px; height: 550px;"></div>
@@ -32,7 +39,7 @@
 			<tr>
 				<td>목적 :</td>
 				<td><select name='c_type' id='c_type'
-					style="border: none; border: 1px solid #a9a9a9; width: 98.5%; height: 35px">
+					style="border: none; border: 1px solid #a9a9a9; width: 99%; height: 35px">
 						<option value="1">정기 카풀</option>
 						<option value="2">단기 카풀</option>
 						<option value="3">여성전용 카풀</option>
@@ -41,10 +48,13 @@
 			<tr>
 				<td>출발지 :</td>
 				<td>
+					<form>
+						<button style="display: none;" type="submit"></button>
+					</form>
 					<div class="option">
 						<div>
-							<form name="frm1" 
-							onsubmit="searchPlaces('c_start','c_startv','.map_wrap1','menu_wrap1','placesList1','pagination1'); return false;">
+							<form name="frm1"
+								onsubmit="searchPlaces('c_start','c_startv','.map_wrap1','menu_wrap1','placesList1','pagination1'); return false;">
 								<input type="hidden" id="c_startv" name="c_startv"> <input
 									type="text" value="" name="c_start" id="c_start" size="15"
 									style="width: 88%; height: 35px">
@@ -67,9 +77,9 @@
 					<div class="option">
 						<div>
 							<form name="frm2"
-								onsubmit="searchPlaces('경유지','경유지값','.map_wrap2','menu_wrap2','placesList2','pagination2'); return false;">
-								<input type="hidden" id="경유지값" name="경유지값"> <input
-									type="text" value="" name="경유지" id="경유지" size="15"
+								onsubmit="searchPlaces('via','viav','.map_wrap2','menu_wrap2','placesList2','pagination2'); return false;">
+								<input type="hidden" id="viav" name="viav"> <input
+									type="text" value="" name="via" id="via" size="15"
 									style="width: 88%; height: 35px">
 								<button id="search2" type="submit"
 									style="width: 10%; height: 35px">검색하기</button>
@@ -90,9 +100,9 @@
 					<div class="option">
 						<div>
 							<form name="frm3"
-								onsubmit="searchPlaces('목적지','목적지값','.map_wrap3','menu_wrap3','placesList3','pagination3'); return false;">
-								<input type="hidden" id="목적지값" name="목적지값"> <input
-									type="text" value="" name="목적지" id="목적지" size="15"
+								onsubmit="searchPlaces('c_end','c_endv','.map_wrap3','menu_wrap3','placesList3','pagination3'); return false;">
+								<input type="hidden" id="c_endv" name="c_endv"> <input
+									type="text" value="" name="c_end" id="c_end" size="15"
 									style="width: 88%; height: 35px">
 								<button id="search3" type="submit"
 									style="width: 10%; height: 35px">검색하기</button>
@@ -110,32 +120,41 @@
 		</table>
 		<br>
 		<div align="center">
-			<input type="button"" value="이전"
-				style="border: 1px solid; width: 200px; height: 35px"> 
-			<input type="submit" value="다음"
+			<input type="button" " value="이전"
+				style="border: 1px solid; width: 200px; height: 35px"> <input
+				type="submit" value="다음"
 				style="border: 1px solid; width: 200px; height: 35px; margin-left: 60px">
 		</div>
-<!-- 여기 jquery -->
+	</form>
+	<!-- 여기 jquery -->
 	<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 	<script type="text/javascript">
-
+	function abc(){
+		document.frm.c_startv.value = document.frm1.c_startv.value;
+		document.frm.c_start.value = document.frm1.c_start.value;
+		document.frm.viav.value = document.frm2.viav.value;
+		document.frm.via.value= document.frm2.via.value;
+		document.frm.c_endv.value= document.frm3.c_endv.value;
+		document.frm.c_end.value= document.frm3.c_end.value;
+		
+	}
 		$("#타세요").click(
 				function() {
 					$("#타세요").css("background-color", "#d0d0ff"), $("#태워주세요")
-							.css("background-color", "#eeeeee"), $("#유형").val(
+							.css("background-color", "#eeeeee"), $("#kind").val(
 							'타세요')
 				});
 		$("#태워주세요").click(
 				function() {
 					$("#태워주세요").css("background-color", "#d0d0ff"), $("#타세요")
-							.css("background-color", "#eeeeee"), $("#유형").val(
+							.css("background-color", "#eeeeee"), $("#kind").val(
 							'태워주세요')
 				});
-		$("#경유지").click(function() {
+		$("#via").click(function() {
 			$(".map_wrap1").slideUp()
 		});
-		$("#목적지").click(function() {
+		$("#c_end").click(function() {
 			$(".map_wrap1").slideUp(), $(".map_wrap2").slideUp()
 		});
 	</script>
@@ -279,7 +298,7 @@
 							}
 						}
 						if (count2 != 0) {
-							if (rplace == '경유지') {
+							if (rplace == 'via') {
 								customOverlay2.setMap(null);
 								polyline.setMap(null);
 								path = polyline.getPath();
@@ -288,7 +307,7 @@
 							}
 						}
 						if (count3 != 0) {
-							if (rplace == '목적지') {
+							if (rplace == 'c_end') {
 								customOverlay3.setMap(null);
 								distanceOverlay.setMap(null);
 								polyline.setMap(null);
@@ -365,7 +384,7 @@
 					}
 				}
 				if (count2 != 0) {
-					if (rplace == '경유지') {
+					if (rplace == 'via') {
 						customOverlay2.setMap(null);
 						polyline.setMap(null);
 						path = polyline.getPath();
@@ -374,7 +393,7 @@
 					}
 				}
 				if (count3 != 0) {
-					if (rplace == '목적지') {
+					if (rplace == 'c_end') {
 						customOverlay3.setMap(null);
 						distanceOverlay.setMap(null);
 						polyline.setMap(null);
@@ -422,7 +441,7 @@
 				polyline.setPath(path);
 			}
 			;
-			if (rplace == '경유지') {
+			if (rplace == 'via') {
 				count2++;
 				customOverlay2.setPosition(marker.getPosition());
 				customOverlay2.setMap(map);
@@ -431,7 +450,7 @@
 			}
 			;
 
-			if (rplace == '목적지') {
+			if (rplace == 'c_end') {
 				count3++;
 				customOverlay3.setPosition(marker.getPosition());
 				customOverlay3.setMap(map);

@@ -73,7 +73,13 @@ public class CarpoolController {
 		return "/carpool/list";
 	}
 	@RequestMapping("/carpool/create1")
-	public String read(){
+	public String read(CarpoolDTO dto, String c_start){
+		System.out.println(dto.getC_start());
+		System.out.println(c_start);
+		System.out.println(dto.getC_startv());
+		System.out.println(dto.getVia());
+		System.out.println(dto.getC_end());
+		System.out.println(dto.getKind());
 		return "/carpool/create1";
 	}
 }
