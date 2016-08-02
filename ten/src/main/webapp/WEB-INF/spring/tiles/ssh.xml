@@ -12,10 +12,21 @@
 			value="/WEB-INF/views/templates/bottom.jsp" />
 	</definition>
 
-	<!-- definition의 이름은 Bbscontroller에서 리턴되는 뷰의 이름 -->
+	<!-- definition의 이름은 sshcontroller에서 리턴되는 뷰의 이름 -->
+	<!-- 1.home -->
 	<definition name="/home" extends="main">
 		<put-attribute name="title" value="Default Page"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	</definition>
+	<!-- 2.home -->
+	<definition name="/ktx/list" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ssh/ktx_list.jsp" />
+	</definition>
+	
+	<definition name="/ktx/create" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ssh/ktx_create.jsp" />
 	</definition>
 	
 	

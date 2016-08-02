@@ -3,6 +3,7 @@ package spring.model.ktx;
 public class KtxDTO {
 
 	private int ktx_no  ;
+	private String ID      ;
 	private String s_point ;
 	private String r_point ;
 	private String purpose ;
@@ -11,7 +12,6 @@ public class KtxDTO {
 	private int price   ;
 	private String content ;
 	private String reg_date;
-	private String ID      ;
 	public int getKtx_no() {
 		return ktx_no;
 	}
