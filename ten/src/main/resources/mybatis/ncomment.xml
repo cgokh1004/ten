@@ -6,9 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="ncomment">
 
 	<insert id="create" parameterType="NcommentDTO">
-		INSERT INTO ncomment(comno, content, wdate, noticeno, ID)  
+		INSERT INTO ncomment(comno, content, wdate, noticeno, id)  
 		VALUES((SELECT NVL(MAX(comno), 0) + 1 as comno FROM ncomment), 
-		#{content}, sysdate, #{noticeno}, #{ID})
+		#{content}, sysdate, #{noticeno}, #{id})
 	</insert>
 	
 	<select id="read" resultType="NcommentDTO" parameterType="int">
@@ -28,17 +28,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE comno = #{comno}
 	</update>
 
-	<select id="total" parameterType="map" resultType="int">
+	<select id="total" parameterType="int" resultType="int">
 		SELECT count(*) FROM ncomment
+		WHERE noticeno = #{noticeno}
 	</select>
 
 	<select id="list" resultType="NcommentDTO" parameterType="Map">
-		SELECT comno, wdate, noticeno, ID, r
+		SELECT comno, wdate, content, noticeno, ID, r
 		from(
-			SELECT comno, wdate, noticeno, ID, rownum r 
+			SELECT comno, wdate, content, noticeno, ID, rownum r 
 			from(
-				SELECT comno, wdate, noticeno, ID
+				SELECT comno, wdate, content, noticeno, ID
 				FROM ncomment
+				where noticeno = #{noticeno}
 				ORDER BY comno DESC
 				)
 			)                                                                            

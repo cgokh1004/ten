@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -67,6 +68,65 @@
 		
 		location.href=url;
 	}
+	
+	function rcheck(tarea){
+		if('${sessionScope.id}'==""){
+		if(confirm("로그인후 댓글를 쓰세요")){
+		var url = "../member/login";
+		url = url + "?noticeno=${dto.noticeno}";
+		url = url + "&nowPage=${param.nowPage}";
+		url = url + "&nPage=${nPage}";
+		url = url + "&col=${param.col}";
+		url = url + "&word=${param.word}";
+		url = url + "&flag=../bbs/read";
+		location.href=url;
+		}else{
+		tarea.blur();
+		}
+		}
+		}
+		 
+		function input(f){
+		if('${sessionScope.id}'==""){
+		if(confirm("로그인후 댓글를 쓰세요")){
+		var url = "../member/login";
+		url = url + "?noticeno=${dto.noticeno}";
+		url = url + "&nowPage=${param.nowPage}";
+		url = url + "&nPage=${nPage}";
+		url = url + "&col=${param.col}";
+		url = url + "&word=${param.word}";
+		url = url + "&flag=../bbs/read";
+		location.href=url;
+		return false;
+		}else{
+		 
+		return false;
+		}
+		}else if(f.content.value==""){
+		alert("댓글 내용을 입력하세요.");
+		f.content.focus();
+		return false;
+		}
+		}
+		function rupdate(rnum,rcontent){
+		var f = document.rform;
+		f.content.value = rcontent;
+		f.rnum.value = rnum;
+		f.rsubmit.value="수정";
+		f.action="./rupdate"
+		}
+		function rdelete(rnum){
+		if(confirm("정말삭제 하겠습니까?")){ 
+		var url = "./rdelete";
+		url = url + "?rnum="+rnum;
+		url = url + "&noticeno=${dto.noticeno}";
+		url = url + "&nowPage=${param.nowPage}";
+		url = url + "&nPage=${nPage}";
+		url = url + "&col=${param.col}";
+		url = url + "&word=${param.word}";
+		location.href=url; 
+		}
+		}
 </script>
 </head>
 <body>
@@ -100,6 +160,42 @@
 			<input type = "button" value = "수정" onclick="javascript:update('${dto.noticeno}')">
 			<input type = "button" value = "삭제" onclick="javascript:deleteD('${dto.noticeno}')">
 			<input type = "button" value = "목록" onclick="location.href='./list'">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<hr>
+  <c:forEach var="ndto" items="${nlist}">
+  <div class="nlist">
+   ${ndto.id}<br>
+   <p>${ndto.content}</p>
+   ${fn:substring(ndto.wdate, 0, 10)}
+   <c:if test="${sessionScope.id==ndto.id}">
+   <span style="float: right;">
+   <a href="javascript:rupdate('${ndto.comno}','${ndto.content }')">
+   수정</a>|<a href="javascript:rdelete('${ndto.comno}')">삭제</a>
+   </span>
+   </c:if>
+  </div>
+  </c:forEach>
+  <div class="rcreate">
+  <form name="rform" action="./rcreate" method="post" onsubmit="return input(this)">
+  <textarea rows="3" cols="28" name="content" onclick="rcheck(this)" style = "width : 95%"></textarea>
+  <input type="submit" name="rsubmit" value="등록">
+  <input type="hidden" name="noticeno" value="${dto.noticeno}">
+  <input type="hidden" name="id" value="user1">
+  <input type="hidden" name="nowPage" value="${param.nowPage}">
+  <input type="hidden" name="nPage" value="${nPage}">
+  <input type="hidden" name="col" value="${param.col}">
+  <input type="hidden" name="word" value="${param.word}">
+  <input type="hidden" name="rnum" value="0">
+  
+  
+  </form>
+  </div>
+  <div class="bottom">
+  ${paging}
+  </div>
 		</td>
 	</tr>
 </table>

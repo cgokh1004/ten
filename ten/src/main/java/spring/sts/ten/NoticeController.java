@@ -29,17 +29,13 @@ public class NoticeController {
 	
 	@RequestMapping("/notice/ndelete")
 	public String ndelete(int comno, int noticeno, int nowPage, int nPage, String col, String word, Model model) {
-		Map map= new HashMap();
-		map.put("col", col);
-		map.put("word", word);
-		
-		int total = ndao.total(map);
+		int total = ndao.total(noticeno);
 		int totalPage = (int) (Math.ceil((double) total / 3));
 		if (ndao.delete(comno) > 0) {
 			if (nPage != 1 && nPage == totalPage && total % 3 == 1) {
 				nPage = nPage - 1;
 			}
-			model.addAttribute("bbsno", noticeno);
+			model.addAttribute("noticeno", noticeno);
 			model.addAttribute("nowPage", nowPage);
 			model.addAttribute("nPage", nPage);
 			model.addAttribute("col", col);
@@ -114,9 +110,46 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("/notice/read")
-	public String read(int noticeno, Model model) {
+	public String read(int nowPage, String col, String word, int noticeno, Model model, HttpServletRequest request) {
 		dao.upViewcnt(noticeno);
-		model.addAttribute("dto", dao.read(noticeno));
+		
+		NoticeDTO dto = dao.read(noticeno);
+		
+		String content = dto.getContent();
+		
+		content = content.replace("/r/n", "<br>");
+		
+		dto.setContent(content);
+		
+		model.addAttribute("dto", dto);
+		
+		String url = "read";
+		
+		int nPage = 1;
+		
+		if(request.getParameter("nPage") != null) {
+			nPage = Integer.parseInt(request.getParameter("nPage"));
+		}
+		
+		int recordPerPage = 3;
+		
+		int sno = ((nPage - 1) * recordPerPage) + 1;
+		int eno = nPage * recordPerPage;
+		
+		Map map = new HashMap();
+		map.put("sno", sno);
+		map.put("eno", eno);
+		map.put("noticeno", noticeno);
+		
+		List<NcommentDTO> list = ndao.list(map);
+		
+		int total = ndao.total(noticeno);
+		
+		String paging = Utility.paging(total, nPage, recordPerPage, url, noticeno, nowPage, col, word);
+		
+		model.addAttribute("nlist", list);
+		model.addAttribute("paging", paging);
+		model.addAttribute("nPage", nPage);
 		
 		return "/ks/notice/read";
 	}
