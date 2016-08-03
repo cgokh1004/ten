@@ -9,7 +9,7 @@
 	href="${pageContext.request.contextPath}/css/create1.css">
 </head>
 <body>
-	<form name="frm" method="get" action="/ten/carpool/create1" onsubmit="return abc()">
+	<form name="frm" method="post" action="/ten/carpool/create2" onsubmit="return abc()">
 	<input type="hidden" name="c_start">
 	<input type="hidden" name="c_startv">
 	<input type="hidden" name="via">
@@ -37,13 +37,17 @@
 				</td>
 			</tr>
 			<tr>
-				<td>목적 :</td>
+				<td>종류 :</td>
 				<td><select name='c_type' id='c_type'
 					style="border: none; border: 1px solid #a9a9a9; width: 99%; height: 35px">
-						<option value="1">정기 카풀</option>
-						<option value="2">단기 카풀</option>
-						<option value="3">여성전용 카풀</option>
+						<option value="정기 카풀">정기 카풀</option>
+						<option value="단기 카풀">단기 카풀</option>
+						<option value="여성전용 카풀">여성전용 카풀</option>
 				</select></td>
+			</tr>
+			<tr>
+				<td>목적 :</td>
+				<td><input name="purpose" id="purpose" type="text" style="width: 99%; height: 35px"></td>
 			</tr>
 			<tr>
 				<td>출발지 :</td>
@@ -55,8 +59,8 @@
 						<div>
 							<form name="frm1"
 								onsubmit="searchPlaces('c_start','c_startv','.map_wrap1','menu_wrap1','placesList1','pagination1'); return false;">
-								<input type="hidden" id="c_startv" name="c_startv"> <input
-									type="text" value="" name="c_start" id="c_start" size="15"
+								<input type="hidden" id="c_startv" name="c_startv"> 
+								<input type="text" value="" name="c_start" id="c_start" size="15"
 									style="width: 88%; height: 35px">
 								<button id="search1" type="submit"
 									style="width: 10%; height: 35px">검색하기</button>
@@ -120,10 +124,8 @@
 		</table>
 		<br>
 		<div align="center">
-			<input type="button" " value="이전"
-				style="border: 1px solid; width: 200px; height: 35px"> <input
-				type="submit" value="다음"
-				style="border: 1px solid; width: 200px; height: 35px; margin-left: 60px">
+			 <input type="submit" value="다음" 
+			 style="border: 1px solid; width: 200px; height: 35px; margin-left: 60px">
 		</div>
 	</form>
 	<!-- 여기 jquery -->

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.carpool.CarpoolDAO;
 import spring.model.carpool.CarpoolDTO;
@@ -73,13 +74,56 @@ public class CarpoolController {
 		return "/carpool/list";
 	}
 	@RequestMapping("/carpool/create1")
-	public String read(CarpoolDTO dto, String c_start){
-		System.out.println(dto.getC_start());
-		System.out.println(c_start);
-		System.out.println(dto.getC_startv());
-		System.out.println(dto.getVia());
-		System.out.println(dto.getC_end());
-		System.out.println(dto.getKind());
+	public String create1(CarpoolDTO dto,Model model){
+		model.addAttribute("carpoolDTO",dto);
 		return "/carpool/create1";
+	}
+	@RequestMapping("/carpool/create2")
+	public String create2(CarpoolDTO dto,Model model){
+		model.addAttribute("carpoolDTO",dto);
+		return "/carpool/create2";
+	}
+	@RequestMapping(value="/carpool/create",method=RequestMethod.POST)
+	public String create(CarpoolDTO dto,Model model){
+		try {
+			System.out.println("----------------------------------------------------------");
+			Map map = model.asMap();
+			System.out.println("모델에서뽑아오기나오냐?" + ((CarpoolDTO)map.get("carpoolDTO")).getSeat());
+			dto.setId("ktw3722");
+			System.out.println("----------------------------------------------------------");
+			System.out.println(dto.getC_comment());
+			System.out.println(dto.getC_end());
+			System.out.println(dto.getC_endv());
+			System.out.println(dto.getC_start());
+			System.out.println(dto.getC_startv());
+			System.out.println(dto.getC_type());
+			System.out.println(dto.getCarpooldate());
+			System.out.println(dto.getCarpoolno());
+			System.out.println(dto.getId());
+			System.out.println(dto.getKind());
+			System.out.println(dto.getPrice());
+			System.out.println(dto.getPurpose());
+			System.out.println(dto.getSeat());
+			System.out.println(dto.getSmoke());
+			System.out.println(dto.getStartdate());
+			System.out.println(dto.getVia());
+			System.out.println(dto.getViav());
+			int cnt=carpoolDAO.create(dto);
+			if(cnt==1){
+				model.addAttribute("cnt", cnt);
+				return "redirect:/bbs/list";
+				}else{
+					return "/error/error";
+				}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "/error/error";
+	}
+	@RequestMapping(value="/carpool/create3",method=RequestMethod.POST)
+	public String create3(CarpoolDTO dto,Model model){
+		model.addAttribute("carpoolDTO",dto);
+		return "/carpool/create3";
 	}
 }
