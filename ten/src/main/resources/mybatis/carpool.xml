@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from
 		dual),
 		#{c_start},#{c_startv},#{c_end},#{c_endv},#{via},#{viav},#{purpose},#{c_type},
-		#{kind},#{startdate},#{seat},#{price},#{smoke},#{c_comment})
+		#{kind},to_date(#{startdate},'yyyy-mm-dd hh24:mi'),#{seat},#{price},#{smoke},#{c_comment})
 	</insert>
 
 	<select id="read" parameterType="int" resultType="CarpoolDTO">

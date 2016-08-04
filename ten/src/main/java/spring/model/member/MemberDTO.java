@@ -1,7 +1,8 @@
 package spring.model.member;
 
 public class MemberDTO {
-	private String id;             
+	private String id;
+	private String passwd;
 	private String gender;         	               
 	private String mem_type;       	               
 	private String name;           
@@ -19,6 +20,14 @@ public class MemberDTO {
 	private int mail_certi;
 	private String passport;
 	private int passport_certi;
+	
+	
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
 	public String getId() {
 		return id;
 	}

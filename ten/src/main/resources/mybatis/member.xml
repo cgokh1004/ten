@@ -6,10 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="member">
 	<insert id="create1" parameterType="MemberDTO">
 		insert into member
-		(id,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
+		(id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
 		sns,sns_certi,mail,mail_certi,passport,passport_certi)
 		values
-		(#{id},#{name},#{gender},#{mem_type},#{mfile},#{license_type},#{phone_num},#{phone_certi},
+		(#{id},#{passwd},#{name},#{gender},#{mem_type},#{mfile},#{license_type},#{phone_num},#{phone_certi},
 		#{address1},#{address2},#{addr_certi},#{sns},#{sns_certi},#{mail},#{mail_certi},#{passport},#{passport_certi})
 	</insert>
 	<update id="create2" parameterType="String">

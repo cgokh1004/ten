@@ -14,6 +14,9 @@
 	<input type="hidden" name="viav" value="${carpoolDTO.viav}">
 	<input type="hidden" name="c_end" value="${carpoolDTO.c_end}">
 	<input type="hidden" name="c_endv" value="${carpoolDTO.c_endv}">
+	<input type="hidden" name="c_type" value="${carpoolDTO.c_type}">
+	<input type="hidden" name="purpose" value="${carpoolDTO.purpose}">
+	<input type="hidden" name="kind" value="${carpoolDTO.kind}">
 	<input type="hidden" name="startdate" value="${carpoolDTO.startdate}">
 	<input type="hidden" name="seat" value="${carpoolDTO.seat}">
 	<input type="hidden" name="price" value="${carpoolDTO.price}">
@@ -56,9 +59,9 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script> 
 <script type="text/javascript">
 $("#차내흡연").click(
-		function(){$("#차내흡연").css("background-color","#d0d0ff"),$("#차내금연").css("background-color","#eeeeee"),$("#smoke").val("차내흡연")});
+		function(){$("#차내흡연").css("background-color","#d0d0ff"),$("#차내금연").css("background-color","#eeeeee"),$("#smoke").val("흡연")});
 $("#차내금연").click(
-		function(){$("#차내금연").css("background-color","#d0d0ff"),$("#차내흡연").css("background-color","#eeeeee"),$("#smoke").val("차내금연")}
+		function(){$("#차내금연").css("background-color","#d0d0ff"),$("#차내흡연").css("background-color","#eeeeee"),$("#smoke").val("비흡연")}
 		);
 </script>
 </body>

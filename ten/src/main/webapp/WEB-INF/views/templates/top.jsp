@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitiobuttonl//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,6 +10,9 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script type="text/javascript">
+jQuery.noConflict();
+jQuery(document).ready(function($) {
+	// 이 함수 안에서는 $를 jQuery가 사용
 $(function() {
 	$("#button").toggle(function() {
 		$("#effect").animate({
@@ -52,6 +55,7 @@ $(function() {
 		$("#button").trigger("click");
 	})
 });
+});
 </script>
 </head>
 <body>
@@ -63,7 +67,7 @@ $(function() {
 					src="${pageContext.request.contextPath}/images/로고.png" width="200px">
 			</div>
 			<div>
-				<a href="http://www.naver.com"
+				<a href="http://www.buttonver.com"
 					style="text-decoration: none; color: #3c3c3c">네이버</a>
 			</div>
 			<div>

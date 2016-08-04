@@ -43,7 +43,6 @@ public class CarpoolController {
 		String kind2=Utility.nullCheck(request.getParameter("kind2"));
 		String word1=Utility.nullCheck(request.getParameter("word1"));
 		String word2=Utility.nullCheck(request.getParameter("word2"));
-
 		Map map=new HashMap();
 		map.put("kind1",kind1);
 		map.put("kind2",kind2);
@@ -110,8 +109,7 @@ public class CarpoolController {
 			System.out.println(dto.getViav());
 			int cnt=carpoolDAO.create(dto);
 			if(cnt==1){
-				model.addAttribute("cnt", cnt);
-				return "redirect:/bbs/list";
+				return "redirect:/carpool/list";
 				}else{
 					return "/error/error";
 				}

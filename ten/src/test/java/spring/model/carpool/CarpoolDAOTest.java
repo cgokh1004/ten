@@ -42,7 +42,7 @@ public class CarpoolDAOTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test @Ignore
+	@Test //@Ignore
 	public void testCreate() {
 		CarpoolDAO dao= (CarpoolDAO) beans.getBean("carpooldao");
 		CarpoolDTO dto=new CarpoolDTO();
@@ -58,7 +58,7 @@ public class CarpoolDAOTest {
 		dto.setPurpose("여행");
 		dto.setC_type("정기카풀");
 		dto.setKind("태워주세요");
-		dto.setStartdate("2016-07-20");
+		dto.setStartdate("2016-07-20 10:20");
 		dto.setSeat(2);
 		dto.setPrice(3000);
 		dto.setSmoke("흡연");

@@ -1,5 +1,6 @@
 CREATE TABLE member (
        id                   varchar2(12char) NOT NULL,
+       passwd				varchar2(30char) NOT NULL,
        name                 varchar2(10char) NOT NULL,
        gender               varchar2(12char) NOT NULL
                                    CHECK (gender IN ('남', '여')),
@@ -28,17 +29,16 @@ CREATE TABLE member (
                                    CHECK (passport_certi IN (0, 1)),
        PRIMARY KEY (id)
 );
-
 --기본사항--
 select * from member;
-drop table member;
-
+drop table member cascade constraint;
+alter table member add(passwd varchar2(30char)NULL);
 --------------------------------------insert--------------------------
 insert into member
-(id,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
+(id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
 sns,sns_certi,mail,mail_certi,passport,passport_certi)
 values
-('ktw3722','김성빈','남','개인','사진.jpg','2종보통','010-4017-7980',1,'여기','저기',1,
+('ktw3722','1234','김성빈','남','개인','사진.jpg','2종보통','010-4017-7980',1,'여기','저기',1,
 'facebook',1,'ktw3722@naver.com',1,'여권.jpg',1);
 --트랜잭션요망
 update member
@@ -46,10 +46,10 @@ set certi_num=(select sum(phone_certi+addr_certi+sns_certi+mail_certi+passport_c
 where id='ktw3722'
 
 insert into member
-(id,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
+(id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
 sns,sns_certi,mail,mail_certi,passport,passport_certi)
 values
-('user2','홍길동','남','개인','사진.jpg','2종보통','010-1234-1234',1,'여기','저기',1,
+('user2','1234','홍길동','남','개인','사진.jpg','2종보통','010-1234-1234',1,'여기','저기',1,
 'facebook',1,'1233722@naver.com',1,'여권.jpg',1);
 --트랜잭션요망
 update member
@@ -108,11 +108,11 @@ CREATE TABLE carpool (
        id                   varchar2(12char) NOT NULL,
        carpooldate          DATE NOT NULL,
        c_start           		varchar2(30char) NOT NULL,
-       c_startv           		varchar2(30char) NOT NULL,
+       c_startv           		varchar2(50char) NOT NULL,
        c_end                 	varchar2(30char) NOT NULL,
-       c_endv                 	varchar2(30char) NOT NULL,
+       c_endv                 	varchar2(50char) NOT NULL,
        via                  varchar2(30char) NULL,
-       viav                  varchar2(30char) NULL,
+       viav                  varchar2(50char) NULL,
        purpose              varchar2(15char) NOT NULL,
        c_type                 varchar2(15char) NOT NULL
                                     CHECK (c_type IN ('정기카풀', '단기카풀', '여성전용카풀')),
@@ -132,7 +132,9 @@ CREATE TABLE carpool (
 --기본사항--
 select *from carpool;
 drop table carpool;
-
+alter table carpool modify(c_startv varchar2(50char));
+alter table carpool modify(c_endv varchar2(50char));
+alter table carpool modify(viav varchar2(50char));
 --insert--
 insert into carpool 
 (carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
@@ -140,7 +142,7 @@ purpose,c_type,kind,startdate,seat,price,smoke,c_comment)
 values ( (SELECT NVL(MAX(carpoolno), 0) + 1 as carpoolno FROM carpool),
 'ktw3722', (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),
 '동서울터미널','127.123124', '우리집','142.123124','','','출퇴근','단기카풀',
-'타세요',to_date('20070525084214', 'yyyymmddhh24miss'),'1','5000','비흡연','같이가실분구합니다.');
+'타세요',to_date('2007-05-25 08:42', 'yyyy-mm-dd hh24:mi'),'1','5000','비흡연','같이가실분구합니다.');
 
 --read--
 SELECT carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,

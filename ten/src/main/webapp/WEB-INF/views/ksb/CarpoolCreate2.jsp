@@ -22,6 +22,9 @@ $(function(){
 	<input type="hidden" name="viav" value="${carpoolDTO.viav}">
 	<input type="hidden" name="c_end" value="${carpoolDTO.c_end}">
 	<input type="hidden" name="c_endv" value="${carpoolDTO.c_endv}">
+	<input type="hidden" name="c_type" value="${carpoolDTO.c_type}">
+	<input type="hidden" name="purpose" value="${carpoolDTO.purpose}">
+	<input type="hidden" name="kind" value="${carpoolDTO.kind}">
 	<h1>카풀 등록하기</h1>
 	<table style="width: 100%;border:1px solid gray;">
 	<tr>
