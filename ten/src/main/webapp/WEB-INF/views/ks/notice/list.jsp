@@ -84,7 +84,8 @@
 			<c:forEach items="${list}" var="dto">
 				<tr>
 					<td>${dto.noticeno}</td>
-					<td><a href="javascript:read('${dto.noticeno}')">${dto.title}</a></td>
+					<td><a href="javascript:read('${dto.noticeno}')">${dto.title}
+					</a></td>
 					<td>관리자</td>
 					<td>${fn:substring(dto.wdate,0,10)}</td>
 					<td>${dto.viewcnt}</td>
@@ -114,7 +115,9 @@
 <div style = "text-align: center;">${paging}</div><br>
 <div style="text-align: center;">
 	<input type = "button" value = "목록" onclick="location.href='../customer/list'">
-	<input type = "button" value = "등록" onclick="location.href='./create'">
+	<c:if test="${sessionScope.id=='admin'}">
+		<input type = "button" value = "등록" onclick="location.href='./create'">
+	</c:if>
 </div>
 </body>
 </html>

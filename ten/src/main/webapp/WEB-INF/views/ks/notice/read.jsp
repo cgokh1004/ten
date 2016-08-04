@@ -69,63 +69,26 @@
 		location.href=url;
 	}
 	
-	function rcheck(tarea){
-		if('${sessionScope.id}'==""){
-		if(confirm("로그인후 댓글를 쓰세요")){
-		var url = "../member/login";
-		url = url + "?noticeno=${dto.noticeno}";
-		url = url + "&nowPage=${param.nowPage}";
-		url = url + "&nPage=${nPage}";
-		url = url + "&col=${param.col}";
-		url = url + "&word=${param.word}";
-		url = url + "&flag=../bbs/read";
-		location.href=url;
-		}else{
-		tarea.blur();
-		}
-		}
-		}
-		 
-		function input(f){
-		if('${sessionScope.id}'==""){
-		if(confirm("로그인후 댓글를 쓰세요")){
-		var url = "../member/login";
-		url = url + "?noticeno=${dto.noticeno}";
-		url = url + "&nowPage=${param.nowPage}";
-		url = url + "&nPage=${nPage}";
-		url = url + "&col=${param.col}";
-		url = url + "&word=${param.word}";
-		url = url + "&flag=../bbs/read";
-		location.href=url;
-		return false;
-		}else{
-		 
-		return false;
-		}
-		}else if(f.content.value==""){
-		alert("댓글 내용을 입력하세요.");
-		f.content.focus();
-		return false;
-		}
-		}
-		function rupdate(rnum,rcontent){
+	
+		function rupdate(comno,content){
+			document.rform.rsubmit.value = '수정';
+			document.rform.action="./rupdate"
 		var f = document.rform;
-		f.content.value = rcontent;
-		f.rnum.value = rnum;
-		f.rsubmit.value="수정";
-		f.action="./rupdate"
+			document.rform.content.value = content;
+			document.rform.comno.value = comno;
 		}
-		function rdelete(rnum){
+		
+		function rdelete(comno){
 		if(confirm("정말삭제 하겠습니까?")){ 
-		var url = "./rdelete";
-		url = url + "?rnum="+rnum;
-		url = url + "&noticeno=${dto.noticeno}";
-		url = url + "&nowPage=${param.nowPage}";
-		url = url + "&nPage=${nPage}";
-		url = url + "&col=${param.col}";
-		url = url + "&word=${param.word}";
-		location.href=url; 
-		}
+			var url = "./rdelete";
+			url = url + "?comno="+comno;
+			url = url + "&noticeno=${param.noticeno}";
+			url = url + "&nowPage=${param.nowPage}";
+			url = url + "&nPage=${nPage}";
+			url = url + "&col=${param.col}";
+			url = url + "&word=${param.word}";
+			location.href=url; 
+			}
 		}
 </script>
 </head>
@@ -143,7 +106,7 @@
 		<th style = "width : 300px">닉네임</th>
 		<td style = "width : 300px">관리자</td>
 		<th style = "width : 300px">작성일</th>
-		<td style = "width : 300px">${dto.wdate}</td>
+		<td style = "width : 300px">${fn:substring(dto.wdate, 0, 10)}</td>
 	</tr>
 	<tr>
 		<td colspan="4">
@@ -156,9 +119,11 @@
 	<tr>
 	<tr>
 		<td colspan="4" style = "text-align: center">
-			<input type = "button" value = "등록" onclick="location.href='./create'">
-			<input type = "button" value = "수정" onclick="javascript:update('${dto.noticeno}')">
-			<input type = "button" value = "삭제" onclick="javascript:deleteD('${dto.noticeno}')">
+			<c:if test="${sessionScope.id=='admin'}">
+				<input type = "button" value = "등록" onclick="location.href='./create'">
+				<input type = "button" value = "수정" onclick="javascript:update('${dto.noticeno}')">
+				<input type = "button" value = "삭제" onclick="javascript:deleteD('${dto.noticeno}')">
+			</c:if>
 			<input type = "button" value = "목록" onclick="location.href='./list'">
 		</td>
 	</tr>
@@ -188,8 +153,7 @@
   <input type="hidden" name="nPage" value="${nPage}">
   <input type="hidden" name="col" value="${param.col}">
   <input type="hidden" name="word" value="${param.word}">
-  <input type="hidden" name="rnum" value="0">
-  
+  <input type="hidden" name="comno" value="0">
   
   </form>
   </div>

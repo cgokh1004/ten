@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -80,7 +82,7 @@
 		<th style = "width : 300px">닉네임</th>
 		<td style = "width : 300px">관리자</td>
 		<th style = "width : 300px">작성일</th>
-		<td style = "width : 300px">${dto.qqdate}</td>
+		<td style = "width : 300px">${fn:substring(dto.qqdate, 0, 10)}</td>
 	</tr>
 	<tr>
 		<td colspan="4">${dto.content}</td>
@@ -88,9 +90,11 @@
 	<tr>
 	<tr>
 		<td colspan="4" style = "text-align: center">
-			<input type = "button" value = "등록" onclick="location.href='./create'">
-			<input type = "button" value = "수정" onclick="javascript:update('${dto.qqno}')">
-			<input type = "button" value = "삭제" onclick="javascript:deleteD('${dto.qqno}')">
+			<c:if test="${sessionScope.id=='admin'}">
+				<input type = "button" value = "등록" onclick="location.href='./create'">
+				<input type = "button" value = "수정" onclick="javascript:update('${dto.qqno}')">
+				<input type = "button" value = "삭제" onclick="javascript:deleteD('${dto.qqno}')">
+			</c:if>
 			<input type = "button" value = "목록" onclick="location.href='./list'">
 		</td>
 	</tr>

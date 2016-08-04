@@ -113,7 +113,7 @@
 		</td>
 		<td>
 			<c:choose>
-				<c:when test="${empty list}">
+				<c:when test="${empty qqlist}">
 					자주 묻는 질문에 글이 없습니다.
 				</c:when>
 				<c:otherwise>

@@ -62,7 +62,10 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>adminCheck</filter-name>
-		<url-pattern>/admin/*</url-pattern>
+		<url-pattern>/notice/create</url-pattern>
+		<url-pattern>/notice/update</url-pattern>
+		<url-pattern>/qquestion/create</url-pattern>
+		<url-pattern>/qquestion/update</url-pattern>
 	</filter-mapping>
 
 	<!-- 파일다운로드 -->

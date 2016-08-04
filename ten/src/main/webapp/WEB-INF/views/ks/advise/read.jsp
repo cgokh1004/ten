@@ -97,9 +97,13 @@
 	<tr>
 	<tr>
 		<td colspan="4" style = "text-align: center">
-			<input type = "button" value = "등록" onclick="location.href='./create'">
-			<input type = "button" value = "수정" onclick="javascript:update('${dto.advno}')">
-			<input type = "button" value = "삭제" onclick="javascript:deleteD('${dto.advno}')">
+			<c:if test="${not empty sessionScope.id and sessionScope.grade=='A'}">
+				<input type = "button" value = "등록" onclick="location.href='./create'">
+			</c:if>
+			<c:if test="${sessionScope.id==ndto.id}">
+				<input type = "button" value = "수정" onclick="javascript:update('${dto.advno}')">
+				<input type = "button" value = "삭제" onclick="javascript:deleteD('${dto.advno}')">
+			</c:if>
 			<input type = "button" value = "목록" onclick="location.href='./list'">
 		</td>
 	</tr>

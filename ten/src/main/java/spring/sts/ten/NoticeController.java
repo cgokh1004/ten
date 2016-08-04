@@ -27,7 +27,7 @@ public class NoticeController {
 	@Autowired
 	private NcommentDAO ndao;
 	
-	@RequestMapping("/notice/ndelete")
+	@RequestMapping("/notice/rdelete")
 	public String ndelete(int comno, int noticeno, int nowPage, int nPage, String col, String word, Model model) {
 		int total = ndao.total(noticeno);
 		int totalPage = (int) (Math.ceil((double) total / 3));
@@ -40,16 +40,16 @@ public class NoticeController {
 			model.addAttribute("nPage", nPage);
 			model.addAttribute("col", col);
 			model.addAttribute("word", word);
+			
+			return "redirect:./read";
 
 		} else {
 			return "error/error";
-		}
-
-		return "redirect:./read";
+		}		
 	}
 
 	@RequestMapping("/notice/rupdate")
-	public String rupdate(NcommentDTO dto, int nowPage, int nPage, String col, String word, Model model) {
+	public String rupdate(NcommentDTO dto, int nowPage, int nPage, String col, String word, Model model) {		
 		if (ndao.update(dto) > 0) {
 			model.addAttribute("noticeno", dto.getNoticeno());
 			model.addAttribute("nowPage", nowPage);
@@ -250,12 +250,13 @@ public class NoticeController {
 		int total = dao.total(map);
 		
 		String paging =new Paging().paging3(total, nowPage, recordPerPage, col, word);
-		
+
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
 		model.addAttribute("col", col);
 		model.addAttribute("word", word);
 		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("ndao", ndao);
 		
 		return "/ks/notice/list";
 	}

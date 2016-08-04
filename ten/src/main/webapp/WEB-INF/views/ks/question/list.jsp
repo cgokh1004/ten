@@ -121,7 +121,9 @@
 <div style = "text-align: center;">${paging}</div><br>
 <div style="text-align: center;">
 	<input type = "button" value = "목록" onclick="location.href='../customer/list'">
-	<input type = "button" value = "등록" onclick="location.href='./create'">
+	<c:if test="${not empty sessionScope.id and sessionScope.grade=='A'}">
+		<input type = "button" value = "등록" onclick="location.href='./create'">
+	</c:if>
 </div>
 </body>
 </html>

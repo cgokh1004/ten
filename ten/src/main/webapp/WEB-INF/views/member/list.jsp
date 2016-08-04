@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>자주 묻는 질문 :::</title>
+<title>Insert title here</title>
 <style>
 	td {
 		text-align: left;
@@ -50,9 +50,9 @@
 	}
 </style>
 <script type="text/javascript">
-	function read(qqno){
+	function read(id){
 		var url = "read";
-		url += "?qqno="+qqno;
+		url += "?id="+id;
 		url += "&col=${col}";
 		url += "&word=${word}";
 		url += "&nowPage=${nowPage}";
@@ -62,32 +62,32 @@
 </script>
 </head>
 <body>
-<div class = "title">자주 묻는 질문</div>
+<div class = "title">회원 리스트</div>
 <table style = "margin : 0 auto">
 	<tr>
 		<td colspan="5" style = "padding-top: 20px; padding-bottom: 20px;"><hr></td>
 	</tr>
 	<tr>
-		<th style = "width : 150px;">번호</th>
-		<th style = "width : 550px;">제목</th>
-		<th style = "width : 200px;">닉네임</th>
-		<th style = "width : 150px;">작성일</th>
-		<th style = "width : 150px;">조회수</th>
+		<th style = "width : 150px;">아이디</th>
+		<th style = "width : 550px;">이름</th>
+		<th style = "width : 150px;">회원종류</th>
+		<th style = "width : 150px;">인증갯수</th>
+		<th style = "width : 150px;">사진</th>
 	</tr>
 	<c:choose>
 		<c:when test="${empty list}">
 			<TR>
-				<TD colspan='8' align='center'>자주 묻는 질문이 없습니다.</TD>
+				<TD colspan='8' align='center'>가입된 회원 정보가 없습니다.</TD>
 			</TR>
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${list}" var="dto">
 				<tr>
-					<td>${dto.qqno}</td>
-					<td><a href="javascript:read('${dto.qqno}')">${dto.title}</a></td>
-					<td>관리자</td>
-					<td>${fn:substring(dto.qqdate,0,10)}</td>
-					<td>${dto.viewcnt}</td>
+					<td>${dto.id}</td>
+					<td><a href="javascript:read('${dto.id}')">${dto.name}</a></td>
+					<td>${dto.mem_type}</td>
+					<td>${dto.certi_num}</td>
+					<td>${dto.mfile}</td>
 				</tr>
 			</c:forEach>
 		</c:otherwise>
@@ -97,12 +97,9 @@
 <div class="search">
 		<form action="./list" method="post">
 			<select name="col">
-				<option value="title"
-				${col=='title'} selected
-				>제목</option>
-				<option value="content"
-				${col=='content'} selected
-				>내용</option>
+				<option value="id"
+				${col=='id'} selected
+				>아이디</option>
 				<option value="total"
 				${col=='total'} selected
 				>전체출력</option>
@@ -113,10 +110,7 @@
 	</div> <br>
 <div style = "text-align: center;">${paging}</div><br>
 <div style="text-align: center;">
-	<input type = "button" value = "목록" onclick="location.href='../customer/list'">
-	<c:if test="${sessionScope.id=='admin'}">
-		<input type = "button" value = "등록" onclick="location.href='./create'">
-	</c:if>
+	<input type = "button" value = "목록" onclick="location.href='./member/list'">
 </div>
 </body>
 </html>
