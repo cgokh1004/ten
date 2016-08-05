@@ -1,3 +1,58 @@
+--4.일정관리  
+ drop table events
+ select * from events
+CREATE TABLE events (
+       event_id             NUMBER(10) NOT NULL,
+       event_name           varchar(127) NOT NULL,
+       start_date           DATE NOT NULL,
+       end_date             DATE NOT NULL,
+       ID                   varchar2(12char) NOT NULL,
+       PRIMARY KEY (event_id), 
+       FOREIGN KEY (ID)
+                             REFERENCES member
+); 
+  --1)insert
+  INSERT INTO events VALUES ((select nvl(max(sulno),0)+1 from events), '1', '2016-07-15', '2016-07-15','user1');
+  INSERT INTO events VALUES ((select nvl(max(sulno),0)+1 from events), '2', '2016-07-16', '2016-07-16','user2');
+  INSERT INTO events VALUES ((select nvl(max(sulno),0)+1 from events), '3', '2016-07-17', '2016-07-17','user1');
+  INSERT INTO events VALUES ((select nvl(max(sulno),0)+1 from events), '4', '2016-07-18', '2016-07-18','user1');
+  --2)delete
+  delete from events where event_id=4
+  delete from events where event_id=3
+  delete from events where event_name=2
+  delete from events where event_name=1
+  --3)select
+  select * from events order by event_id desc		   
+  select * from events where ID='user1'order by start_date 
+  select start_date from events where ID='user1' 
+ --4)update
+  UPDATE events SET end_date = '2016-07-29' WHERE ID='user1' and event_id='1'; 
+  UPDATE events SET start_date  = '2016-07-17' WHERE ID='user1' and event_id='1'
+  UPDATE events SET event_name = '누구기념일'  WHERE event_id='2'
+  
+  --5)read
+  select * from events  where  ID='user1'
+  select * from events  where  ID='user2'
+  select * from events  where  event_id='1'
+  
+  --6)--total(목록)
+  select count(*) from events
+  --7) list
+  select event_id  ,  event_name , start_date ,  end_date , ID , r
+  FROM(
+       select event_id  ,  event_name , start_date ,  end_date , ID , rownum r
+       FROM(
+            select  event_id  ,  event_name , start_date ,  end_date , ID   
+            from  events 
+            WHERE event_name  like '%' || '기념일' || '%'
+            order by  event_id  desc
+            )
+  )WHERE r >= 1 and r <= 3
+  
+  
+ 
+ 
+
 CREATE TABLE member (
        id                   varchar2(12char) NOT NULL,
        name                 varchar2(10char) NOT NULL,

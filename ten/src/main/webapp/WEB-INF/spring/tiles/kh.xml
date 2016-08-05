@@ -8,15 +8,45 @@
 
 	<definition name="main" template="/WEB-INF/views/templates/template.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/templates/top.jsp" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/templates/bottom.jsp" />
 	</definition>
 
-	<!-- definition의 이름은 Bbscontroller에서 리턴되는 뷰의 이름 -->
+<!-- definition의 이름은 Surveycontroller에서 리턴되는 뷰의 이름 -->
+   <!-- 1. home -->
 	<definition name="/home" extends="main">
 		<put-attribute name="title" value="Default Page"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
+  <!-- 2. list -->
+	<definition name="/survey/list" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/kh/sulmunlist.jsp" />
+	</definition>
+  <!-- 3. read -->
+	<definition name="/survey/read" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/kh/sulmundo.jsp" />
+	</definition>
+  <!-- 4. create -->
+	<definition name="/survey/create" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/kh/sulmuncreate.jsp" />
+	</definition>
+  <!-- 5. update -->
+	<definition name="/survey/update" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/kh/sulmunupdate3.jsp" />
+	</definition>
+  <!-- 6. delete -->
+	<definition name="/survey/delete" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/kh/sulmundelete.jsp" />
+	</definition>
+  <!-- 7. result -->
+	<definition name="/survey/result" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/kh/sulmunresult.jsp" />
+	</definition>
+
 	
 	
 	<!--  여기 아래는 예제 -->

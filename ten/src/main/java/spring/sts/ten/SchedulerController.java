@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,13 +56,14 @@ public class SchedulerController {
 	   planner.data.dataprocessor.setURL("events.do");
 	   planner.parse(schedulerService.getEvent());
 	   model.addAttribute("schedule", planner.render());
+	   this.request = request;
 	   
       return "scheduler";
    }
    
    @RequestMapping("/events")
    @ResponseBody 
-   public String events(HttpServletRequest request) throws Exception {
+   public String events(HttpServletRequest request, HttpSession session) throws Exception {
 	   
        String value = request.getParameter("ids");
        String actions = "";
@@ -77,7 +79,7 @@ public class SchedulerController {
            if(value != null)
                actions = (new StringBuilder()).append(actions).append(saveOne(request, value, "")).toString();
        }
-       return (new StringBuilder()).append("<?xml version=\"1.0\"?><data>").append(actions).append("</data>").toString();	   
+       return (new StringBuilder()).append("<?xml version=\"1.0\"  encoding=\"UTF-8\"?><data>").append(actions).append("</data>").toString();	   
    }
    
    private String saveOne(HttpServletRequest request, String id, String prefix) throws Exception
@@ -194,14 +196,18 @@ public class SchedulerController {
 		schedule.setEvent_name(event.getText());
 		schedule.setStart_date(start_date);
 		schedule.setEnd_date(end_date);
-		schedule.setEvent_id(event.getId());
+
                     	
         if (status == DHXStatus.UPDATE) {
+        	schedule.setEvent_id(event.getId());
         	schedulerService.updateEvent(schedule);
 
         } else if (status == DHXStatus.INSERT) {
+      //  	String id =(String) this.request.getSession().getAttribute("id");
+        	String id = "ktw3722";
+        	schedule.setId(id);
         	schedulerService.insertEvent(schedule);
-        	event.setId(schedule.getEvent_id());
+        	event.setId(schedule.getEvent_id()); //pk저장:수정 삭제를 위해서
 
         } else if (status == DHXStatus.DELETE) {
         	schedulerService.deleteEvent(event.getId());

@@ -12,7 +12,12 @@ import spring.model.ten.DAOMyBatisInter;
 @Component
 public class SulmunrDAO implements DAOMyBatisInter {
   @Autowired
-   private SqlSessionTemplate mybatis;
+   private SqlSessionTemplate mybatis;  
+  
+	public void setMybatis(SqlSessionTemplate mybatis) {
+	this.mybatis = mybatis;
+}
+
 	@Override
 	public int create(Object dto) throws Exception {
 		return mybatis.insert("sulmunr.create", dto);
@@ -31,6 +36,10 @@ public class SulmunrDAO implements DAOMyBatisInter {
 	@Override
 	public int update(Object dto) throws Exception {
 		return mybatis.update("sulmunr.update", dto);
+	}
+	
+	public int sulmunrupdate(Object dto) throws Exception {
+		return mybatis.update("sulmunr.sulmunrupdate", dto);
 	}
 
 	@Override

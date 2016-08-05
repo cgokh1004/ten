@@ -11,8 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
   
    <!-- 2.update -->
-	<update id="update" parameterType="SulmunrDTO">	
-	 UPDATE sulmunr SET chocontent = #{chocontent} WHERE  chono=#{ chono}
+	<update id="sulmunrupdate" parameterType="SulmunrDTO">	
+	update sulmunr
+	set chocontent = #{chocontent}
+	where sulmunrno = #{sulmunrno}
 	</update>
 
 <!-- 3.read -->	
@@ -21,8 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   
   <!-- 4.delete -->  
-  <delete id="delete" parameterType="int">
-DELETE FROM  sulmunr WHERE  sulmunrno = #{ sulmunrno}
+  <delete id="delete" parameterType="String">
+DELETE FROM sulmunr
+WHERE EXISTS(SELECT 1 FROM survey WHERE sulmunr.sulno = survey.sulno and survey.sulgroupname = #{sulgroupname})
 </delete>
 
 <!-- 5.total -->

@@ -18,18 +18,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </select>
 
  <update id="updateEvent" parameterType="SchedulerVO"> 
- 	UPDATE events SET event_name=#{event_name}, start_date=#{start_date}, end_date=#{end_date} WHERE event_id=#{event_id}
+ 	UPDATE events SET event_name=#{event_name}, 
+ 	                                   start_date=TO_TIMESTAMP(#{start_date},'yyyy-MM-dd HH:MI:ss'), 
+ 	                                   end_date= TO_TIMESTAMP(#{end_date},'yyyy-MM-dd HH:mi:ss')
+ 	                                                           WHERE event_id=#{event_id}
  </update>
  
  <insert id="insertEvent" parameterType="SchedulerVO"> 
- 	INSERT INTO events (event_id, event_name, start_date, end_date) VALUES (null, #{event_name}, #{start_date}, #{end_date})
- 	<selectKey keyProperty="event_id" resultType="Integer">
- 		SELECT LAST_INSERT_ID()
- 	</selectKey>
+ 	INSERT INTO events (event_id, event_name, start_date, end_date,id) 
+ 	VALUES ((select nvl(max(event_id),0)+1 from events),
+   #{event_name},TO_TIMESTAMP(#{start_date},'yyyy-MM-dd HH:MI:ss'),
+   TO_TIMESTAMP(#{end_date},'yyyy-MM-dd HH:mi:ss'), #{id})
+
  </insert>
  
   <delete id="deleteEvent" parameterType="int">
-  	DELETE FROM events WHERE event_id=#{event_id} LIMIT 1
+  	DELETE FROM events WHERE event_id=#{event_id} 
   </delete>
  
 </mapper>

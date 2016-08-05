@@ -5,42 +5,82 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="survey">
 
-<resultMap type="SurveyDTO" id="SurveyDTOResultMap">
-   <result property="sulno" column="sulno"/>
-   <result property="askcontent" column="askcontent"/>
-   <result property="sulgroupname" column="sulgroupname"/>  
-   <collection property="sulmunrList" column="sulno" javaType="List" ofType="SulmunrDTO"
-   resultMap="survey.SulmunrDTOResultMap"/> 
-</resultMap>
-<resultMap type="SulmunrDTO" id="SulmunrDTOResultMap">
- <result property="sulmunrno" column="sulmunrno"/>
- <result property="chono" column="chono"/>
- <result property="chocontent" column="chocontent"/>
- <result property="sulno" column="sulno"/>
-</resultMap>
+
 
 <!-- 1. insert -->
 	<insert id="create" parameterType="SurveyDTO">
-	INSERT INTO survey(sulno, askcontent ,  sulgroupname )
-	VALUES((SELECT NVL(MAX(sulno), 0) + 1 as sulno FROM survey), #{askcontent}, #{sulgroupname})
+	INSERT INTO survey(sulno, askcontent ,  sulgroupname, sulstate )
+	VALUES((SELECT NVL(MAX(sulno), 0) + 1 as sulno FROM survey), #{askcontent}, #{sulgroupname}, #{sulstate})
+	
 	</insert>
 <!-- 2.update -->
-	<update id="update" parameterType="SurveyDTO">
-	 UPDATE survey SET askcontent = #{askcontent} WHERE sulno=#{sulno}
+	<update id="surveyupdate" parameterType="SurveyDTO">
+	update survey
+	set askcontent = #{askcontent }
+	where sulno = #{sulno }
 	</update>
-<!-- 3.read -->	
-   <select id="oneToMany" parameterType="int" resultMap="SurveyDTOResultMap">  
-   select survey.sulno, survey.askcontent, sulmunr.chono, sulmunr.chocontent
+	
+	
+<!-- 3.read -->
+
+<resultMap type="SurveyDTO" id="SurveyDTOResultMap">
+	   <result property="sulno" column="sulno"/>
+	   <result property="askcontent" column="askcontent"/>
+	   <collection property="sulmunrdtoList" column="sulno" javaType="List" ofType="SulmunrDTO"
+	   resultMap="survey.SulmunrDTOResultMap"/> 
+</resultMap>
+	<resultMap type="SulmunrDTO" id="SulmunrDTOResultMap">
+	 <result property="sulmunrno" column="sulmunrno"/>
+	 <result property="chono" column="chono"/>
+	 <result property="chocontent" column="chocontent"/>
+</resultMap>
+	
+   <select id="oneToManyList" parameterType="String" resultMap="SurveyDTOResultMap">  
+   select survey.sulno, sulmunr.sulmunrno, survey.askcontent, sulmunr.chono, sulmunr.chocontent
    from survey join sulmunr  on survey.sulno = sulmunr.sulno
-  where survey.sulno =#{sulno}
-  order by sulmunr.chono asc     
-  
+    where survey.sulgroupname = #{sulgroupname}
+  order by survey.sulno , sulmunr.chono  
   
   </select>  
+
+<!-- 3.read -->	 
+  
+ <resultMap type="SurveyDTO" id="resultSurveyDTOResultMap">
+	   <result property="sulno" column="sulno"/>
+	   <result property="askcontent" column="askcontent"/>
+	   <collection property="sulmunrdtoList" column="sulno" javaType="List" ofType="SulmunrDTO"
+	   resultMap="survey.resultSulmunrDTOResultMap"/> 
+</resultMap>
+	<resultMap type="SulmunrDTO" id="resultSulmunrDTOResultMap">
+	 <result property="chono" column="chono"/>
+	 <result property="chocontent" column="chocontent"/>
+	 <result property="thenumber" column="thenumber"/>
+	 <result property="theratio" column="theratio"/>
+</resultMap>
+	
+   <select id="resultoneToManyList" parameterType="String" resultMap="resultSurveyDTOResultMap">  
+select sulno, askcontent, chono, chocontent, thenumber, ratio_to_report(thenumber) over(partition by sulno) * 100 as theratio
+from(
+select survey.sulno, max(survey.askcontent) as askcontent, max(sulmunr.chono)as chono, sulmunr.chocontent, count(sulconfirm.selno) as thenumber
+from survey join sulconfirm
+on survey.sulno = sulconfirm.sulno join sulmunr
+on sulconfirm.selno = sulmunr.chono
+and survey.sulno = sulmunr.sulno
+where survey.sulgroupname = #{sulgroupname}
+group by survey.sulno, sulconfirm.selno, sulmunr.chocontent
+order by survey.sulno
+)
+  
+  </select>  
+
+
+
+
   
 <!-- 4.delete -->  
-  <delete id="delete" parameterType="int">
-DELETE FROM survey WHERE sulno = #{sulno}
+  <delete id="delete" parameterType="String">
+DELETE FROM survey
+where sulgroupname = #{sulgroupname}
 </delete>
 
 <!-- 5.total -->
@@ -54,33 +94,61 @@ DELETE FROM survey WHERE sulno = #{sulno}
 			</choose>
 		</where>
 	</select>
+	
 <!-- 6.list -->
-   <select id="list" parameterType="Map" resultType="int">
+   <select id="list" parameterType="Map" resultType="SurveyDTO">
    
 <!--    select sulgroupname from survey group by sulgroupname      -->
-   
-    select sulno, askcontent, r 
-  FROM(
-       select sulno, askcontent, rownum r 
-       FROM(
-            select sulno, askcontent 
-            from survey
-            
-	<where>
+
+
+select sulgroupname, sulstate, sulno, r
+from(
+	select sulgroupname, sulstate, sulno, rownum r
+	from(
+		select sulgroupname, sulstate, sulno
+		from(
+			select sulgroupname, min(sulstate) as sulstate, min(sulno) as sulno
+			from survey
+			group by sulgroupname)
+				<where>
 			<choose>
-				<when test="col=='askcontent'">
-					askcontent LIKE '%' || #{word} || '%'
+				<when test="col=='sulgroupname'">
+					sulgroupname LIKE '%' || #{word} || '%'
 				</when>				
 			</choose>
 		</where>
-			ORDER BY sulno asc
-
+		order by sulno desc
 		)
-		)                                                                            
+	)
    <![CDATA[                                                                        
-   where r>=#{sno} and r<=#{eno}  
-    ]]> 
+  where r>=#{sno} and r<=#{eno}  
+     ]]>  
 	</select>
+	
+	<!-- 방금 담은 부모의 번호뽑아오기 -->
+	<select id="recentlykey" parameterType="SurveyDTO" resultType="int">
+		select sulno
+		from survey
+		where sulgroupname = #{sulgroupname}
+		and askcontent = #{askcontent}
+	</select>
+	
+	<!-- 진행상태를 진행으로 바꾸기 -->
+	<update id="sulstateyes" parameterType="String">
+	update survey
+	set sulstate = '진행'
+	where sulgroupname = #{sulgroupname }
+	</update>
+
+	
+	<!-- 진행상태를 종료로 바꾸기 -->
+	<update id="sulstateno" parameterType="String">
+	update survey
+	set sulstate = '완료'
+	where sulgroupname = #{sulgroupname }
+	</update>
+	
+		
  
 </mapper>
  

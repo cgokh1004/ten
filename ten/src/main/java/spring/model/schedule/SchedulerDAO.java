@@ -58,6 +58,7 @@ public class SchedulerDAO implements DAOMyBatisInter {
 		      	DHXEvent e = new DHXEvent();
 		      	e.setId(resultset.get(i).getEvent_id());
 		          e.setText(resultset.get(i).getEvent_name());
+		          e.getText();
 		          e.setStart_date(resultset.get(i).getStart_date());
 		          e.setEnd_date(resultset.get(i).getEnd_date());
 		      	evs.add(e);

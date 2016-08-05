@@ -14,6 +14,12 @@ import spring.model.ten.DAOMyBatisInter;
 public class SulconfirmDAO implements DAOMyBatisInter {
    @Autowired
     private SqlSessionTemplate mybatis;
+   
+   
+	public void setMybatis(SqlSessionTemplate mybatis) {
+	this.mybatis = mybatis;
+}
+
 	@Override
 	public int create(Object dto) throws Exception {
 		return mybatis.insert("sulconfirm.create", dto);

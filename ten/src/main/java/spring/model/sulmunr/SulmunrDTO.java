@@ -10,9 +10,26 @@ public class SulmunrDTO {
 	/**설문항목내용*/
 	private int sulno;
 	/**설문지일련번호(FK) */ 
+	private int thenumber;
+	/** 설문번호선택자수*/	
+	private int theratio;
+	/**설문번호선택자수비율*/
+	
+	public int getTheratio() {
+		return theratio;
+	}
+	public void setTheratio(int theratio) {
+		this.theratio = theratio;
+	}
 	
 	public int getSulno() {
 		return sulno;
+	}
+	public int getThenumber() {
+		return thenumber;
+	}
+	public void setThenumber(int thenumber) {
+		this.thenumber = thenumber;
 	}
 	public void setSulno(int sulno) {
 		this.sulno = sulno;
