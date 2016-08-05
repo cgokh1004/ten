@@ -17,7 +17,30 @@
 		<put-attribute name="title" value="Default Page"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
-	
+	<definition name="/rentcar/rentcar" extends="main">
+		<put-attribute name="title" value="view-first"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/rentcar/rentcar.jsp"></put-attribute>
+	</definition>
+	<definition name="/rentcar/regist" extends="main">
+		<put-attribute name="title" value="차량등록"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/rentcar/regist.jsp"></put-attribute>
+	</definition>
+	<definition name="/rentcar/carlist" extends="main">
+		<put-attribute name="title" value="차량일람"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/rentcar/carlist.jsp"></put-attribute>
+	</definition>
+	<definition name="/rentcar/read" extends="main">
+		<put-attribute name="title" value="차량조회"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/rentcar/read.jsp"></put-attribute>
+	</definition>
+	<definition name="/rentcar/update" extends="main">
+		<put-attribute name="title" value="차량조회"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/rentcar/update.jsp"></put-attribute>
+	</definition>
+	<definition name="/rentcar/delete" extends="main">
+		<put-attribute name="title" value="차량삭제"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/rentcar/delete.jsp"></put-attribute>
+	</definition>
 	
 	<!--  여기 아래는 예제 -->
 <!-- 	<definition name="/img/createForm" extends="main"> -->

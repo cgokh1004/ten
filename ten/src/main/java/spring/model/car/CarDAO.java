@@ -57,4 +57,22 @@ public int total(String col, String word){
 	
 }
 
+public int updateFile(String carno, String filename){
+	
+	Map map= new HashMap();
+	map.put("carno", carno);
+	map.put("filename", filename);
+	
+	return mybatis.update("car.updatefile", map);
+}
+
+public int checkPasswd(String carno, String passwd){
+	  
+	  Map map = new HashMap();
+	  map.put("carno", carno);
+	  map.put("passwd", passwd);
+	  
+  return mybatis.selectOne("car.checkPasswd", map);
+}
+
 }

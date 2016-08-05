@@ -6,33 +6,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="car">
 
 	<insert id="create" parameterType="CarDTO">
-	insert into car(carno, place, brand, placevalue, state) 
-	values(#{carno}, #{place}, #{brand}, #{placevalue}, #{state})
+	insert into car(carno, place, brand, filename, dprice, oil, howmany, passwd) 
+	values(#{carno}, #{place}, #{brand}, #{filename}, #{dprice}, #{oil}, #{howmany}, #{passwd})
 	</insert>
 	
 	<update id="update" parameterType="CarDTO">
 	UPDATE car
-	SET  carno=#{carno},
-	 place=#{place}, 
-	 brand=#{brand}, 
-	 placevalue=#{placevalue}, 
-	 state=#{state}
+	SET  place=#{place}, 
+	  	 brand=#{brand}, 
+	 	 filename=#{filename}, 
+	 	 dprice=#{dprice}, 
+		 oil=#{oil}, 
+		 howmany=#{howmany}, 
+		 passwd=#{passwd},
+		 state=#{state}
 	WHERE carno = #{carno} 
 	</update>
 	
 	<select id="read" resultType="CarDTO" parameterType="String">
-	select carno, place, brand, placevalue, state
+	select carno, place, brand, filename, dprice, oil, howmany, state, passwd
 	from car
 	where carno = #{carno}
 	</select>
 	
 	<select id="list" resultType="CarDTO" parameterType="Map">
-	select carno, place, brand, placevalue, state, r
+	select carno, place, brand, filename, dprice, oil, howmany, state, r
 	from(
-		select carno, place, brand, placevalue, state, rownum r
+		select carno, place, brand, filename, dprice, oil, howmany, state, rownum r
 		from(
-			select carno, place, brand, placevalue, state
+			select carno, place, brand, filename, dprice, oil, howmany, state
 			from car
+			<where>
+				<choose>
+					<when test="col=='place'">
+						place like '%' || #{word} || '%'
+					</when>
+					<when test="col=='brand'">
+						brand like '%' || #{word} || '%'
+					</when>
+					<when test="col=='carno'">
+						carno like '%' || #{word} || '%'
+					</when>
+				</choose>
+			</where>
 			order by carno desc
 		)
 	)
@@ -61,6 +77,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</when>
 			</choose>
 		</where>
+	</select>
+	
+	<update id="updateFile" parameterType="Map">
+		update car
+		set filename =#{filename}
+		where carno = #{carno}
+	</update>
+	
+	<select id="checkPasswd" parameterType="map" resultType="int">
+		SELECT COUNT(carno) as cnt
+	    FROM car
+	    WHERE carno=#{carno} AND passwd=#{passwd}
 	</select>
 	
 </mapper>
