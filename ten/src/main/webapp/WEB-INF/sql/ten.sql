@@ -111,8 +111,8 @@ CREATE TABLE carpool (
        c_startv           		varchar2(50char) NOT NULL,
        c_end                 	varchar2(30char) NOT NULL,
        c_endv                 	varchar2(50char) NOT NULL,
-       via                  varchar2(30char) NULL,
-       viav                  varchar2(50char) NULL,
+       via                  varchar2(30char) DEFAULT ' ' NULL,
+       viav                  varchar2(50char) DEFAULT ' ' NULL,
        purpose              varchar2(15char) NOT NULL,
        c_type                 varchar2(15char) NOT NULL
                                     CHECK (c_type IN ('정기카풀', '단기카풀', '여성전용카풀')),
@@ -121,9 +121,9 @@ CREATE TABLE carpool (
        startdate            DATE NOT NULL,
        seat                 NUMBER(10) NOT NULL,
        price                NUMBER(10) NOT NULL,
-       smoke                varchar2(10char)  NULL
+       smoke                varchar2(10char) NOT NULL
       								CHECK (smoke IN ('흡연', '비흡연')),
-       c_comment              varchar2(4000) NULL,
+       c_comment              varchar2(4000) DEFAULT ' ' NULL,
        PRIMARY KEY (carpoolno), 
        FOREIGN KEY (id)
                              REFERENCES member
@@ -155,7 +155,7 @@ via='우리집',viav='123123124', purpose='여행',c_type='단기카풀',kind='�
 seat='1',price='5000',smoke='비흡연',c_comment='태워주세요' where carpoolno=2;
 
 --delete--
-delete from carpool
+delete from carpool 
 where carpoolno=3;
 
 --list--

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.carpool.CarpoolDAO;
 import spring.model.carpool.CarpoolDTO;
-import spring.model.member.MemberDTO;
 import spring.utility.ten.Paging;
 import spring.utility.ten.Utility;
 
@@ -72,6 +71,8 @@ public class CarpoolController {
 		model.addAttribute("nowPage", nowPage);
 		return "/carpool/list";
 	}
+	
+	
 	@RequestMapping("/carpool/create1")
 	public String create1(CarpoolDTO dto,Model model){
 		model.addAttribute("carpoolDTO",dto);
@@ -82,6 +83,11 @@ public class CarpoolController {
 		model.addAttribute("carpoolDTO",dto);
 		return "/carpool/create2";
 	}
+	@RequestMapping(value="/carpool/create3",method=RequestMethod.POST)
+	public String create3(CarpoolDTO dto,Model model){
+		model.addAttribute("carpoolDTO",dto);
+		return "/carpool/create3";
+	}
 	@RequestMapping(value="/carpool/create",method=RequestMethod.POST)
 	public String create(CarpoolDTO dto,Model model){
 		try {
@@ -89,18 +95,58 @@ public class CarpoolController {
 			int cnt=carpoolDAO.create(dto);
 			if(cnt==1){
 				return "redirect:/carpool/list";
-				}else{
-					return "/error/error";
-				}
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "/error/error";
 	}
-	@RequestMapping(value="/carpool/create3",method=RequestMethod.POST)
-	public String create3(CarpoolDTO dto,Model model){
-		model.addAttribute("carpoolDTO",dto);
-		return "/carpool/create3";
+	
+	
+	@RequestMapping("/carpool/read")
+	public String read1(int carpoolno,String nowPage,String kind1,String kind2,String word1,String word2,Model model){
+		try {
+			Object pk=(Object)carpoolno;
+			CarpoolDTO carpoolDTO=(CarpoolDTO) carpoolDAO.read(pk);
+			model.addAttribute("carpoolDTO",carpoolDTO);
+			model.addAttribute("kind1",kind1);
+			model.addAttribute("kind2",kind2);
+			model.addAttribute("word1",word1);
+			model.addAttribute("word2",word2);
+			
+			if(carpoolDTO.getC_type().equals("정기카풀")){	
+				if(carpoolDTO.getKind().equals("타세요")){
+					System.out.println(carpoolDTO.getC_startv());
+					System.out.println("dddd");
+					return "/carpool/read1-1";
+				}
+				if(carpoolDTO.getKind().equals("태워주세요")){
+					return "/carpool/read1-2";
+				}
+			}
+			if(carpoolDTO.getC_type().equals("단기카풀")){
+				if(carpoolDTO.getKind().equals("타세요")){
+					return "/carpool/read2-1";
+				}
+				if(carpoolDTO.getKind().equals("태워주세요")){
+					return "/carpool/read2-1";
+				}
+			}
+			if(carpoolDTO.getC_type().equals("여성전용카풀")){				
+				if(carpoolDTO.getKind().equals("타세요")){
+					System.out.println(carpoolDTO.getC_startv());
+					System.out.println("dddd");
+					return "/carpool/read3-1";
+				}
+				if(carpoolDTO.getKind().equals("태워주세요")){
+					return "/carpool/read3-2";
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "d";
 	}
 }

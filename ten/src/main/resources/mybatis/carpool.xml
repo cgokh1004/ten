@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</when>
 			</choose>
 		</where>
-		ORDER BY carpooldate desc, carpoolno 
+		ORDER BY carpooldate desc, carpoolno desc
 		)
 		)
 <![CDATA[

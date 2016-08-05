@@ -14,6 +14,19 @@ table tr td{
 border-top:1px solid gray;
 }
 </style>
+<script type="text/javascript">
+function read(no){
+	var url = "read";
+	url = url + "?carpoolno=" + no;
+	url = url + "&nowPage=${nowPage}";
+	url = url + "&kind1=${kind1}";
+	url = url + "&kind2=${kind2}";
+	url = url + "&word1=${word1}";
+	url = url + "&word2=${word2}";
+	//띄어쓰기 주의 -_-) ? memo = (x) ?memo= (o)
+	location.href = url; //자바스크립트에서 -get 방식- 링크 보내기
+}
+</script>
 </head>
 <body>
 	<div style="float: left; width: 80%">
@@ -85,7 +98,7 @@ border-top:1px solid gray;
 			</c:when>
 			<c:otherwise>
 		<c:forEach items="${list}" var="carpoolDTO">
-		<tr>
+		<tr onclick="read(${carpoolDTO.carpoolno})">
 			<td style="text-align: center"><img alt="photo"
 				src="${pageContext.request.contextPath}/storage/${carpoolDTO.memberDTO.mfile}"
 				width="100%"><br>${carpoolDTO.memberDTO.name}</td>

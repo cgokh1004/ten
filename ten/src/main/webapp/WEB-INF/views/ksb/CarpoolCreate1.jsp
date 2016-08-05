@@ -34,9 +34,9 @@
 						src="${pageContext.request.contextPath}/images/태워주세요.png"><br>
 						<br>태워주세요
 				</span></td>
-				<td rowspan="5" width="40%" style="padding-left: 70px">
-					<div id='map' style="width: 450px; height: 550px;"></div> <input
-					type="button" id="roadfind" value="실제 경로찾기" onclick="find()">
+				<td rowspan="5" width="40%" >
+					<div id='map' style="width: 450px; height: 550px"></div> 
+					<input type="button" id="roadfind" value="실제 경로찾기" style="float: left;margin-left: 200px" onclick="find()">
 				</td>
 			</tr>
 			<tr>
@@ -65,8 +65,8 @@
 						<div>
 							<form name="frm1"
 								onsubmit="searchPlaces('c_start','c_startv','.map_wrap1','menu_wrap1','placesList1','pagination1'); return false;">
-								<input type="hidden" id="c_startv" name="c_startv"> <input
-									type="text" placeholder="출발지를 검색해주세요" name="c_start"
+								<input type="hidden" id="c_startv" name="c_startv">
+								<input type="text" placeholder="출발지를 검색해주세요" name="c_start"
 									id="c_start" size="15"
 									style="width: 80.5%; height: 35px; float: left">
 								<button id="search1" type="submit"
@@ -126,6 +126,7 @@
 							<div id="pagination3"></div>
 						</div>
 					</div>
+					<input type="button" id='choice' value="최종확정" style="width: 81%;height: 35px;float: left;margin-top: 10px">
 				</td>
 			</tr>
 		</table>
@@ -142,7 +143,7 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/css/create1.js"></script>
 	<script type="text/javascript"
-		src="//apis.daum.net/maps/maps3.js?apikey=dfb4b6ea4ce68e78f0cb653cf043d987&libraries=services"></script>
+		src="//apis.daum.net/maps/maps3.js?apikey=5010e38594b50b718b45691e3f0c3609&libraries=services"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/css/create1_map.js"></script>
 </body>

@@ -127,16 +127,29 @@
 						if (count1 != 0) {
 							if (rplace == 'c_start') {
 								customOverlay1.setMap(null);
+								polyline.setMap(null);
+								path = polyline.getPath();
+								path.shift();
+								polyline.setPath(path);
+
 							}
 						}
 						if (count2 != 0) {
 							if (rplace == 'via') {
 								customOverlay2.setMap(null);
+								polyline.setMap(null);
+								path = polyline.getPath();
+								path.pop();
+								polyline.setPath(path);
 							}
 						}
 						if (count3 != 0) {
 							if (rplace == 'c_end') {
 								customOverlay3.setMap(null);
+								polyline.setMap(null);
+								path = polyline.getPath();
+								path.pop();
+								polyline.setPath(path);
 							}
 						}
 						ShareClick(marker, title);
@@ -230,9 +243,7 @@
 		var customOverlay3 = new daum.maps.CustomOverlay({
 			content : "<div id='overlay'>목적지</div>"
 		});
-		var distanceOverlay = new daum.maps.CustomOverlay({
-			content : distance,
-		});
+		
 		var start=document.getElementById("c_startv").value;
 		var	st1=start.substring(1,start.indexOf(","));
 		var	st2=start.substring(start.indexOf(",")+1,start.length-1);
@@ -253,12 +264,14 @@
 				count1++;
 				customOverlay1.setPosition(marker.getPosition());
 				customOverlay1.setMap(map);
+				
 			}
 			;
 			if (rplace == 'via') {
 				count2++;
 				customOverlay2.setPosition(marker.getPosition());
 				customOverlay2.setMap(map);
+				
 			}
 			;
 
@@ -266,6 +279,8 @@
 				count3++;
 				customOverlay3.setPosition(marker.getPosition());
 				customOverlay3.setMap(map);
+				
+
 			}
 		}
             $("#choice").click(function(){
@@ -276,25 +291,25 @@
         		bounds2.extend(customOverlay3.getPosition());
         		alert(bounds2)
 				map.setBounds(bounds2)
-				
-				var polyline = new daum.maps.Polyline({
-					strokeWeight : 3,
-					strokeColor : 'red',
-					strokeOpacity : 0.8,
-					strokeStyle : 'dash'
-				});
-				var path= polyline.getPath();
-				path.push(customOverlay1.getPosition());
-				if(viav!=''){path.push(customOverlay2.getPosition());}
-				path.push(customOverlay3.getPosition());
-				polyline.setPath(path);
-				polyline.setMap(map)
-				
-				distance = "<div id='overlay' style='margin-top: 60px;width:100px;box-shadow : 0 0 5px red'>총거리 : "
+        		var polyline = new daum.maps.Polyline({
+        			strokeWeight : 3,
+        			strokeColor : 'red',
+        			strokeOpacity : 0.8,
+        			strokeStyle : 'dash'
+        		});
+        		var path= polyline.getPath();
+        		path.push(customOverlay1.getPosition());
+        		if(viav!=''){path.push(customOverlay2.getPosition());}
+        		path.push(customOverlay3.getPosition());
+        		polyline.setPath(path);
+        		polyline.setMap(map)
+				var distance = "<div id='overlay' style='margin-top: 60px;width:100px;box-shadow : 0 0 5px red'>총거리 : "
 						+ Math.round(polyline.getLength() / 1000) + "km</div>";
-				distanceOverlay.setPosition(customOverlay3.getPosition());
-				distanceOverlay.setContent(distance);
-				distanceOverlay.setMap(map);
+        		var distanceOverlay = new daum.maps.CustomOverlay({
+        			content : distance
+        		});
+        		distanceOverlay.setPosition(customOverlay3.getPosition());
+        		distanceOverlay.setMap(map);
 				$(".map_wrap3").slideUp()
 				$("#search3").hide("blind", { direction: "left" }, 700),
 				$("#c_end").animate({width : '80.5%'}, 700)
@@ -353,11 +368,3 @@
 				el.removeChild(el.lastChild);
 			}
 		}
-
-		var polyline = new daum.maps.Polyline({
-			strokeWeight : 3,
-			strokeColor : 'red',
-			strokeOpacity : 0.8,
-			strokeStyle : 'dash'
-		});
-		polyline.setMap(map)
