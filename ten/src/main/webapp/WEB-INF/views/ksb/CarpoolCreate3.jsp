@@ -5,9 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript">
+function InputCheck(){
+	if($("#smoke").val()==''){
+		alert("차내 흡연 여부를 선택해주세요")
+		$("#smoke").focus()
+		return false;
+	}
+}
+</script>
 </head>
 <body>
-<form action="/ten/carpool/create" method="post">
+<form action="/ten/carpool/create" method="post" onsubmit="return InputCheck()">
 <input type="hidden" name="c_start" value="${carpoolDTO.c_start}">
 	<input type="hidden" name="c_startv" value="${carpoolDTO.c_startv}">
 	<input type="hidden" name="via" value="${carpoolDTO.via}">
@@ -39,7 +49,8 @@
 	<tr>
 	<td>추가내용 : </td>
 	<td>
-	<textarea name="c_comment" rows="12" cols="61">
+	<textarea name="c_comment" id="c_comment" rows="12" cols="61" size="1333" maxlength="1333">
+	(입력하실 분만 입력해주시면 됩니다.)
 차종:
 
 카풀운행주기:

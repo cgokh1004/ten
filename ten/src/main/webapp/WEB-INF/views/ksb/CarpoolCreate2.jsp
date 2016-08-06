@@ -12,10 +12,28 @@
 $(function(){
   $('.datetimepicker').appendDtpicker({'locale':'ko',defalutDate : new Date() });
 });
+
+function InputCheck(){
+	if($("#startdate").val()==''){
+		alert("출발일시를 입력해주세요")
+		$("#startdate").focus()
+		return false;
+	}
+	if($("#seat").val()==''){
+		alert("인원수를 입력해주세요")
+		$("#seat").focus()
+		return false;
+	}
+	if($("#price").val()==''){
+		alert("1인당 금액을 입력해주세요")
+		$("#price").focus()
+		return false;
+	}
+}
 </script>
 </head>
 <body>
-<form name="frm" method="post" action="/ten/carpool/create3">
+<form name="frm" method="post" action="/ten/carpool/create3" onsubmit="return InputCheck()">
 	<input type="hidden" name="c_start" value="${carpoolDTO.c_start}">
 	<input type="hidden" name="c_startv" value="${carpoolDTO.c_startv}">
 	<input type="hidden" name="via" value="${carpoolDTO.via}">
@@ -30,7 +48,7 @@ $(function(){
 	<tr>
 	<td>출발일시 : </td>
 	<td >
-		<input type="text" name='startdate' class='datetimepicker' style="border: 1px solid #d8d8d8; width: 40%; height: 35px">
+		<input type="text" name='startdate' id='startdate' class='datetimepicker' style="border: 1px solid #d8d8d8; width: 40%; height: 35px">
 	</td>
 	<td rowspan="5" width="40%" style="padding-left: 100px">
 	<div id='map' style="width:300px;height:400px;"></div>
@@ -42,14 +60,16 @@ $(function(){
 	인원수 : </td>
 	<td>
 	인원수를 입력해주세요<br><br>
-	<input name="seat" type="text"style="border: none; border: 1px solid #d8d8d8; width: 15%; height: 35px">명
+	<input name="seat" id="seat" type="text" size="10" maxlength="10"
+	style="border: none; border: 1px solid #d8d8d8; width: 15%; height: 35px">명
 	</td>
 	</tr>
 	<tr>
 	<td>금액 : </td>
 	<td>
 	1인당 편도 금액을 입력해주세요<br><br>
-	<input name="price" type="text"style="border: none; border: 1px solid #d8d8d8; width: 15%; height: 35px">원/인당
+	<input name="price" id="price" type="text" size="10" maxlength="10"
+	style="border: none; border: 1px solid #d8d8d8; width: 15%; height: 35px">원/인당
 	</td>
 	</tr>
 	</table>

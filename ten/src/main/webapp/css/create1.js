@@ -1,4 +1,4 @@
-function input(){
+function InputCheck(){
 		document.frm.c_startv.value = document.frm1.c_startv.value;
 		document.frm.c_start.value = document.frm1.c_start.value;
 		document.frm.viav.value = document.frm2.viav.value;
@@ -31,8 +31,8 @@ function input(){
 			return false;
 		}
 		if(document.frm2.via.value!=''&&document.frm2.viav.value==''){
-			alert('경유지를 검색하시고 검색된 목록에서 경우지를 선택해주세요');
-			document.frm1.search2.focus()
+			alert('경유지를 검색하시고 검색된 목록에서 경유지를 선택해주세요');
+			document.frm2.search2.focus()
 			return false;
 		}
 		if(document.frm3.c_end.value==''){
@@ -42,10 +42,9 @@ function input(){
 		}
 		if(document.frm3.c_endv.value==''){
 			alert('목적지를 검색하시고 검색된 목록에서 목적지를 선택해주세요');
-			document.frm1.search3.focus()
+			document.frm3.search3.focus()
 			return false;
-		}
-		
+		}		
 	}
 	
 	function find(){
@@ -71,8 +70,10 @@ function input(){
 							.val('태워주세요')
 				});
 		
-		$("#c_start").click(
-				function() {
+		$("#c_start").focus(function() {
+			$(this).val("")
+			$("#c_startv").val("")
+			$(".map_wrap2").slideUp(), $(".map_wrap3").slideUp()	
 			$("#search1").show("blind", { direction: "left" }, 700),
 			$("#c_start").animate({width : '68.5%'}, 700),
 			$("#search2").hide("blind", { direction: "left" }, 700),
@@ -80,8 +81,11 @@ function input(){
 			$("#search3").hide("blind", { direction: "left" }, 700),
 			$("#c_end").animate({width : '80.5%'}, 700)
 		});
-		$("#via").click(function() {
-			$(".map_wrap1").slideUp(),$("#search1").hide("blind", { direction: "left" }, 700),
+		$("#via").focus(function() {
+			$(this).val("")
+			$("#viav").val("")
+			$(".map_wrap1").slideUp(),$(".map_wrap3").slideUp(),
+			$("#search1").hide("blind", { direction: "left" }, 700),
 			$("#search2").show("blind", { direction: "left" }, 700),
 			$("#via").animate({width : '68.5%'}, 700),
 			$("#search1").hide("blind", { direction: "left" }, 700),
@@ -89,7 +93,9 @@ function input(){
 			$("#search3").hide("blind", { direction: "left" }, 700),
 			$("#c_end").animate({width : '80.5%'}, 700)
 		});
-		$("#c_end").click(function() {
+		$("#c_end").focus(function() {
+			$(this).val("")
+			$("#c_endv").val("")
 			$(".map_wrap1").slideUp(), $(".map_wrap2").slideUp(),
 			$("#search3").show("blind", { direction: "left" }, 700),
 			$("#c_end").animate({width : '68.5%'}, 700),
@@ -97,9 +103,4 @@ function input(){
 			$("#c_start").animate({width : '80.5%'}, 700),
 			$("#search2").hide("blind", { direction: "left" }, 700),
 			$("#via").animate({width : '80.5%'}, 700);
-		});
-		$("#next").click(function(){
-			$(".map_wrap3").slideUp()
-			$("#search3").hide("blind", { direction: "left" }, 700),
-			$("#c_end").animate({width : '80.5%'}, 700)
 		});

@@ -233,18 +233,8 @@
 		var distanceOverlay = new daum.maps.CustomOverlay({
 			content : distance,
 		});
-		var start=document.getElementById("c_startv").value;
-		var	st1=start.substring(1,start.indexOf(","));
-		var	st2=start.substring(start.indexOf(",")+1,start.length-1);
-		var via=document.getElementById("viav").value;
-		var	vi1=via.substring(1,via.indexOf(","));
-		var	vi2=via.substring(via.indexOf(",")+1,via.length-1);
-		var end=document.getElementById("c_endv").value;
-		var	en1=end.substring(1,end.indexOf(","));
-		var	en2=end.substring(end.indexOf(",")+1,end.length-1);
 		
 		function ShareClick(marker, title) {
-
 			map.panTo(marker.getPosition());
 			document.getElementById(rgap).value = marker.getPosition();
 			document.getElementById(rplace).value = title;
@@ -268,33 +258,67 @@
 				customOverlay3.setMap(map);
 			}
 		}
+		
+		var polyline = new daum.maps.Polyline({
+			strokeWeight : 3,
+			strokeColor : 'red',
+			strokeOpacity : 0.8,
+			strokeStyle : 'dash'
+		});
             $("#choice").click(function(){
-            	removeMarker();
             	var bounds2 = new daum.maps.LatLngBounds();
+            	var via=$("#viav").val()
+            	if($("#c_start").val()==''){
+            		alert("출발지를 검색해 주세요")
+            		$("#c_start").focus()
+            		return false;
+            	}
+            	if($("#c_startv").val()==''){
+            		alert("출발지를 검색하시고 검색된 목록에서 출발지를 선택해주세요")
+            		$("#search1").focus()
+            		return false;
+            	}
+            	if($("#via").val()==''){
+            		customOverlay2.setMap(null)
+            	}
+            	if($("#via").val()!=''&&$("#viav").val()==''){
+            		alert("경유지를 검색하시고 검색된 목록에서 경유지를 선택해주세요")
+            		$("#search2").focus()
+            		return false;
+            	}
+            	if($("#c_end").val()==''){
+            		alert("목적지를 검색해 주세요")
+            		$("#c_end").focus()
+            		return false;
+            	}
+            	if($("#c_endv").val()==''){
+            		alert("목적지를 검색하시고 검색된 목록에서 목적지를 선택해주세요")
+            		$("#search3").focus()
+            		return false;
+            	}
+            	removeMarker();
+            	//지도 재정렬
             	bounds2.extend(customOverlay1.getPosition());
         		if(via!=''){bounds2.extend(customOverlay2.getPosition())};
         		bounds2.extend(customOverlay3.getPosition());
-        		alert(bounds2)
-				map.setBounds(bounds2)
+				map.setBounds(bounds2);
 				
-				var polyline = new daum.maps.Polyline({
-					strokeWeight : 3,
-					strokeColor : 'red',
-					strokeOpacity : 0.8,
-					strokeStyle : 'dash'
-				});
+				//선긋기
 				var path= polyline.getPath();
 				path.push(customOverlay1.getPosition());
-				if(viav!=''){path.push(customOverlay2.getPosition());}
+				if(via!=''){path.push(customOverlay2.getPosition());}
 				path.push(customOverlay3.getPosition());
 				polyline.setPath(path);
 				polyline.setMap(map)
+				path.splice(0,path.length)
 				
+				//총거리
 				distance = "<div id='overlay' style='margin-top: 60px;width:100px;box-shadow : 0 0 5px red'>총거리 : "
 						+ Math.round(polyline.getLength() / 1000) + "km</div>";
 				distanceOverlay.setPosition(customOverlay3.getPosition());
 				distanceOverlay.setContent(distance);
 				distanceOverlay.setMap(map);
+				//검색창 애니매이션
 				$(".map_wrap3").slideUp()
 				$("#search3").hide("blind", { direction: "left" }, 700),
 				$("#c_end").animate({width : '80.5%'}, 700)
