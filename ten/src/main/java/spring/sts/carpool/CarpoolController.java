@@ -109,6 +109,8 @@ public class CarpoolController {
 		try {
 			Object pk=(Object)carpoolno;
 			CarpoolDTO carpoolDTO=(CarpoolDTO) carpoolDAO.read(pk);
+			String c_comment=carpoolDTO.getC_comment().replaceAll("\r\n", "<BR>");
+			carpoolDTO.setC_comment(c_comment);
 			model.addAttribute("carpoolDTO",carpoolDTO);
 			model.addAttribute("kind1",kind1);
 			model.addAttribute("kind2",kind2);
@@ -117,8 +119,6 @@ public class CarpoolController {
 			
 			if(carpoolDTO.getC_type().equals("정기카풀")){	
 				if(carpoolDTO.getKind().equals("타세요")){
-					System.out.println(carpoolDTO.getC_startv());
-					System.out.println("dddd");
 					return "/carpool/read1-1";
 				}
 				if(carpoolDTO.getKind().equals("태워주세요")){
@@ -135,8 +135,6 @@ public class CarpoolController {
 			}
 			if(carpoolDTO.getC_type().equals("여성전용카풀")){				
 				if(carpoolDTO.getKind().equals("타세요")){
-					System.out.println(carpoolDTO.getC_startv());
-					System.out.println("dddd");
 					return "/carpool/read3-1";
 				}
 				if(carpoolDTO.getKind().equals("태워주세요")){

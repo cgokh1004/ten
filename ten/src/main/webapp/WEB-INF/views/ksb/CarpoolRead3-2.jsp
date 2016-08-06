@@ -8,6 +8,11 @@
 </head>
 <body>
 <h1 style="color: #ff3c6c">여성전용 카풀</h1>
+
+<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv">
+	<input type="hidden" value="${carpoolDTO.viav}" id="viav">
+	<input type="hidden" value="${carpoolDTO.c_endv}" id="c_endv">
+	
 	<h2>태워주세요</h2>
 	<table style="width: 100%;">
 		<tr>
@@ -61,16 +66,18 @@
 					</tr>
 				</table>
 		<tr>
-			<td colspan="4"><div id='map' style="width:800px;height:400px;"></div></td>
+			<td colspan="4">	
+		<input type="button" id="roadfind"
+				value="실제 경로찾기" onclick="find()">
+			<div id='map' style="width:800px;height:400px;"></div>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
 			<h3>추가내용</h3>
-			<div style="border:1px solid gray">
-	차종:<br>
-	카풀운행주기:<br>
-	연락처(전화번호,카톡):momossic<br>
-	기타내용: 인턴으로 인해서 세종국책연구단지 까지 가야되는데 카풀 태워주실분 카톡주세요!</div>
+				<div style="border:1px solid gray">
+					${carpoolDTO.c_comment}
+				</div>
 			</td>
 		</tr>
 		<tr>
@@ -102,6 +109,16 @@
 <!--     여기 Jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
+function find(){
+	var url = "http://map.daum.net/"
+	var start=$("#c_start").text()
+	var end=$("#c_end").text()
+	
+	url=url+"?sName="+start
+	url=url+"&eName="+end
+	window.open(url,"실제경로검색");
+}
+
 	$("#star1").click(function(){$("#star1,#star2,#star3,#star4,#star5").attr("src","../images/별0.png"),
 		$(this).attr("src","../images/별1.png")})
 	$("#star2").click(function(){$("#star1,#star2,#star3,#star4,#star5").attr("src","../images/별0.png"),
@@ -122,12 +139,11 @@
 </script>
 	<!-- 다음 지도 -->
 	<script type="text/javascript"
-		src="//apis.daum.net/maps/maps3.js?apikey=0f292ae68136f93ccfb794979c80117b"></script>
-	<script>
+		src="//apis.daum.net/maps/maps3.js?apikey=dfb4b6ea4ce68e78f0cb653cf043d987&libraries=services"></script>
+	<script type="text/javascript">
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
-			center : new daum.maps.LatLng(35.908323969850315,
-					127.35909732697293), // 지도의 중심좌표
+			center : new daum.maps.LatLng(38.22448620467488, 126.87515469340481), // 지도의 중심좌표
 			level : 14
 		// 지도의 확대 레벨
 		};
@@ -144,6 +160,71 @@
 		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
 		var zoomControl = new daum.maps.ZoomControl();
 		map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+		// 커스텀 오버레이가 표시될 위치입니다 
+
+		var c_startv = document.getElementById("c_startv").value;
+		var st1 = c_startv.substring(1, c_startv.indexOf(","));
+		var st2 = c_startv.substring(c_startv.indexOf(",") + 1,
+				c_startv.length - 1);
+		var viav = document.getElementById("viav").value;
+		var vi1 = viav.substring(1, viav.indexOf(","));
+		var vi2 = viav.substring(viav.indexOf(",") + 1, viav.length - 1);
+		var c_endv = document.getElementById("c_endv").value;
+		var en1 = c_endv.substring(1, c_endv.indexOf(","));
+		var en2 = c_endv.substring(c_endv.indexOf(",") + 1, c_endv.length - 1);
+
+		// 커스텀 오버레이를 생성합니다
+		var customOverlay1 = new daum.maps.CustomOverlay({
+			position : new daum.maps.LatLng(st1, st2),
+			content : "<div id='overlay'>출발지</div>"
+		});
+		var customOverlay2 = new daum.maps.CustomOverlay({
+			position : new daum.maps.LatLng(vi1, vi2),
+			content : "<div id='overlay'>경유지</div>"
+		});
+		var customOverlay3 = new daum.maps.CustomOverlay({
+			position : new daum.maps.LatLng(en1, en2),
+			content : "<div id='overlay'>목적지</div>"
+		});
+
+		// 커스텀 오버레이를 지도에 표시합니다
+		customOverlay1.setMap(map);
+		customOverlay2.setMap(map);
+		customOverlay3.setMap(map);
+
+		//선긋기
+		var polyline = new daum.maps.Polyline({
+			strokeWeight : 3,
+			strokeColor : 'red',
+			strokeOpacity : 0.8,
+			strokeStyle : 'dash'
+		});
+		var path = polyline.getPath();
+		path.push(customOverlay1.getPosition());
+		if (viav != '') {
+			path.push(customOverlay2.getPosition());
+		}
+		path.push(customOverlay3.getPosition());
+		polyline.setPath(path);
+		polyline.setMap(map)
+		//총거리
+
+		var distance = "<div id='overlay' style='margin-top: 60px;width:100px;box-shadow : 0 0 5px red'>총거리 : "
+				+ Math.round(polyline.getLength() / 1000) + "km</div>";
+		var distanceOverlay = new daum.maps.CustomOverlay({
+			content : distance
+		});
+		distanceOverlay.setPosition(customOverlay3.getPosition());
+		distanceOverlay.setMap(map);
+		//지도 범위 재정렬
+		var bounds = new daum.maps.LatLngBounds();
+		bounds.extend(customOverlay1.getPosition());
+		if (viav != '') {
+			bounds.extend(customOverlay2.getPosition())
+		};
+		bounds.extend(customOverlay3.getPosition());
+		map.setBounds(bounds);
 	</script>
 </body>
 </html>

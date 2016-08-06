@@ -131,7 +131,7 @@ CREATE TABLE carpool (
 
 --기본사항--
 select *from carpool;
-drop table carpool;
+drop table carpool cascade constraint;
 alter table carpool modify(c_startv varchar2(50char));
 alter table carpool modify(c_endv varchar2(50char));
 alter table carpool modify(viav varchar2(50char));
