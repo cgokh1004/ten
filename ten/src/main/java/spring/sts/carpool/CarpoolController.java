@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.carpool.CarpoolDAO;
 import spring.model.carpool.CarpoolDTO;
+import spring.model.carpool_reply.Carpool_ReplyDAO;
+import spring.model.carpool_reply.Carpool_ReplyDTO;
+import spring.model.member.MemberDAO;
 import spring.utility.ten.Paging;
 import spring.utility.ten.Utility;
 
@@ -24,9 +27,11 @@ import spring.utility.ten.Utility;
 public class CarpoolController {
 	
 	@Autowired
-	CarpoolDAO carpoolDAO;
+	private CarpoolDAO carpoolDAO;
 	@Autowired
-	CarpoolDAO MemberDAO;
+	private MemberDAO memberDAO;
+	@Autowired
+	private Carpool_ReplyDAO carpool_replyDAO;
 	
 	@RequestMapping("/carpool/list")
 	public String list(HttpServletRequest request,Model model){
@@ -105,8 +110,38 @@ public class CarpoolController {
 	
 	
 	@RequestMapping("/carpool/read")
-	public String read1(int carpoolno,String nowPage,String kind1,String kind2,String word1,String word2,Model model){
+	public String read1(int carpoolno,int nowPage,String kind1,String kind2,String word1,String word2,
+			Model model,HttpServletRequest request){
 		try {
+			/* 댓글 관련  시작 */
+			String url = "read";
+			int nPage= 1; //시작 페이지 번호는 1부터 
+			 
+			if (request.getParameter("nPage") != null) { 
+			nPage= Integer.parseInt(request.getParameter("nPage"));  
+			}
+			int recordPerPage = 3; // 한페이지당 출력할 레코드 갯수
+			 
+			int sno = ((nPage-1) * recordPerPage) + 1; // 
+			int eno = nPage * recordPerPage;
+			 
+			Map map = new HashMap();
+			map.put("sno", sno);
+			map.put("eno", eno);
+			map.put("carpoolno", carpoolno);
+			 
+			List<Carpool_ReplyDTO> list = carpool_replyDAO.list(map);
+			Map map1= new HashMap();
+			map1.put("carpoolno", carpoolno);
+			int total = carpool_replyDAO.total(map1);
+			 
+			String paging = Utility.paging(total, nPage, recordPerPage, url,carpoolno,nowPage, kind1,kind2,word1,word2);
+			 
+			model.addAttribute("rlist",list);
+			model.addAttribute("paging",paging);
+			model.addAttribute("nPage",nPage);
+			 
+			/* 댓글 관련 끝 */ 
 			Object pk=(Object)carpoolno;
 			CarpoolDTO carpoolDTO=(CarpoolDTO) carpoolDAO.read(pk);
 			String c_comment=carpoolDTO.getC_comment().replaceAll("\r\n", "<BR>");
@@ -145,6 +180,90 @@ public class CarpoolController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "d";
+		return "/error/error";
 	}
+	
+	
+
+	 
+	@RequestMapping("/carpool/rdelete")
+	public String rdelete(int crep_no,int carpoolno, int nowPage,int nPage, String kind1,String kind2, 
+			String word1,String word2,Model model){ 
+	try {
+		Object pk=(Object) crep_no;
+		Map map=new HashMap();
+		map.put("carpoolno", carpoolno);
+		int total;
+		total = carpool_replyDAO.total(map);
+		int totalPage = (int)(Math.ceil((double)total/3)); // 전체 페이지  
+		//댓글전체레코드값을 가져와서
+		if(carpool_replyDAO.delete(pk)>0){
+			if(nPage!=1&&nPage==totalPage&&total%3==1){//마지막페이지의 마지막레코드이면(3은 한페이지당보여줄 레코드 갯수)
+				nPage=nPage-1;  //현재의 페이지값에서 1을 빼자 
+			}
+			model.addAttribute("carpoolno", carpoolno);
+			model.addAttribute("nowPage", nowPage);
+			model.addAttribute("nPage", nPage);
+			model.addAttribute("kind1", kind1);
+			model.addAttribute("kind2", kind2);
+			model.addAttribute("word1", word1);
+			model.addAttribute("word2", word2);
+			
+		}else{
+			return "error/error";
+		}
+		
+		return "redirect:./read";
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	    return "error/error";
+	}
+	 
+	@RequestMapping("/bbs/rupdate")
+	public String rupdate(Carpool_ReplyDTO dto,int nowPage,int nPage, String kind1,String kind2, 
+			String word1,String word2,Model model){
+	try {
+		if(carpool_replyDAO.update(dto)>0){
+		model.addAttribute("carpoolno", dto.getCarpoolno());
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("nPage", nPage);
+		model.addAttribute("kind1", kind1);
+		model.addAttribute("kind2", kind2);
+		model.addAttribute("word1", word1);
+		model.addAttribute("word2", word2);
+		}else{
+		return "error/error";
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}	 
+	return "redirect:./read";
+	}
+	
+	@RequestMapping("/bbs/rcreate")
+	public String rcreate(Carpool_ReplyDTO dto,int nowPage,String kind1,String kind2, 
+			String word1,String word2,Model model){
+	 
+	try {
+		if(carpool_replyDAO.create(dto)>0){
+		model.addAttribute("carpoolno", dto.getCarpoolno());
+		model.addAttribute("nowPage", nowPage);
+		model.addAttribute("kind1", kind1);
+		model.addAttribute("kind2", kind2);
+		model.addAttribute("word1", word1);
+		model.addAttribute("word2", word2);
+		}else{
+		return "error/error";
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 
+	return "redirect:./read";
+	}
+	
 }

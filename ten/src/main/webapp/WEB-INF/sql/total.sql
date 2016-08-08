@@ -1,5 +1,6 @@
 CREATE TABLE member (
        id                   varchar2(12char) NOT NULL,
+       passwd	 varchar2(30char) NOT NULL,
        name                 varchar2(10char) NOT NULL,
        gender               varchar2(12char) NOT NULL
                                    CHECK (gender IN ('남', '여')),
@@ -55,6 +56,7 @@ CREATE TABLE survey (
        sulno                NUMBER(10) NOT NULL,
        askcontent           varchar2(50char) NOT NULL, 
        sulgroupname	    varchar2(20char) NOT NULL,
+       sulstate             varchar2(10char) NOT NULL,
        PRIMARY KEY (sulno)
 );
 
@@ -71,6 +73,7 @@ CREATE TABLE sulconfirm (
                              REFERENCES survey
 );
 
+drop table events
 CREATE TABLE events (
        event_id             NUMBER(10) NOT NULL,
        event_name           varchar(127) NOT NULL,
@@ -166,7 +169,9 @@ CREATE TABLE food_review (
 CREATE TABLE ktx (
        ktx_no               number(10) NOT NULL,
        s_point              varchar2(50char) NOT NULL,
+       s_address	    varchar2(80char) NOT NULL,
        r_point              varchar2(50char) NOT NULL,
+       r_address	    varchar2(80char) NOT NULL,
        purpose              varchar2(5char) NOT NULL,
        s_date               DATE NOT NULL,
        seat                 NUMBER(1) NOT NULL
@@ -283,7 +288,7 @@ CREATE TABLE advise (
                              REFERENCES member
 );
 
-
+drop table bus
 CREATE TABLE bus (
        busno                NUMBER(10) NOT NULL,
        id                   VARCHAR2(12char) NOT NULL,
@@ -363,16 +368,18 @@ CREATE TABLE reser_comp (
 
 
 
+select * from member
+
 CREATE TABLE carpool (
        carpoolno            NUMBER(10) NOT NULL,
        id                   varchar2(12char) NOT NULL,
        carpooldate          DATE NOT NULL,
        c_start           		varchar2(30char) NOT NULL,
-       c_startv           		varchar2(50char) NOT NULL,
+       c_startv           		varchar2(30char) NOT NULL,
        c_end                 	varchar2(30char) NOT NULL,
-       c_endv                 	varchar2(50char) NOT NULL,
+       c_endv                 	varchar2(30char) NOT NULL,
        via                  varchar2(30char) NULL,
-       viav                  varchar2(50char) NULL,
+       viav                  varchar2(30char) NULL,
        purpose              varchar2(15char) NOT NULL,
        c_type                 varchar2(15char) NOT NULL
                                     CHECK (c_type IN ('장기카풀', '단기카풀', '여성전용카풀')),

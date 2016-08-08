@@ -35,7 +35,7 @@ where crep_no=#{crep_no}
 <result column="crep_date" property="crep_date"/>
 <result column="content" property="content"/>
 <result column="carpoolno" property="carpoolno"/>
-<result column="name" property="memdto.name"/>
+<result column="name" property="memberDTO.name"/>
 </resultMap>
 
 <select id="list" parameterType="Map" resultMap="Carpool_ReplyDTOResultMap">

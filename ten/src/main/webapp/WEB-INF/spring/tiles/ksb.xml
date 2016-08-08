@@ -15,7 +15,7 @@
 		<put-attribute name="title" value="IT Share"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
-
+<!-- 	카풀 -->
 	<definition name="/carpool/list" extends="main">
 		<put-attribute name="title" value="Carpool List"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolList.jsp" />
@@ -60,5 +60,6 @@
 		<put-attribute name="title" value="Carpool Read"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead3-2.jsp" />
 	</definition>
+		
 </tiles-definitions> 
 

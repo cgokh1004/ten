@@ -24,8 +24,18 @@ function InputCheck(){
 		$("#seat").focus()
 		return false;
 	}
+	if($.isNumeric($("#seat").val())==false){
+		alert("숫자를 입력해주세요")
+		$("#seat").focus()
+		return false;
+	}
 	if($("#price").val()==''){
 		alert("1인당 금액을 입력해주세요")
+		$("#price").focus()
+		return false;
+	}
+	if($.isNumeric($("#price").val())==false){
+		alert("숫자를 입력해주세요")
 		$("#price").focus()
 		return false;
 	}
