@@ -54,11 +54,11 @@
 <body>
 <h1 style="color: #ff3c6c">여성전용 카풀</h1>
 
-<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv">
+	<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv">
 	<input type="hidden" value="${carpoolDTO.viav}" id="viav">
 	<input type="hidden" value="${carpoolDTO.c_endv}" id="c_endv">
 	
-	<h2>태워주세요</h2>
+	<h2 align="left">태워주세요</h2>
 	<table style="width: 100%;">
 		<tr>
 			<td width="10%">출발 :</td>
@@ -112,14 +112,14 @@
 				</table>
 		<tr>
 			<td colspan="4">	
-		<input type="button" id="roadfind"
+				<input type="button" id="roadfind"
 				value="실제 경로찾기" onclick="find()">
-			<div id='map' style="width:800px;height:400px;"></div>
+				<div id='map' style="width:800px;height:400px;"></div>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
-			<h3>추가내용</h3>
+			<h3 align="left">추가내용</h3>
 				<div style="border:1px solid gray">
 					${carpoolDTO.c_comment}
 				</div>
@@ -127,7 +127,7 @@
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
-			<h3>평가</h3>
+			<h3 align="left">평가</h3>
 			<div align="center" style="border:0px solid;background-color:gray;border-radius:5px"><br>
 			상대방을 평가해 주세요. (예약을 하거나 메시지를 주고 받은 상대방을 평가 할 수 있습니다.)<br>
 			<br>
@@ -147,7 +147,7 @@
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
-			<h3>댓글</h3>
+			<h3 align="left">댓글</h3>
 			 <c:forEach var="carpool_replyDTO" items="${rlist}">
 				  <div class="rlist">
 				   ${carpool_replyDTO.id}<br/>
@@ -264,7 +264,6 @@ function find(){
 	window.open(url,"실제경로검색");
 }
 function score(score){
-	alert("1")
 	var url = "../carpool_review/create"
 		url = url+"?score="+score
 		url = url+"&carpoolno="+${carpoolDTO.carpoolno}
@@ -272,47 +271,47 @@ function score(score){
 	window.open(url,"별점 평가","width=500, height=360, left=500, top=200,menubar=no");
 }
 
-	$("#star1").click(
-			function() {
-				$("#star1,#star2,#star3,#star4,#star5").attr("src",
-						"../images/별0.png"), 
-				$(this).attr("src","../images/별1.png"),
-				score(1);
-			})
-	$("#star2").click(
-			function() {
-				$("#star1,#star2,#star3,#star4,#star5").attr("src",
-						"../images/별0.png"),
-				$("#star1,#star2").attr("src", "../images/별1.png"),
-				score(2);
-			})
-	$("#star3").click(
-			function() {
-				$("#star1,#star2,#star3,#star4,#star5").attr("src",
-						"../images/별0.png"), 
-				$("#star1,#star2,#star3").attr("src","../images/별1.png"),
-				score(3);
-			})
-	$("#star4").click(
-			function() {
-				$("#star1,#star2,#star3,#star4,#star5").attr("src",
-						"../images/별0.png"),
-				$("#star1,#star2,#star3,#star4").attr("src","../images/별1.png"),
-				score(4);
-			})
-	$("#star5").click(
-			function() {
-				$("#star1,#star2,#star3,#star4,#star5").attr("src",
-						"../images/별0.png"),
-				$("#star1,#star2,#star3,#star4,#star5").attr("src", "../images/별1.png"),
-				score(5);
-			})
-	$("#star1,#star2,#star3,#star4,#star5").dblclick(
-			function() {
-				$("#star1,#star2,#star3,#star4,#star5").attr("src",
-						"../images/별0.png"),
-				score(0);
-			});
+$("#star1").click(
+		function() {
+			$("#star1,#star2,#star3,#star4,#star5").attr("src",
+					"../images/별0.png"), 
+			$(this).attr("src","../images/별1.png"),
+			score(1);
+		})
+$("#star2").click(
+		function() {
+			$("#star1,#star2,#star3,#star4,#star5").attr("src",
+					"../images/별0.png"),
+			$("#star1,#star2").attr("src", "../images/별1.png"),
+			score(2);
+		})
+$("#star3").click(
+		function() {
+			$("#star1,#star2,#star3,#star4,#star5").attr("src",
+					"../images/별0.png"), 
+			$("#star1,#star2,#star3").attr("src","../images/별1.png"),
+			score(3);
+		})
+$("#star4").click(
+		function() {
+			$("#star1,#star2,#star3,#star4,#star5").attr("src",
+					"../images/별0.png"),
+			$("#star1,#star2,#star3,#star4").attr("src","../images/별1.png"),
+			score(4);
+		})
+$("#star5").click(
+		function() {
+			$("#star1,#star2,#star3,#star4,#star5").attr("src",
+					"../images/별0.png"),
+			$("#star1,#star2,#star3,#star4,#star5").attr("src", "../images/별1.png"),
+			score(5);
+		})
+$("#star1,#star2,#star3,#star4,#star5").dblclick(
+		function() {
+			$("#star1,#star2,#star3,#star4,#star5").attr("src",
+					"../images/별0.png"),
+			score(0);
+		});
 </script>
 	<!-- 다음 지도 -->
 	<script type="text/javascript"

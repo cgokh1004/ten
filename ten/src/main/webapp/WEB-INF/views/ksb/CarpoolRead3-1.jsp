@@ -49,8 +49,6 @@
   
   margin: 20px auto; /* 가운데 정렬 기능, 20px: 위 아래, auto: 오른쪽 왼쪽*/
 }
- 
- 
 </style>  
 
 </head>
@@ -60,7 +58,6 @@
 	<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv">
 	<input type="hidden" value="${carpoolDTO.viav}" id="viav">
 	<input type="hidden" value="${carpoolDTO.c_endv}" id="c_endv">
-
 
 	<h2 align="left">타세요</h2>
 	<table style="width: 100%;">
@@ -273,7 +270,6 @@
 	}
 	
 	function score(score){
-		alert("1")
 		var url = "../carpool_review/create"
 			url = url+"?score="+score
 			url = url+"&carpoolno="+${carpoolDTO.carpoolno}

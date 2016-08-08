@@ -60,13 +60,13 @@ function read(no){
 				>태워주세요</option>
 			</select>
 		
-				<img src="${pageContext.request.contextPath}/image/ico_start.gif" title="출발지" alt="출발지" width="12px"
+				<img src="${pageContext.request.contextPath}/images/ico_start.gif" title="출발지" alt="출발지" width="12px"
 					height="20px"> 
 					<input type="search" name="word1"
 					value="${word1}" title="출발지를 입력해주세요" size="10" maxlength="100"
 					placeholder="서울"
 					style="border: none; border: 1px solid #d8d8d8; width: 20%; height: 35px">
-				<img src="${pageContext.request.contextPath}/image/ico_arrival.gif" title="도착지" alt="도착지" width="12px"
+				<img src="${pageContext.request.contextPath}/images/ico_arrival.gif" title="도착지" alt="도착지" width="12px"
 					height="20px"> 
 					<input type="search" name="word2"
 					value="${word2}" title="도착지를 입력해주세요" size="10" maxlength="100"
@@ -98,7 +98,7 @@ function read(no){
 			</c:when>
 			<c:otherwise>
 		<c:forEach items="${list}" var="carpoolDTO">
-		<tr onclick="read(${carpoolDTO.carpoolno})">
+		<tr onclick="read(${carpoolDTO.carpoolno})" style="cursor: pointer;">
 			<td style="text-align: center"><img alt="photo"
 				src="${pageContext.request.contextPath}/storage/${carpoolDTO.memberDTO.mfile}"
 				width="100%"><br>${carpoolDTO.memberDTO.name}</td>
