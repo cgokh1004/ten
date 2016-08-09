@@ -1,0 +1,42 @@
+#overlay {
+	background-color: white;
+	border: 0px solid;
+	border-radius: 5px;
+	width: 50px;
+	height: 20px;
+	font-size: 12px;
+	box-shadow: 0 0 5px gray;
+}
+.rcreate{
+  font-size: 20px;
+  font-weight:bold;
+  text-align: left;
+  border-style: solid;   /* 실선 */
+  border-width: 1px;     /* 선 두께 */
+  border-color: #AAAAAA; /* 선 색깔 */
+  color: #000000;        /* 글자 색깔 */
+  width: 35%;            /* 화면의 30% */ 
+  padding: 10px;         /* 위 오른쪽 아래 왼쪽: 시간 방향 적용 */
+  
+  /* padding: 50px 10px;  50px: 위 아래, 10px: 좌우 */
+  /* padding-top: 30px;  상단만 간격을 30px 지정   */
+  
+  margin: 20px auto; /* 가운데 정렬 기능, 20px: 위 아래, auto: 오른쪽 왼쪽*/
+}
+.rlist{
+  line-height:1.2em;
+  font-size: 15px;
+  font-weight:bold;
+  text-align: left;
+  border-style: solid;   /* 실선 */
+  border-width: 1px;     /* 선 두께 */
+  border-color: #AAAAAA; /* 선 색깔 */
+  color: #000000;        /* 글자 색깔 */
+  width: 35%;            /* 화면의 30% */ 
+  padding: 10px;         /* 위 오른쪽 아래 왼쪽: 시간 방향 적용 */
+  
+  /* padding: 50px 10px;  50px: 위 아래, 10px: 좌우 */
+  /* padding-top: 30px;  상단만 간격을 30px 지정   */
+  
+  margin: 20px auto; /* 가운데 정렬 기능, 20px: 위 아래, auto: 오른쪽 왼쪽*/
+}

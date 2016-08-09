@@ -209,11 +209,11 @@ public class CarpoolController {
 			model.addAttribute("word1", word1);
 			model.addAttribute("word2", word2);
 			
+			return "redirect:./read";
 		}else{
 			return "error/error";
 		}
 		
-		return "redirect:./read";
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -221,7 +221,7 @@ public class CarpoolController {
 	    return "error/error";
 	}
 	 
-	@RequestMapping("/bbs/rupdate")
+	@RequestMapping("/carpool/rupdate")
 	public String rupdate(Carpool_ReplyDTO dto,int nowPage,int nPage, String kind1,String kind2, 
 			String word1,String word2,Model model){
 	try {
@@ -233,6 +233,7 @@ public class CarpoolController {
 		model.addAttribute("kind2", kind2);
 		model.addAttribute("word1", word1);
 		model.addAttribute("word2", word2);
+		return "redirect:./read";
 		}else{
 		return "error/error";
 		}
@@ -240,21 +241,24 @@ public class CarpoolController {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}	 
-	return "redirect:./read";
+		return "error/error";
 	}
 	
-	@RequestMapping("/bbs/rcreate")
+	@RequestMapping("/carpool/rcreate")
 	public String rcreate(Carpool_ReplyDTO dto,int nowPage,String kind1,String kind2, 
 			String word1,String word2,Model model){
 	 
 	try {
+		dto.setId("ktw3722");
 		if(carpool_replyDAO.create(dto)>0){
+
 		model.addAttribute("carpoolno", dto.getCarpoolno());
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("kind1", kind1);
 		model.addAttribute("kind2", kind2);
 		model.addAttribute("word1", word1);
 		model.addAttribute("word2", word2);
+		return "redirect:./read";
 		}else{
 		return "error/error";
 		}
@@ -263,7 +267,7 @@ public class CarpoolController {
 		e.printStackTrace();
 	}
 	 
-	return "redirect:./read";
+		return "error/error";
 	}
 	
 }

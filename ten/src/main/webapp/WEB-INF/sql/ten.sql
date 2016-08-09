@@ -278,11 +278,11 @@ insert into carpool_reply
 (crep_no,crep_date,id,content,carpoolno) 
 values 
 ( (SELECT NVL(MAX(crep_no), 0) + 1 as crep_no FROM carpool_reply),
-(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),'ktw3722','그날가능합니다',1);
+(SELECT TRUNC(SYSDATE , 'MI') as crep_date FROM DUAL),'ktw3722','그날가능합니다',1);
 
 --read--
 SELECT crep_no,crep_date,id,content,carpoolno 
-FROM carpool_reply WHERE crep_no=2;
+FROM carpool_reply WHERE carpoolno=6;
 
 --update--
 update carpool_reply

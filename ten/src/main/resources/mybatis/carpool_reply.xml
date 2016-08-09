@@ -8,8 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 insert into carpool_reply 
 (crep_no,crep_date,id,content,carpoolno) 
 values 
-( (SELECT NVL(MAX(crev_no), 0) + 1 as crev_no FROM carpool_review),
-(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),#{id},#{content},#{carpoolno})
+( (SELECT NVL(MAX(crep_no), 0) + 1 as crep_no FROM carpool_reply),
+(SELECT TRUNC(SYSDATE , 'MI') as crep_date FROM DUAL),#{id},#{content},#{carpoolno})
 </insert>
 
 <select id="read" parameterType="int" resultType="Carpool_ReplyDTO">
@@ -21,7 +21,7 @@ WHERE crep_no=#{crep_no}
 <update id="update" parameterType="Carpool_ReplyDTO">
 update carpool_reply
 set 
-crep_date=(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),content=#{content}
+crep_date=to_date(SYSDATE,'YYYY-MM-DD HH24:MI'),content=#{content}
 where crep_no=#{crep_no}
 </update>
 
@@ -46,6 +46,7 @@ SELECT crep_no,name,crep_date,content,carpoolno , r
 						FROM carpool_reply join member
 						on carpool_reply.id=member.id
 						<where>
+						carpoolno=#{carpoolno}
 							<choose>
 								<when test="col=='name'">
 									name like'%'||#{word}||'%'
@@ -54,6 +55,7 @@ SELECT crep_no,name,crep_date,content,carpoolno , r
 									content like'%'||#{word}||'%'
 								</when>
 							</choose>
+							
 						</where>
 						ORDER BY crep_no desc
 			)
