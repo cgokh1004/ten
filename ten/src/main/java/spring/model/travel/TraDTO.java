@@ -1,5 +1,7 @@
 package spring.model.travel;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class TraDTO {
 
 	private int tra_no;
@@ -9,6 +11,16 @@ public class TraDTO {
 	private String filename;
 	private String content;
 	private int viewcnt;
+	private MultipartFile fnameMF;
+	
+	
+	
+	public MultipartFile getFnameMF() {
+		return fnameMF;
+	}
+	public void setFnameMF(MultipartFile fnameMF) {
+		this.fnameMF = fnameMF;
+	}
 	public int getTra_no() {
 		return tra_no;
 	}
@@ -32,7 +44,8 @@ public class TraDTO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
+	}	
+	
 	public String getFilename() {
 		return filename;
 	}
@@ -45,6 +58,7 @@ public class TraDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public int getViewcnt() {
 		return viewcnt;
 	}

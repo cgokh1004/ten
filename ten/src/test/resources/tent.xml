@@ -66,13 +66,13 @@
 		p:mybatis-ref="sqlSession" />	
 
 <!-- 류제만, fes_replydao, festivaldao, tra_replydao, traveldao객체생성 -->
-<bean id="fes_replydao" class="spring.model.fes_reply.Fes_ReplyDAO"
+<bean id="fesdao" class="spring.model.festival.FesDAO"
 		p:mybatis-ref="sqlSession" />	
-<bean id="festivaldao" class="spring.model.festival.FesDAO"
+<bean id="fes_Replydao" class="spring.model.fes_Reply.Fes_ReplyDAO"
 		p:mybatis-ref="sqlSession" />	
-<bean id="tra_replydao" class="spring.model.tra_reply.Tra_ReplyDAO"
+<bean id="tradao" class="spring.model.travel.TraDAO"
 		p:mybatis-ref="sqlSession" />	
-<bean id="traveldao" class="spring.model.travel.TraDAO"
+<bean id="tra_Replydao" class="spring.model.tra_Reply.Tra_ReplyDAO"
 		p:mybatis-ref="sqlSession" />	
 
 <!-- 진가슬, advisedao, noticedao, qquestiondao, questiondao 객체생성 -->

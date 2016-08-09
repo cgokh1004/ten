@@ -4,57 +4,76 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="travel">
-	
-	<insert id="create" parameterType="TraDTO">	
-		INSERT INTO travel (tra_no, tdate, location, title, filename, content)
-		values((SELECT NVL(MAX(tra_no), 0) + 1 as tra_no FROM travel), sysdate, 
-		#{location},#{title},#{filename},#{content})	
+
+	<insert id="create" parameterType="TraDTO">
+		INSERT INTO travel (tra_no, title, filename, content, location, tdate)
+		values((SELECT NVL(MAX(tra_no), 0) + 1 as tra_no FROM travel),
+		#{title},#{filename},#{content}, #{location}, sysdate)
 	</insert>
-			
-			
-			
+
 	<update id="update" parameterType="TraDTO">
-	UPDATE travel
-	set title=#{title}, location=#{location}, filename=#{filename}, content=#{content}
-	where tra_no=#{tra_no}	
+		UPDATE travel
+		set title=#{title}, location=#{location}, filename=#{filename},
+		content=#{content}
+		where tra_no=#{tra_no}
+	</update>
+
+	<update id="updateFile" parameterType="Map">
+		UPDATE travel
+		SET filename = #{filename}
+		WHERE tra_no = #{tra_no}
 	</update>
 
 	<select id="read" resultType="TraDTO" parameterType="int">
-	SELECT tra_no, tdate, location, title, filename, content 
-	from travel
-	where tra_no=#{tra_no}		
+		SELECT tra_no, title, filename, content, location, tdate
+		from travel
+		where tra_no=#{tra_no}
 	</select>
-	
+
 	<delete id="delete" parameterType="int">
-	DELETE FROM travel
-	WHERE tra_no = #{tra_no}</delete>
-	
+		DELETE FROM travel
+		WHERE tra_no = #{tra_no}
+	</delete>
+
 	<select id="list" resultType="TraDTO" parameterType="Map">
-	SELECT tra_no, tdate, location, title,filename,  content, r
-	FROM(
-		SELECT tra_no, tdate, location, title, filename, content, rownum r
-			FROM(
-				SELECT tra_no, tdate, location, title, filename, content
-					FROM travel
-	order by tra_no desc
-	)
-	)
-	<![CDATA[
-	where r>=#{sno} and r<=#{eno}
-	]]>		
-	</select>
-	
-	<select id="total" resultType="int" parameterType="map">
-	SELECT count(*) from travel
+		SELECT tra_no, title, filename, content, location, tdate, r
+		FROM(
+		SELECT tra_no, title, filename, content, location, tdate, rownum r
+		FROM(
+		SELECT tra_no, title, filename, content, location, tdate
+		FROM travel
 		<where>
 			<choose>
 				<when test="col=='title'">
-					title LIKE '%'||#{word}||'%'					
+					title like '%'||#{word}||'%'
+				</when>
+				<when test="col=='content'">
+					content like '%'||#{word}||'%'
+				</when>
+			</choose>
+		</where>
+		order by tra_no desc
+		)
+		)
+	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
+	</select>
+
+	<select id="total" resultType="int" parameterType="map">
+		SELECT count(*) from travel
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title LIKE '%'||#{word}||'%'
 				</when>
 				<when test="col='content'">
 					content LIKE '%'||#{word}||'%'
 				</when>
 			</choose>
 		</where>
-	</select>	
+	</select>
+	
+	
 </mapper>
+

@@ -5,9 +5,10 @@ public class Tra_ReplyDTO {
 	private int treply_no;       
     private int tra_no;          
     private String trep_date;        
-    private String ID;            
+    private String id;            
     private String content;
 	
+    
     public int getTreply_no() {
 		return treply_no;
 	}
@@ -26,18 +27,17 @@ public class Tra_ReplyDTO {
 	public void setTrep_date(String trep_date) {
 		this.trep_date = trep_date;
 	}
-	public String getID() {
-		return ID;
-	}
-	public void setID(String iD) {
-		ID = iD;
-	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}              
-	
 	
 }

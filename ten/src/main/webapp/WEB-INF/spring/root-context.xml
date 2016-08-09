@@ -43,14 +43,14 @@
 
 	<bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource" p:driverClassName="oracle.jdbc.driver.OracleDriver"
-		p:url="jdbc:oracle:thin:@172.16.12.11:1521:XE" p:username="ten"
+		p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE" p:username="ten"
 		p:password="1010" />
 
 
 	<!-- MyBatis SQL 실행 클래스 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
+	<!-- 아래부분은 매핑할 xml파일이 있는 패키지경로를 설정한다. -->
 		<property name="typeAliasesPackage" value="spring.model" />
 		<property name="mapperLocations" value="classpath:mybatis/*.xml" />
 	</bean>

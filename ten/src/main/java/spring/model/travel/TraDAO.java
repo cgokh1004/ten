@@ -35,7 +35,7 @@ public class TraDAO {
 	}
 	
 	public List<TraDTO> list(Map map){
-		return mybatis.selectList("travel.list",map);
+		return mybatis.selectList("travel.list", map);
 	}
 	
 	public int total(String col, String word){
@@ -44,5 +44,14 @@ public class TraDAO {
 		map.put("word", word);
 		
 		return mybatis.selectOne("travel.total",map);
+	}
+
+	public int updateFile(String filename, int tra_no) {
+
+		Map map = new HashMap();
+		map.put("filename", filename);
+		map.put("tra_no", tra_no);
+		
+		return mybatis.update("travel.updateFile", map);
 	}
 }
