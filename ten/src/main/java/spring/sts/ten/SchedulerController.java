@@ -70,7 +70,7 @@ public class SchedulerController {
            String ids[] = value.split(",");
            for(int i = 0; i < ids.length; i++)
                actions = (new StringBuilder()).append(actions).append(saveOne(request, ids[i], (new StringBuilder()).append(ids[i]).append("_").toString())).toString();
-
+                
        } else
        {
            value = request.getParameter("id");

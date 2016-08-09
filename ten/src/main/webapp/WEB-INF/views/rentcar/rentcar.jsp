@@ -5,6 +5,100 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script language="javascript">
+var addr = ""; 
+function checkadd(s){
+	
+	//alert(s)
+	
+	addr=s;
+	
+}
+
+
+//맵에 담기~.~
+Mapp = function(){
+	 this.mapp = new Object();
+	};   
+	Mapp.prototype = {   
+	    put : function(key, value){   
+	        this.mapp[key] = value;
+	    },   
+	    get : function(key){   
+	        return this.mapp[key];
+	    },
+	    containsKey : function(key){    
+	     return key in this.mapp;
+	    },
+	    containsValue : function(value){    
+	     for(var prop in this.mapp){
+	      if(this.mapp[prop] == value) return true;
+	     }
+	     return false;
+	    },
+	    isEmpty : function(key){    
+	     return (this.size() == 0);
+	    },
+	    clear : function(){   
+	     for(var prop in this.mapp){
+	      delete this.mapp[prop];
+	     }
+	    },
+	    remove : function(key){    
+	     delete this.mapp[key];
+	    },
+	    keys : function(){   
+	        var keys = new Array();   
+	        for(var prop in this.mapp){   
+	            keys.push(prop);
+	        }   
+	        return keys;
+	    },
+	    values : function(){   
+	     var values = new Array();   
+	        for(var prop in this.mapp){   
+	         values.push(this.mapp[prop]);
+	        }   
+	        return values;
+	    },
+	    size : function(){
+	      var count = 0;
+	      for (var prop in this.mapp) {
+	        count++;
+	      }
+	      return count;
+	    }
+	};
+	var mapp = new Mapp();
+	 mapp.put("도봉구", "도봉구 방학동 720");
+	 mapp.put("강북구", "강북구 수유동 192-59");
+	 mapp.put("노원구", "노원구 상계동 701-1");
+	 mapp.put("은평구", "은평구 녹번동 84");
+	 mapp.put("성북구", "성북구 삼선동5가 411");
+	 mapp.put("종로구", "종로구 수송동 146-2");
+	 mapp.put("동대문구", "동대문구 용두동 39-9");
+	 mapp.put("중랑구", "중랑구 신내동 662");
+	 mapp.put("서대문구", "서대문구 연희동 168-6");
+	 mapp.put("중구구", "중구 예관동 120-1");
+	 mapp.put("성동구", "성동구 행당동 7");
+	 mapp.put("광진구", "광진구 자양동 777");
+	 mapp.put("용산구", "용산구 이태원동 34-87");
+	 mapp.put("마포구", "마포구 성산동 370");
+	 mapp.put("강서구", "강서구 화곡동 980-16");
+	 mapp.put("양천구", "양천구 신정동 321-4");
+	 mapp.put("구로구", "구로구 구로동 435");
+	 mapp.put("영등포구", "영등포구 당산동3가 385-1");
+	 mapp.put("금천구", "금천구 시흥동 1020");
+	 mapp.put("관악구", "관악구 봉천동 1570-1");
+	 mapp.put("동작구", "동작구 노량진2동 47-2");
+	 mapp.put("서초구", "서초구 서초동 1376-3");
+	 mapp.put("강남구", "강남구 삼성동 16-1");
+	 mapp.put("송파구", "송파구 신천동 29-5");
+	 mapp.put("강동구", "강동구 성내동 540");
+	 
+	 
+</script>
+
 <title>Insert title here</title>
 <style type="text/css">
 .th{
@@ -22,32 +116,32 @@
 			<br>
 			<hr>
 			<br> 지역선택: 
-			<select>
-				<option value="도봉구">도봉지점</option> 
-				<option value="강북구">강북지점</option>
-				<option value="노원구">노원지점</option>
-				<option value="은평구">은평지점</option>
-				<option value="성북구">성북지점</option>
-				<option value="종로구">종로지점</option>
-				<option value="동대문구">동대문지점</option>
+			<select onchange="checkadd(this.options[this.selectedIndex].value)">
+				<option value="도봉구 방학동 720">도봉구</option> 
+				<option value="강북구 수유동 192-59">강북구</option>
+				<option value="노원구">노원구</option>
+				<option value="은평구">은평구</option>
+				<option value="성북구">성북구</option>
+				<option value="종로구">종로구</option>
+				<option value="동대문구">동대문구</option>
 				<option value="중랑구">중랑구점</option>
-				<option value="서대문구">서대문지점</option>
-				<option value="중구">중구지점</option>
-				<option value="성동구">성동지점</option>
-				<option value="광진구">광진지점</option>
-				<option value="용산구">용산지점</option>
-				<option value="마포구">마포지점</option>
-				<option value="강서구">강서지점</option>
-				<option value="양천구">양천지점</option>
-				<option value="구로구">구로지점</option>
-				<option value="영등포구">영등포지점</option>
-				<option value="금천구">금천지점</option>
-				<option value="관악구">관악지점</option>
-				<option value="동작구">동작지점</option>
-				<option value="서초구">서초지점</option>
-				<option value="강남구">강남지점</option>
-				<option value="송파구">송파지점</option>
-				<option value="강동구">강동지점</option>
+				<option value="서대문구">서대문구</option>
+				<option value="중구">중구구</option>
+				<option value="성동구">성동구</option>
+				<option value="광진구">광진구</option>
+				<option value="용산구">용산구</option>
+				<option value="마포구">마포구</option>
+				<option value="강서구">강서구</option>
+				<option value="양천구">양천구</option>
+				<option value="구로구">구로구</option>
+				<option value="영등포구">영등포구</option>
+				<option value="금천구">금천구</option>
+				<option value="관악구">관악구</option>
+				<option value="동작구">동작구</option>
+				<option value="서초구">서초구</option>
+				<option value="강남구">강남구</option>
+				<option value="송파구">송파구</option>
+				<option value="강동구">강동구</option>
 			</select><br>
 			<hr>
 			
@@ -76,7 +170,7 @@ var map = new daum.maps.Map(mapContainer, mapOption);
 var geocoder = new daum.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addr2coord('서울특별시 세종대로 110', function(status, result) {
+geocoder.addr2coord('도봉구 방학동 720' , function(status, result) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
