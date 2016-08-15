@@ -56,7 +56,8 @@ function InputCheck(){
 			url=url+"&eName="+end
 			window.open(url,"실제경로검색");
 		}
-
+	jQuery(document).ready(function($) {
+		// 이 함수 안에서는 $를 jQuery가 사용
 		$("#타세요").click(
 				function() {
 					$("#타세요").css("background-color", "#d0d0ff"), $("#태워주세요")
@@ -104,3 +105,4 @@ function InputCheck(){
 			$("#search2").hide("blind", { direction: "left" }, 700),
 			$("#via").animate({width : '80.5%'}, 700);
 		});
+});

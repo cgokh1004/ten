@@ -60,6 +60,9 @@
 		<put-attribute name="title" value="Carpool Read"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead3-2.jsp" />
 	</definition>
-		
+	<definition name="/carpool/update_s" extends="main">
+		<put-attribute name="title" value="Carpool Update"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolUpdate.jsp" />
+	</definition>	
 </tiles-definitions> 
 

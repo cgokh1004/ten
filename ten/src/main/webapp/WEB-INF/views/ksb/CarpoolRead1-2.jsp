@@ -10,18 +10,31 @@
 	href="${pageContext.request.contextPath}/css/read.css">  
 </head>
 <body>
+<form action="../carpool/update_s" method="post">
 <h1 style="color: #0099ff">정기 카풀</h1>
-	<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv">
-	<input type="hidden" value="${carpoolDTO.viav}" id="viav">
-	<input type="hidden" value="${carpoolDTO.c_endv}" id="c_endv">
+	<input type="hidden" value="${carpoolDTO.carpoolno}" name="carpoolno">
+	<input type="hidden" value="정기카풀" id="c_type" name="c_type">
+	<input type="hidden" value="태워주세요" id="kind" name="kind">
+	<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv" name="c_startv">
+	<input type="hidden" value="${carpoolDTO.viav}" id="viav" name="viav">
+	<input type="hidden" value="${carpoolDTO.c_endv}" id="c_endv" name="c_endv">
+	<input type="hidden" value="${carpoolDTO.c_start}" name="c_start">
+	<input type="hidden" value="${carpoolDTO.via}"  name="via">
+	<input type="hidden" value="${carpoolDTO.c_end}"  name="c_end">
+	<input type="hidden" value="${carpoolDTO.purpose}"  name="purpose">
+	<input type="hidden" value="${carpoolDTO.startdate}"  name="startdate">
+	<input type="hidden" value="${carpoolDTO.seat}"  name="seat">
+	<input type="hidden" value="${carpoolDTO.price}"  name="price">
+	<input type="hidden" value="${carpoolDTO.smoke}"  name="smoke">
+	<input type="hidden" value="${carpoolDTO.c_comment}"  name="c_comment">
 	
-	<h2 align="left">태워주세요</h2>
+	<h2 align="left">태워주세요</h2>	
 	<table style="width: 100%;">
 		<tr>
-			<td width="10%">출발 :</td>
-			<td width="30%">${carpoolDTO.c_start}</td>
-			<td width="10%">도착 :</td>
-			<td width="30%">${carpoolDTO.c_end}</td>			
+			<td width="10%">출발지 :</td>
+			<td width="30%" id="c_start">${carpoolDTO.c_start}</td>
+			<td width="10%">목적지 :</td>
+			<td width="30%" id="c_end">${carpoolDTO.c_end}</td>			
 			<td valign="top" rowspan="5" width="20%" style="padding-left: 100px">
 				<table border="1" style="width: 200px; border-collapse: collapse;">
 					<tr>
@@ -48,7 +61,7 @@
 				<table border="1" style="width: 100%;border-collapse: collapse;">
 					<tr>
 						<td>경유지</td>
-						<td colspan="3">${carpoolDTO.via}</td>
+						<td colspan="3" id="via">${carpoolDTO.via}</td>
 					</tr>
 					<tr>
 						<td>목적 : </td>
@@ -59,7 +72,7 @@
 					<tr>
 						<td>인원 수 :</td>
 						<td>${carpoolDTO.seat}</td>
-						<td>비용(1인당)</td>
+						<td>금액(1인당)</td>
 						<td>${carpoolDTO.price}원</td>
 					</tr>
 					<tr>
@@ -99,7 +112,10 @@
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
-			<input type="button" value="목록가기" onclick="history.back()">
+			<input type="button" value="목록가기" onclick="location.href='./list'">
+			<input type="submit" id='update' value="수정하기" style="margin-left: 100px;width:80px;height: 35px">
+			<input type="button" id='delete' value="삭제하기" style="margin-left: 100px;width:80px;height: 35px"
+			onclick="adelete(${carpoolDTO.carpoolno});">
 			</td>
 		</tr>
 		<tr>
@@ -121,7 +137,7 @@
 				  <div class="rcreate">
 				 <form name="rform" action="./rcreate" method="post" onsubmit="return input(this)">
 				  <textarea rows="3" cols="28" name="content" onclick="rcheck(this)"></textarea>
-				  <input type="submit" name="rsubmit" value="등록">
+				  <input type="button" name="rsubmit" id="rsubmit" value="등록">
 				  <input type="hidden" name="carpoolno" id='carpoolno' value="${carpoolDTO.carpoolno}">
 				  <input type="hidden" name="id" id="id" value="${sessionScope.id}">
 				  <input type="hidden" name="nowPage" id='nowPage' value="${param.nowPage}">
@@ -141,6 +157,7 @@
 			</td>
 		</tr>
 	</table>
+	</form>
 	<!-- Jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript"

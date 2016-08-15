@@ -146,6 +146,7 @@ public class CarpoolController {
 			CarpoolDTO carpoolDTO=(CarpoolDTO) carpoolDAO.read(pk);
 			String c_comment=carpoolDTO.getC_comment().replaceAll("\r\n", "<BR>");
 			carpoolDTO.setC_comment(c_comment);
+			carpoolDTO.setCarpoolno(carpoolno);
 			model.addAttribute("carpoolDTO",carpoolDTO);
 			model.addAttribute("kind1",kind1);
 			model.addAttribute("kind2",kind2);
@@ -183,9 +184,66 @@ public class CarpoolController {
 		return "/error/error";
 	}
 	
+	@RequestMapping(value="/carpool/update_s",method=RequestMethod.POST)
+	public String update_s(CarpoolDTO dto,Model model){
+		String c_comment=dto.getC_comment().replaceAll("<BR>", "\r\n");
+		dto.setC_comment(c_comment);
+		model.addAttribute("carpoolDTO",dto);
+		return "/carpool/update_s";
+	}
 	
-
-	 
+	@RequestMapping(value="/carpool/update",method=RequestMethod.POST)
+	public String update(CarpoolDTO dto,Model model){
+		String c_comment=dto.getC_comment().replaceAll("\r\n", "<BR>");
+		dto.setC_comment(c_comment);
+		try {
+				if(carpoolDAO.update(dto)>0){
+					model.addAttribute("carpoolDTO", dto);
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(dto.getC_type().equals("정기카풀")){
+			if(dto.getKind().equals("타세요")){
+				return "/carpool/read1-1";
+			}
+			if(dto.getKind().equals("태워주세요")){
+				return "/carpool/read1-2";
+			}
+		}
+		if(dto.getC_type().equals("단기카풀")){
+			if(dto.getKind().equals("타세요")){
+				return "/carpool/read2-1";
+			}
+			if(dto.getKind().equals("태워주세요")){
+				return "/carpool/read2-2";
+			}
+		}
+		if(dto.getC_type().equals("여성전용카풀")){				
+			if(dto.getKind().equals("타세요")){
+				return "/carpool/read3-1";
+			}
+			if(dto.getKind().equals("태워주세요")){
+				return "/carpool/read3-2";
+			}
+		}
+		return "error/error";
+	}
+	
+	@RequestMapping(value="/carpool/delete",method=RequestMethod.GET)
+	public String delete(int carpoolno){
+		try {
+			Object pk = (Object)carpoolno;
+			if(carpoolDAO.delete(pk)>0){
+				return "redirect:/carpool/list";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "error/error";
+	}
+	
 	@RequestMapping("/carpool/rdelete")
 	public String rdelete(int crep_no,int carpoolno, int nowPage,int nPage, String kind1,String kind2, 
 			String word1,String word2,Model model){ 

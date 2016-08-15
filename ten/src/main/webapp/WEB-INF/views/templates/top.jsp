@@ -10,7 +10,6 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script type="text/javascript">
-jQuery.noConflict();
 jQuery(document).ready(function($) {
 	// 이 함수 안에서는 $를 jQuery가 사용
 $(function() {
@@ -59,15 +58,21 @@ $(function() {
 </script>
 </head>
 <body>
+	<div id="top">
+	<div id="inside">
+	<div id="login">로그인</div>
+	<img alt="사진" style="border-radius:50%;margin-top:5px;width: 50px;height: 50px;float: right" src="${pageContext.request.contextPath}/images/photo.jpg">
+	</div>
+	</div>
 	<div id="effect"></div>
 	<div id="menu">
 		<div style="padding-left: 40px;">
 			<div id="logo" style="z-index: 10; margin-left: -20px">
-				<img alt="logo"
-					src="${pageContext.request.contextPath}/images/로고.png" width="200px">
+				<a href="/ten"><img alt="logo"
+					src="${pageContext.request.contextPath}/images/로고.png" width="200px"></a>
 			</div>
 			<div>
-				<a href="http://www.buttonver.com"
+				<a href="http://www.naver.com"
 					style="text-decoration: none; color: #3c3c3c">네이버</a>
 			</div>
 			<div>

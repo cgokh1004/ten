@@ -8,39 +8,8 @@
 <link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
-<script>
-$(function(){
-  $('.datetimepicker').appendDtpicker({'locale':'ko',defalutDate : new Date() });
-});
-
-function InputCheck(){
-	if($("#startdate").val()==''){
-		alert("출발일시를 입력해주세요")
-		$("#startdate").focus()
-		return false;
-	}
-	if($("#seat").val()==''){
-		alert("인원수를 입력해주세요")
-		$("#seat").focus()
-		return false;
-	}
-	if($.isNumeric($("#seat").val())==false){
-		alert("숫자를 입력해주세요")
-		$("#seat").focus()
-		return false;
-	}
-	if($("#price").val()==''){
-		alert("1인당 금액을 입력해주세요")
-		$("#price").focus()
-		return false;
-	}
-	if($.isNumeric($("#price").val())==false){
-		alert("숫자를 입력해주세요")
-		$("#price").focus()
-		return false;
-	}
-}
-</script>
+<script type="text/javascript"
+		src="${pageContext.request.contextPath}/css/create2.js"></script>
 </head>
 <body>
 <form name="frm" method="post" action="/ten/carpool/create3" onsubmit="return InputCheck()">

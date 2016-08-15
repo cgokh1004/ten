@@ -1,6 +1,6 @@
+
 //마커를 담을 배열입니다
 		var markers = [];
-
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 			center : new daum.maps.LatLng(38.22448620467488, 126.87515469340481), // 지도의 중심좌표
@@ -10,6 +10,17 @@
 
 		// 지도를 생성합니다    
 		var map = new daum.maps.Map(mapContainer, mapOption);
+		
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new daum.maps.MapTypeControl();
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new daum.maps.ZoomControl();
+		map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
 		// 장소 검색 객체를 생성합니다
 		var ps = new daum.maps.services.Places();
@@ -265,6 +276,8 @@
 			strokeOpacity : 0.8,
 			strokeStyle : 'dash'
 		});
+		jQuery(document).ready(function($) {
+			// 이 함수 안에서는 $를 jQuery가 사용
             $("#choice").click(function(){
             	var bounds2 = new daum.maps.LatLngBounds();
             	var via=$("#viav").val()
@@ -305,6 +318,7 @@
 				
 				//선긋기
 				var path= polyline.getPath();
+				path.splice(0,path.length)
 				path.push(customOverlay1.getPosition());
 				if(via!=''){path.push(customOverlay2.getPosition());}
 				path.push(customOverlay3.getPosition());
@@ -319,10 +333,17 @@
 				distanceOverlay.setContent(distance);
 				distanceOverlay.setMap(map);
 				//검색창 애니매이션
+				$(".map_wrap1").slideUp()
+				$(".map_wrap2").slideUp()
 				$(".map_wrap3").slideUp()
+				$("#search1").hide("blind", { direction: "left" }, 700),
+				$("#c_start").animate({width : '80.5%'}, 700),
+				$("#search2").hide("blind", { direction: "left" }, 700),
+				$("#via").animate({width : '80.5%'}, 700);
 				$("#search3").hide("blind", { direction: "left" }, 700),
 				$("#c_end").animate({width : '80.5%'}, 700)
             })
+		});
 		// 지도 위에 표시되고 있는 마커를 모두 제거합니다
 		function removeMarker() {
 			for (var i = 0; i < markers.length; i++) {

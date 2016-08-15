@@ -1,3 +1,9 @@
+function adelete(carpoolno){
+	var url = "./delete"
+		url = url + "?carpoolno=" + carpoolno
+		location.href=url;
+}
+
 function find() {
 	var url = "http://map.daum.net/"
 	var start = $("#c_start").text()
@@ -53,49 +59,50 @@ $("#star1,#star2,#star3,#star4,#star5").dblclick(
 					"../images/별0.png"), score(0);
 		});
 //댓글관련 시작
-//function rcheck(tarea) {
-//	if ($("#id").val() == "") {
-//		if (confirm("로그인후 댓글를 쓰세요")) {
-//			var url = "../member/login";
-//			url = url + "?carpoolno="+$("#carpoolno").val();
-//			url = url + "&nowPage="+$("#nowPage").val();
-//			url = url + "&nPage="+$("#nPage").val();
-//			url = url + "&kind1="+$("#kind1").val();
-//			url = url + "&kind2="+$("#kind2").val();
-//			url = url + "&word1="+$("#word1").val();
-//			url = url + "&word2="+$("#word2").val();
-//			url = url + "&flag=../carpool/read";
-//			location.href = url;
-//		} else {
-//			tarea.blur();
-//		}
-//	}
-//}
-//
-//function input(f) {
-//	if ($("#id").val() == "") {
-//		if (confirm("로그인후 댓글를 쓰세요")) {
-//			var url = "../member/login";
-//			url = url + "?carpoolno="+$("#carpoolno").val();
-//			url = url + "&nowPage="+$("#nowPage").val();
-//			url = url + "&nPage="+$("#nPage").val();
-//			url = url + "&kind1="+$("#kind1").val();
-//			url = url + "&kind2="+$("#kind2").val();
-//			url = url + "&word1="+$("#word1").val();
-//			url = url + "&word2="+$("#word2").val();
-//			url = url + "&flag=../carpool/read";
-//			location.href = url;
-//			return false;
-//		} else {
-//
-//			return false;
-//		}
-//	} else if (f.content.value == "") {
-//		alert("댓글 내용을 입력하세요.");
-//		f.content.focus();
-//		return false;
-//	}
-//}
+function rcheck(tarea) {
+	if ($("#id").val() == "") {
+		if (confirm("로그인후 댓글를 쓰세요")) {
+			var url = "../member/login";
+			url = url + "?carpoolno="+$("#carpoolno").val();
+			url = url
+			+ "&nowPage="+$("#nowPage").val();
+			url = url + "&nPage="+$("#nPage").val();
+			url = url + "&kind1="+$("#kind1").val();
+			url = url + "&kind2="+$("#kind2").val();
+			url = url + "&word1="+$("#word1").val();
+			url = url + "&word2="+$("#word2").val();
+			url = url + "&flag=../carpool/read";
+			location.href = url;
+		} else {
+			tarea.blur();
+		}
+	}
+}
+
+function input(f) {
+	if ($("#id").val() == "") {
+		if (confirm("로그인후 댓글를 쓰세요")) {
+			var url = "../member/login";
+			url = url + "?carpoolno="+$("#carpoolno").val();
+			url = url + "&nowPage="+$("#nowPage").val();
+			url = url + "&nPage="+$("#nPage").val();
+			url = url + "&kind1="+$("#kind1").val();
+			url = url + "&kind2="+$("#kind2").val();
+			url = url + "&word1="+$("#word1").val();
+			url = url + "&word2="+$("#word2").val();
+			url = url + "&flag=../carpool/read";
+			location.href = url;
+			return false;
+		} else {
+
+			return false;
+		}
+	} else if (f.content.value == "") {
+		alert("댓글 내용을 입력하세요.");
+		f.content.focus();
+		return false;
+	}
+}
 $("#rsubmit").click(function(){
 	    $.post("./rcreate",$("#rform").serialize(),
 	    function(data, status){

@@ -1,21 +1,37 @@
+#top {
+	border: 0px solid;
+	width: 110%;
+	height: 60px;
+	background-color: white;
+	margin-left: -100px;
+}
+#login {
+	cursor:pointer;
+	color:#535353;
+	font-weight:bold;
+	width: 100px;
+	height: 35px;
+	float: right;
+	margin:7px 150px 0px 10px;
+	padding-top: 10px;
+}
 #button {
 	z-index:3;
     float:left;
-	margin-top: 200px;
+	margin-top: -60px;
 	margin-left: -5%;
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	background-image: url('../images/menu.png');
 	background-repeat: no-repeat;
 	background-position: center;;
 	background-color: #0db14b;
 	text-indent: -9999px;
 	cursor: pointer;
-	box-shadow: 1px 1px 5px #aaaaaa;
 }
 
 #menu {
-	background-color: #e8e8e8;
+	background-color: #ffffff;
 	z-index: 2;
 	position: fixed;
 	left: -100%;

@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update carpool set
 		c_start=#{c_start},c_startv=#{c_startv},c_end=#{c_end},c_endv=#{c_endv},
 		via=#{via},viav=#{viav},
-		purpose=#{purpose},c_type=#{c_type},kind=#{kind},startdate=#{startdate},
+		purpose=#{purpose},c_type=#{c_type},kind=#{kind},startdate=to_date(#{startdate},'yyyy-mm-dd hh24:mi'),
 		seat=#{seat},price=#{price},smoke=#{smoke},c_comment=#{c_comment}
 		where carpoolno=#{carpoolno}
 	</update>

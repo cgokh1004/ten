@@ -6,65 +6,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#overlay {
-	background-color: white;
-	border: 0px solid;
-	border-radius: 5px;
-	width: 50px;
-	height: 20px;
-	font-size: 12px;
-	box-shadow: 0 0 5px gray;
-}
-.rcreate{
-  font-size: 20px;
-  font-weight:bold;
-  text-align: left;
-  border-style: solid;   /* 실선 */
-  border-width: 1px;     /* 선 두께 */
-  border-color: #AAAAAA; /* 선 색깔 */
-  color: #000000;        /* 글자 색깔 */
-  width: 35%;            /* 화면의 30% */ 
-  padding: 10px;         /* 위 오른쪽 아래 왼쪽: 시간 방향 적용 */
-  
-  /* padding: 50px 10px;  50px: 위 아래, 10px: 좌우 */
-  /* padding-top: 30px;  상단만 간격을 30px 지정   */
-  
-  margin: 20px auto; /* 가운데 정렬 기능, 20px: 위 아래, auto: 오른쪽 왼쪽*/
-}
-.rlist{
-  line-height:1.2em;
-  font-size: 15px;
-  font-weight:bold;
-  text-align: left;
-  border-style: solid;   /* 실선 */
-  border-width: 1px;     /* 선 두께 */
-  border-color: #AAAAAA; /* 선 색깔 */
-  color: #000000;        /* 글자 색깔 */
-  width: 35%;            /* 화면의 30% */ 
-  padding: 10px;         /* 위 오른쪽 아래 왼쪽: 시간 방향 적용 */
-  
-  /* padding: 50px 10px;  50px: 위 아래, 10px: 좌우 */
-  /* padding-top: 30px;  상단만 간격을 30px 지정   */
-  
-  margin: 20px auto; /* 가운데 정렬 기능, 20px: 위 아래, auto: 오른쪽 왼쪽*/
-}
-</style>  
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/read.css">  
 </head>
 <body>
-<h1 style="color: #ff3c6c">여성전용 카풀</h1>
-
-	<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv">
-	<input type="hidden" value="${carpoolDTO.viav}" id="viav">
-	<input type="hidden" value="${carpoolDTO.c_endv}" id="c_endv">
+<form action="../carpool/update_s" method="post">
+<h1 style="color: #ff3c6c">여성 전용 카풀</h1>
+	<input type="hidden" value="${carpoolDTO.carpoolno}" name="carpoolno">
+	<input type="hidden" value="여성전용카풀" id="c_type" name="c_type">
+	<input type="hidden" value="태워주세요" id="kind" name="kind">
+	<input type="hidden" value="${carpoolDTO.c_startv}" id="c_startv" name="c_startv">
+	<input type="hidden" value="${carpoolDTO.viav}" id="viav" name="viav">
+	<input type="hidden" value="${carpoolDTO.c_endv}" id="c_endv" name="c_endv">
+	<input type="hidden" value="${carpoolDTO.c_start}" name="c_start">
+	<input type="hidden" value="${carpoolDTO.via}"  name="via">
+	<input type="hidden" value="${carpoolDTO.c_end}"  name="c_end">
+	<input type="hidden" value="${carpoolDTO.purpose}"  name="purpose">
+	<input type="hidden" value="${carpoolDTO.startdate}"  name="startdate">
+	<input type="hidden" value="${carpoolDTO.seat}"  name="seat">
+	<input type="hidden" value="${carpoolDTO.price}"  name="price">
+	<input type="hidden" value="${carpoolDTO.smoke}"  name="smoke">
+	<input type="hidden" value="${carpoolDTO.c_comment}"  name="c_comment">
 	
-	<h2 align="left">태워주세요</h2>
+	<h2 align="left">태워주세요</h2>	
 	<table style="width: 100%;">
 		<tr>
-			<td width="10%">출발 :</td>
-			<td width="30%">${carpoolDTO.c_start}</td>
-			<td width="10%">도착 :</td>
-			<td width="30%">${carpoolDTO.c_end}</td>
+			<td width="10%">출발지 :</td>
+			<td width="30%" id="c_start">${carpoolDTO.c_start}</td>
+			<td width="10%">목적지 :</td>
+			<td width="30%" id="c_end">${carpoolDTO.c_end}</td>			
 			<td valign="top" rowspan="5" width="20%" style="padding-left: 100px">
 				<table border="1" style="width: 200px; border-collapse: collapse;">
 					<tr>
@@ -91,7 +61,7 @@
 				<table border="1" style="width: 100%;border-collapse: collapse;">
 					<tr>
 						<td>경유지</td>
-						<td colspan="3">${carpoolDTO.via}</td>
+						<td colspan="3" id="via">${carpoolDTO.via}</td>
 					</tr>
 					<tr>
 						<td>목적 : </td>
@@ -102,7 +72,7 @@
 					<tr>
 						<td>인원 수 :</td>
 						<td>${carpoolDTO.seat}</td>
-						<td>비용(1인당)</td>
+						<td>금액(1인당)</td>
 						<td>${carpoolDTO.price}원</td>
 					</tr>
 					<tr>
@@ -111,9 +81,9 @@
 					</tr>
 				</table>
 		<tr>
-			<td colspan="4">	
+			<td colspan="4">
 				<input type="button" id="roadfind"
-				value="실제 경로찾기" onclick="find()">
+					value="실제 경로찾기" onclick="find()">
 				<div id='map' style="width:800px;height:400px;"></div>
 			</td>
 		</tr>
@@ -128,8 +98,8 @@
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
 			<h3 align="left">평가</h3>
-			<div align="center" style="border:0px solid;background-color:gray;border-radius:5px"><br>
-			상대방을 평가해 주세요. (예약을 하거나 메시지를 주고 받은 상대방을 평가 할 수 있습니다.)<br>
+			<div align="center" style="border:0px solid;background-color:gray;border-radius:5px">
+			<br>상대방을 평가해 주세요. (예약을 하거나 메시지를 주고 받은 상대방을 평가 할 수 있습니다.)<br>
 			<br>
 			<img id="star1" alt="별" src="../images/별0.png">
 			<img id="star2" alt="별" src="../images/별0.png">
@@ -142,13 +112,16 @@
 		</tr>
 		<tr>
 			<td colspan="4" align="center">
-			<input type="button" value="목록가기" onclick="history.back()">
+			<input type="button" value="목록가기" onclick="location.href='./list'">
+			<input type="submit" id='update' value="수정하기" style="margin-left: 100px;width:80px;height: 35px">
+			<input type="button" id='delete' value="삭제하기" style="margin-left: 100px;width:80px;height: 35px"
+			onclick="adelete(${carpoolDTO.carpoolno});">
 			</td>
 		</tr>
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
 			<h3 align="left">댓글</h3>
-			 <c:forEach var="carpool_replyDTO" items="${rlist}">
+			<c:forEach var="carpool_replyDTO" items="${rlist}">
 				  <div class="rlist">
 				   ${carpool_replyDTO.id}<br/>
 				   <p>${carpool_replyDTO.content}</p>
@@ -162,9 +135,9 @@
 				  </div>
 				  </c:forEach>
 				  <div class="rcreate">
-				  <form name="rform" action="./rcreate" method="post" onsubmit="return input(this)">
+				 <form name="rform" action="./rcreate" method="post" onsubmit="return input(this)">
 				  <textarea rows="3" cols="28" name="content" onclick="rcheck(this)"></textarea>
-				  <input type="submit" name="rsubmit" value="등록">
+				  <input type="button" name="rsubmit" id="rsubmit" value="등록">
 				  <input type="hidden" name="carpoolno" id='carpoolno' value="${carpoolDTO.carpoolno}">
 				  <input type="hidden" name="id" id="id" value="${sessionScope.id}">
 				  <input type="hidden" name="nowPage" id='nowPage' value="${param.nowPage}">
@@ -174,6 +147,8 @@
 				  <input type="hidden" name="word1" id="word1" value="${param.word1}">
 				  <input type="hidden" name="word2" id="word2" value="${param.word2}">
 				  <input type="hidden" name="crep_no" id="crep_no" value="0">
+				  
+				  
 				  </form>
 				  </div>
 				  <div class="bottom">
@@ -182,6 +157,7 @@
 			</td>
 		</tr>
 	</table>
+	</form>
 	<!-- Jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="text/javascript"
