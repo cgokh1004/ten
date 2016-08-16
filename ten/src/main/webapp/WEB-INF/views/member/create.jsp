@@ -84,7 +84,7 @@
       <td>핸드폰번호 인증 상태 : 
       <c:choose>
 		<c:when test="${dto.phone_certi}">
-	      ${dto.phone_certi}
+	      
 	      </c:when>
 		<c:otherwise>
 		</c:otherwise>

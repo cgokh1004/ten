@@ -106,7 +106,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="/notice/create", method=RequestMethod.GET)
 	public String create() {
-		return "/ks/notice/create";
+		return "/notice/create";
 	}
 	
 	@RequestMapping("/notice/read")
@@ -151,13 +151,13 @@ public class NoticeController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("nPage", nPage);
 		
-		return "/ks/notice/read";
+		return "/notice/read";
 	}
 	
 	@RequestMapping(value="/notice/delete", method=RequestMethod.GET)
 	public String delete(){
 		
-		return "/ks/notice/delete";
+		return "/notice/delete";
 	}
 	
 	@RequestMapping(value="/notice/delete", method=RequestMethod.POST)
@@ -183,7 +183,7 @@ public class NoticeController {
 		
 		model.addAttribute("dto", dao.read(noticeno));
 		
-		return "/ks/notice/update";
+		return "/notice/update";
 	}
 	
 	@RequestMapping(value="/notice/update", method=RequestMethod.POST)
@@ -258,7 +258,7 @@ public class NoticeController {
 		model.addAttribute("nowPage", nowPage);
 		model.addAttribute("ndao", ndao);
 		
-		return "/ks/notice/list";
+		return "/notice/list";
 	}
 	
 	@Autowired
@@ -312,6 +312,6 @@ public class NoticeController {
 		model.addAttribute("word", word);
 		model.addAttribute("nowPage", nowPage);
 		
-		return "/ks/list";
+		return "/customer/list";
 	}
 }

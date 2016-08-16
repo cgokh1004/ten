@@ -18,6 +18,102 @@
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
 	
+	<definition name="/advise/delete" extends="main"> 
+        <put-attribute name="title" value="건의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/advise/delete.jsp" /> 
+     </definition>  
+	 <definition name="/advise/update" extends="main"> 
+        <put-attribute name="title" value="건의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/advise/update.jsp" /> 
+     </definition>   
+	 <definition name="/advise/read" extends="main"> 
+        <put-attribute name="title" value="건의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/advise/read.jsp" /> 
+     </definition>   
+	 <definition name="/advise/create" extends="main"> 
+        <put-attribute name="title" value="건의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/advise/create.jsp" /> 
+     </definition>  
+	 <definition name="/advise/reply" extends="main"> 
+        <put-attribute name="title" value="건의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/advise/reply.jsp" /> 
+     </definition>  
+	 <definition name="/advise/list" extends="main"> 
+        <put-attribute name="title" value="건의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/advise/list.jsp" /> 
+     </definition>   
+     
+     <definition name="/notice/delete" extends="main"> 
+        <put-attribute name="title" value="공지 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/notice/delete.jsp" /> 
+     </definition>  
+	 <definition name="/notice/update" extends="main"> 
+        <put-attribute name="title" value="공지 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/notice/update.jsp" /> 
+     </definition>   
+	 <definition name="/notice/read" extends="main"> 
+        <put-attribute name="title" value="공지 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/notice/read.jsp" /> 
+     </definition>   
+	 <definition name="/notice/create" extends="main"> 
+        <put-attribute name="title" value="공지 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/notice/create.jsp" /> 
+     </definition>  
+	 <definition name="/notice/list" extends="main"> 
+        <put-attribute name="title" value="공지 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/notice/list.jsp" /> 
+     </definition>   
+     
+     <definition name="/qquestion/delete" extends="main"> 
+        <put-attribute name="title" value="자주 묻는 질문 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/qquestion/delete.jsp" /> 
+     </definition>  
+	 <definition name="/qquestion/update" extends="main"> 
+        <put-attribute name="title" value="자주 묻는 질문 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/qquestion/update.jsp" /> 
+     </definition>   
+	 <definition name="/qquestion/read" extends="main"> 
+        <put-attribute name="title" value="자주 묻는 질문 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/qquestion/read.jsp" /> 
+     </definition>   
+	 <definition name="/qquestion/create" extends="main"> 
+        <put-attribute name="title" value="자주 묻는 질문 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/qquestion/create.jsp" /> 
+     </definition>  
+	 <definition name="/qquestion/list" extends="main"> 
+        <put-attribute name="title" value="자주 묻는 질문 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/qquestion/list.jsp" /> 
+     </definition>   
+     
+     <definition name="/question/delete" extends="main"> 
+        <put-attribute name="title" value="문의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/question/delete.jsp" /> 
+     </definition>  
+	 <definition name="/question/update" extends="main"> 
+        <put-attribute name="title" value="문의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/question/update.jsp" /> 
+     </definition>   
+	 <definition name="/question/read" extends="main"> 
+        <put-attribute name="title" value="문의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/question/read.jsp" /> 
+     </definition>   
+	 <definition name="/question/create" extends="main"> 
+        <put-attribute name="title" value="문의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/question/create.jsp" /> 
+     </definition>  
+	 <definition name="/question/reply" extends="main"> 
+        <put-attribute name="title" value="문의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/question/reply.jsp" /> 
+     </definition>  
+	 <definition name="/question/list" extends="main"> 
+        <put-attribute name="title" value="문의 게시판 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/question/list.jsp" /> 
+     </definition>   
+     
+     <definition name="/customer/list" extends="main"> 
+        <put-attribute name="title" value="고객 센터 :::" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/ks/list.jsp" /> 
+     </definition>  
 	
 	<!--  여기 아래는 예제 -->
 <!-- 	<definition name="/img/createForm" extends="main"> -->

@@ -22,7 +22,7 @@ public class QuestionController {
 	
 	@RequestMapping(value = "/question/create", method = RequestMethod.GET)
 	public String create() {
-		return "/ks/question/create";
+		return "/question/create";
 	}
 	
 	@RequestMapping(value = "/question/create", method = RequestMethod.POST)
@@ -37,7 +37,7 @@ public class QuestionController {
 	@RequestMapping(value="/question/delete", method=RequestMethod.GET)
 	public String delete(){
 		
-		return "/ks/question/delete";
+		return "/question/delete";
 	}
 	
 	@RequestMapping(value="/question/delete", method=RequestMethod.POST)
@@ -57,7 +57,7 @@ public class QuestionController {
 		
 		model.addAttribute("dto", dao.read(qno));
 		
-		return "/ks/question/update";
+		return "/question/update";
 	}
 	
 	@RequestMapping(value="/question/update", method=RequestMethod.POST)
@@ -101,7 +101,7 @@ public class QuestionController {
 		dao.increaseViewcnt(qno);
 		model.addAttribute("dto", dao.read(qno));
 		
-		return "/ks/question/read";
+		return "/question/read";
 	}
 	
 	@RequestMapping("/question/list")
@@ -142,6 +142,6 @@ public class QuestionController {
 		model.addAttribute("word", word);
 		model.addAttribute("nowPage", nowPage);
 
-		return "/ks/question/list";
+		return "/question/list";
 	}
 }
