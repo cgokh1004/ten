@@ -11,7 +11,7 @@
 </head>
 <body>
 <form action="../carpool/update_s" method="post">
-<h1 style="color: #0099ff">단기 카풀</h1>
+<h1 style="color: #0099ff;width: 300px;margin: 0px auto">단기 카풀</h1>
 	<input type="hidden" value="${carpoolDTO.carpoolno}" name="carpoolno">
 	<input type="hidden" value="단기카풀" id="c_type" name="c_type">
 	<input type="hidden" value="타세요" id="kind" name="kind">

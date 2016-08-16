@@ -13,7 +13,7 @@
 	src="${pageContext.request.contextPath}/css/index.js"></script>
 </head>
 <body style="padding-top: 0">
-		<div id="logo" style="text-align: center;">
+		<div id="logo" style="text-align: center;width: 300px;margin: 0px auto">
 			<img alt="logo" src="${pageContext.request.contextPath}/images/로고.png"
 				width="200px">
 		</div>

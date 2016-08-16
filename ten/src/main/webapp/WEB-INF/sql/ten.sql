@@ -14,6 +14,7 @@ CREATE TABLE member (
        phone_num            VARCHAR2(15char) NOT NULL,
        phone_certi          NUMBER(1) DEFAULT 0 NOT NULL
                                    CHECK (phone_certi IN (0, 1)),
+       zipcode  			varchar2(7char)  NOT NULL,
        address1             VARCHAR2(50char) NOT NULL,
        address2             VARCHAR2(50char) NULL,
        addr_certi           NUMBER(1) DEFAULT 0 NOT NULL
@@ -35,10 +36,10 @@ drop table member cascade constraint;
 alter table member add(passwd varchar2(30char)NULL);
 --------------------------------------insert--------------------------
 insert into member
-(id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
+(id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,zipcode,address1,address2,addr_certi,
 sns,sns_certi,mail,mail_certi,passport,passport_certi)
 values
-('ktw3722','1234','김성빈','남','개인','사진.jpg','2종보통','010-4017-7980',1,'여기','저기',1,
+('ktw3722','1234','김성빈','남','개인','사진.jpg','2종보통','010-4017-7980',1,'123-123','여기','저기',1,
 'facebook',1,'ktw3722@naver.com',1,'여권.jpg',1);
 --트랜잭션요망
 update member

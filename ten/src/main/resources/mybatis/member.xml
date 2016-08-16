@@ -6,10 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="member">
 	<insert id="create1" parameterType="MemberDTO">
 		insert into member
-		(id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
+		(id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,zipcode,address1,address2,addr_certi,
 		sns,sns_certi,mail,mail_certi,passport,passport_certi)
 		values
-		(#{id},#{passwd},#{name},#{gender},#{mem_type},#{mfile},#{license_type},#{phone_num},#{phone_certi},
+		(#{id},#{passwd},#{name},#{gender},#{mem_type},#{mfile},#{license_type},#{phone_num},#{phone_certi},#{zipcode},
 		#{address1},#{address2},#{addr_certi},#{sns},#{sns_certi},#{mail},#{mail_certi},#{passport},#{passport_certi})
 	</insert>
 	<update id="create2" parameterType="String">
@@ -97,5 +97,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</when>
 			</choose>
 		</where>
+	</select>
+	
+	<select id="duplicateID" parameterType="String" resultType="int">
+		select count(id) From member
+		where id=#{id}
+	</select>
+	
+	<select id="duplicateEmail" parameterType="String" resultType="int">
+		select count(mail) From member
+		where mail=#{mail}
 	</select>
 </mapper>

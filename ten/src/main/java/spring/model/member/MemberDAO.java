@@ -61,5 +61,12 @@ public class MemberDAO implements DAOMyBatisInter {
 	public int total(Map map) throws Exception {
 		return mybatis.selectOne("member.total", map);
 	}
-
+	
+	public int duplicateID(String id){
+		return mybatis.selectOne("member.duplicateID", id);
+	}
+	
+	public int duplicateEmail(String mail){
+		return mybatis.selectOne("member.duplicateEmail",mail);
+	}
 }

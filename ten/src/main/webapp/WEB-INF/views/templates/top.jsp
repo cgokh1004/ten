@@ -13,6 +13,14 @@
 jQuery(document).ready(function($) {
 	// 이 함수 안에서는 $를 jQuery가 사용
 $(function() {
+	$("#down").click(function(){
+		$("#sign").slideToggle("nomal")
+	}),
+	$("#down").toggle(function(){
+		$(this).attr("src","${pageContext.request.contextPath}/images/up.png")
+	},function(){
+		$(this).attr("src","${pageContext.request.contextPath}/images/down.png")
+	}),
 	$("#button").toggle(function() {
 		$("#effect").animate({
 			left : '0'
@@ -60,10 +68,12 @@ $(function() {
 <body>
 	<div id="top">
 	<div id="inside">
-	<div id="login">로그인</div>
-	<img alt="사진" style="border-radius:50%;margin-top:5px;width: 50px;height: 50px;float: right" src="${pageContext.request.contextPath}/images/photo.jpg">
+	<img alt="down" id="down" src="${pageContext.request.contextPath}/images/down.png">
+	<div id="login"><a style="text-decoration:none" href="./login">로그인</a></div>
+	<img alt="사진" id="profile" src="${pageContext.request.contextPath}/images/photo.jpg">
 	</div>
 	</div>
+	<div id="sign"><a style="text-decoration:none" href="/ten/member/agree">회원가입</a></div>
 	<div id="effect"></div>
 	<div id="menu">
 		<div style="padding-left: 40px;">
