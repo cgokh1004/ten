@@ -4,8 +4,8 @@ CREATE TABLE member (
        name                 varchar2(10char) NOT NULL,
        gender               varchar2(12char) NOT NULL
                                    CHECK (gender IN ('남', '여')),
-       mem_type             varchar2(2char) DEFAULT '개인' NOT NULL
-                                   CHECK (mem_type IN ('개인', '법인')),
+       mem_type             varchar2(3char) DEFAULT '개인' NOT NULL
+                                   CHECK (mem_type IN ('개인', '법인' , '관리자')),
        mfile                 VARCHAR2(30char) NULL,
        license_type         VARCHAR2(30char) DEFAULT '없음' NOT NULL
                                    CHECK (license_type IN ('없음','1종대형', '1종보통', '2종보통')),
@@ -39,7 +39,7 @@ insert into member
 (id,passwd,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,zipcode,address1,address2,addr_certi,
 sns,sns_certi,mail,mail_certi,passport,passport_certi)
 values
-('ktw3722','1234','김성빈','남','개인','사진.jpg','2종보통','010-4017-7980',1,'123-123','여기','저기',1,
+('ktw3722','1234','김성빈','남','관리자','사진.jpg','2종보통','010-4017-7980',1,'123-123','여기','저기',1,
 'facebook',1,'ktw3722@naver.com',1,'여권.jpg',1);
 --트랜잭션요망
 update member

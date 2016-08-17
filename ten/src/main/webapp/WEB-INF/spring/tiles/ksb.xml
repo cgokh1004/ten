@@ -24,6 +24,10 @@
 		<put-attribute name="title" value="Create"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/member/create.jsp" />
 	</definition>
+	<definition name="/member/login" extends="main">
+		<put-attribute name="title" value="Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/member/login.jsp" />
+	</definition>
 <!-- 	카풀 -->
 	<definition name="/carpool/list" extends="main">
 		<put-attribute name="title" value="Carpool List"></put-attribute>

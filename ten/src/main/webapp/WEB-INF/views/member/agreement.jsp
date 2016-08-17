@@ -5,12 +5,6 @@
 <head> 
 <meta charset="utf-8"> 
 <title>회원가입</title> 
- <style type="text/css"> 
-*{ 
-  font-family: 맑은고딕; 
-  font-size: 20px; 
-} 
-</style> 
 <script language="javascript"> 
   // 자바스크립트는 리턴 타입이 없습니다. 
   function send(){ 

@@ -4,28 +4,35 @@
 <head> 
 <meta charset="UTF-8"> 
 <title></title> 
-<style type="text/css"> 
-*{ 
-  font-family: gulim; 
-  font-size: 20px; 
-} 
-</style> 
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 <script type="text/javascript"> 
   // 입력 값 검사후 서버로 전송 
   function inputCheck(){
 	  var f=document.frm; // <FORM>태그 객체 
+	 if(f.mem_type.value ==""){ 
+	    	alert("회원종류를 선택해주세요"); 
+	      f.mem_type[0].focus(); // 폼이름.input 태그명.커서 셋팅    
+	      return false;       // 프로그램 종료, 값을 돌려줌 
+	    } 
+	  
     if(f.id.value ==""){ 
     	alert("아이디를 입력해 주세요."); 
       f.id.focus(); // 폼이름.input 태그명.커서 셋팅    
- 
       return false;       // 프로그램 종료, 값을 돌려줌 
     } 
+    
+    if(f.click.value==0){ 
+        alert("아이디 중복체크를 해주세요"); 
+        f.confirm.focus();  
+        return false;
+      }
+    
     if(f.passwd.value == ""){ 
       alert("비밀번호를 입력해 주세요."); 
       f.passwd.focus(); 
       return false; 
     } 
+    
     if(f.repasswd.value == ""){ 
       alert("비밀번호를 확인해 주세요"); 
       f.repasswd.focus(); 
@@ -40,32 +47,43 @@
       return false; 
     } 
      
-    if(f.mname.value == ""){ 
+    if(f.name.value == ""){ 
       alert("이름을 입력해 주세요."); 
-      f.mname.focus(); 
+      f.name.focus(); 
       return false; 
     } 
- 
-    if(f.click.value==0){ 
-        alert("아이디 중복체크를 해주세요"); 
-        f.confirm.focus();  
-        return false;
+    
+    if(f.gender.value == ""){ 
+        alert("성별을 선택해주세요"); 
+        f.gender[0].focus(); 
+        return false; 
       }
+    
+    if(f.phone_num.value == ""){ 
+        alert("전화번호를 입력해주세요"); 
+        f.phone_num.focus(); 
+        return false; 
+      }
+    
     if(f.mail.value==""){ 
-		return true;
-	}else{if(f.eclick.value==0){
+		
+	}else{
+		if(f.eclick.value==0){
     	alert("이메일 중복체크를 해주세요"); 
         f.emailclick.focus();  
         return false;
 			}
-      } 
-
-    // Form onsubmit 이벤트일경우 
-    // return false; 
+		}
+	
+	if(f.up.value == 0||f.zipcode.value==""||f.address1.value==""){ 
+        alert("우편번호 찾기를 해주세요"); 
+        f.btnPost.focus(); 
+        return false; 
+      }
      
-    f.submit(); 
   } 
  
+  
   // 중복 아이디를 검사합니다. 
   function idCheck(idv){
 	  var f=document.frm; // <FORM>태그 객체 
@@ -109,7 +127,8 @@
       enctype='multipart/form-data'
       onsubmit="return inputCheck()">
       <input type="hidden" name="click" value=0>
-      <input type="hidden" name="eclick" value=0> 
+      <input type="hidden" name="eclick" value=0>
+      <input type="hidden" name="up" value=0>
   <center>
   <TABLE class='table'>
   	 <tr> 
@@ -152,7 +171,7 @@
 		</td>
      </tr> 
      <tr>
-       <th align="left">전화번호</th> 
+       <th align="left">*전화번호</th> 
        <td><input type="text" name="phone_num" placeholder="010-XXXX-XXXX" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"></td> 
        <td> </td> 
      </tr>           
@@ -166,13 +185,13 @@
        </td> 
      </tr> 
      <tr>   
-       <th align="left">우편번호</th> 
+       <th align="left">*우편번호</th> 
        <td> <input type="text" id="sample6_postcode" name="zipcode" size="10" style="border:none;border:1px solid #d8d8d8;width:240px;height: 30px;border-radius:3px"> 
             <input id='white'type="button" name="btnPost" value="우편번호찾기"  
                   onclick="sample5_execDaumPostcode()"style="border-radius:5px;font-size: 10px"></td> 
      </tr> 
      <tr>   
-       <th align="left">주소</th> 
+       <th align="left">*주소</th> 
        <td> 
        <input type="text" name="address1" size="45" id="sample5_address" placeholder="주소"style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"><br/> 
        <input type="text" name="address2" size="45" id="sample6_address2" placeholder="상세주소"style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> 
@@ -197,6 +216,7 @@
 				    });
 				
 				    function sample5_execDaumPostcode() {
+				  	  document.frm.up.value+=1;
 				        new daum.Postcode({
 				            oncomplete: function(data) {
 				                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -263,7 +283,7 @@
      <td>
      <select name='license_type' id='license_type'
 	   style="border: none; border: 1px solid #a9a9a9; width: 81%; height: 35px; float: left;">
-		<option value="">없음</option>
+		<option value="없음">없음</option>
 		<option value="1종대형">1종 대형</option>
 		<option value="1종보통">1종 보통</option>
 		<option value="2종보통">2종 보통</option>

@@ -42,6 +42,16 @@ a:hover { text-decoration:none; }
 	margin:7px 10px 0px 10px;
 	padding-top: 10px;
 }
+#logout {
+	cursor:pointer;
+	color:#535353;
+	font-weight:bold;
+	width: 100px;
+	height: 35px;
+	float: right;
+	margin:7px 10px 0px 10px;
+	padding-top: 10px;
+}
 #button {
 	z-index:3;
     float:left;

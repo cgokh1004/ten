@@ -5,28 +5,30 @@
 <head> 
 <meta charset="UTF-8"> 
 <title></title>
-
-<style type="text/css"> 
-*{ 
-  font-family: 맑은고딕; 
-  font-size: 20px; 
-} 
-</style> 
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<script type="text/javascript">
+function logincheck(){
+	var f=document.frm
+	if(f.id.value==""){
+		alert("아이디를 입력해주세요");
+		f.id.focus()
+		return false;
+	}
+	if(f.passwd.value==""){
+		alert("비밀번호를 입력해주세요");
+		f.passwd.focus()
+		return false;
+	}
+}
+</script>
 </head> 
-<!-- *********************************************** -->
 <body>
-
-<!-- *********************************************** -->
 
  
 <DIV class="title">로그인</DIV>
  
-<FORM name='frm' method='POST' action='${pageContext.request.contextPath}/member/login'>
+<FORM name='frm' method='POST' action='../member/login' onsubmit="return logincheck()">
   <input type="hidden" name="flag" value="${param.flag}">
-  <input type="hidden" name="imgflag" value="${param.imgflag}">
-  <input type="hidden" name="bbsno" value="${bbsno}">
-  <input type="hidden" name="imgno" value="${imgno}">
+  <input type="hidden" name="carpoolno" value="${carpoolno}">
   <input type="hidden" name="nowPage" value="${nowPage}">
   <input type="hidden" name="nPage" value="${nPage}">
   <input type="hidden" name="col" value="${param.col}">

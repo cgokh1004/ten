@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitiobuttonl//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,7 +70,14 @@ $(function() {
 	<div id="top">
 	<div id="inside">
 	<img alt="down" id="down" src="${pageContext.request.contextPath}/images/down.png">
-	<div id="login"><a style="text-decoration:none" href="./login">로그인</a></div>
+	<c:choose>
+	<c:when test="${empty sessionScope.id}">
+	<div id="login"><a style="text-decoration:none" href="/ten/member/login">로그인</a></div>
+	</c:when>
+	<c:otherwise>
+	<div id="logout"><a style="text-decoration:none" href="/ten/member/logout">로그아웃</a></div>
+	</c:otherwise>
+	</c:choose>
 	<img alt="사진" id="profile" src="${pageContext.request.contextPath}/images/photo.jpg">
 	</div>
 	</div>

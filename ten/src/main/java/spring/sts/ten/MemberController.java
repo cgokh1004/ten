@@ -1,12 +1,16 @@
 package spring.sts.ten;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.member.MemberDAO;
 import spring.model.member.MemberDTO;
@@ -16,6 +20,106 @@ import spring.utility.ten.Utility;
 public class MemberController {
 	@Autowired
 	MemberDAO memberDAO;
+	
+	@RequestMapping(value="/member/login",method=RequestMethod.POST)
+	public String login(String id,String passwd,HttpServletRequest request,String c_id,
+			int carpoolno,
+			int nowPage, 
+			int nPage,
+			String col, 
+			String word,
+			String flag,
+			HttpSession session,HttpServletResponse response,Model model){
+	
+		int cnt = 0;
+		String mem_type = ""; //회원 등급
+		
+		cnt = memberDAO.loginCheck(id, passwd);
+		
+		if(cnt==1){
+			
+			mem_type = memberDAO.getMem_type(id);
+			session.setAttribute("id", id);
+			session.setAttribute("mem_type", mem_type);
+		    // ---------------------------------------------- 
+		    // Cookie 저장, Checkbox는 선택하지 않으면 null 임 
+		    // ---------------------------------------------- 
+		    Cookie cookie = null; 
+		       
+		    if (c_id != null){  // 처음에는 값이 없음으로 null 체크로 처리
+		      cookie = new Cookie("c_id", "Y");    // 아이디 저장 여부 쿠키 
+		      cookie.setMaxAge(120);               // 2 분 유지 
+		      response.addCookie(cookie);          // 쿠키 기록 
+		   
+		      cookie = new Cookie("c_id_val", id); // 아이디 값 저장 쿠키  
+		      cookie.setMaxAge(120);               // 2 분 유지 
+		      response.addCookie(cookie);          // 쿠키 기록  
+		         
+		    }else{ 
+		      cookie = new Cookie("c_id", "");     // 쿠키 삭제 
+		      cookie.setMaxAge(0); 
+		      response.addCookie(cookie); 
+		         
+		      cookie = new Cookie("c_id_val", ""); // 쿠키 삭제 
+		      cookie.setMaxAge(0); 
+		      response.addCookie(cookie); 
+		    } 
+		    // --------------------------------------------- 
+		 
+		}
+		
+		model.addAttribute("cnt", cnt);
+		String url = "./error/passwdError";
+		if(cnt==1){
+			url = "redirect:/";
+			if(!flag.equals("")){
+				model.addAttribute("carpoolno", carpoolno);
+				model.addAttribute("nowPage", nowPage);
+				model.addAttribute("nPage", nPage);
+				model.addAttribute("col", col);
+				model.addAttribute("word", word);
+				url = "redirect:"+flag;
+			}
+		}
+		 
+		return url;
+	}
+	@RequestMapping(value="/member/login",method=RequestMethod.GET)
+	public String login(HttpServletRequest request,Model model,
+			@RequestParam(value="carpoolno",defaultValue="0")int carpoolno,
+			@RequestParam(value="nowPage",defaultValue="0")int nowPage, 
+			@RequestParam(value="nPage",defaultValue="0")int nPage
+			){
+		String c_id = "";     // ID 저장 여부를 저장하는 변수, Y
+		String c_id_val = ""; // ID 값
+		
+		Cookie[] cookies = request.getCookies(); 
+		Cookie cookie=null; 
+		
+		if (cookies != null){ 
+			for (int i = 0; i < cookies.length; i++) { 
+				cookie = cookies[i]; 
+				
+				if (cookie.getName().equals("c_id")){ 
+					c_id = cookie.getValue();     // Y 
+				}else if(cookie.getName().equals("c_id_val")){ 
+					c_id_val = cookie.getValue(); // user1... 
+				} 
+			} 
+		}
+		model.addAttribute("c_id", c_id);
+		model.addAttribute("c_id_val", c_id_val);
+		request.setAttribute("nowPage", nowPage);
+		request.setAttribute("nPage", nPage);
+		request.setAttribute("carpoolno", carpoolno);
+		return "/member/login";
+	}
+	
+	@RequestMapping("/member/logout")
+	public String logout(HttpSession session){
+		session.invalidate();//모든 세션변수 제거
+		return "redirect:/";
+	}
 	
 	@RequestMapping("/member/agree")
 	public String agree(){
@@ -45,28 +149,6 @@ public class MemberController {
 		}
 		dto.setMfile(mfile);
 		dto.setPassport(passport);
-		System.out.println(dto.getAddr_certi());
-		System.out.println(dto.getAddress1());
-		System.out.println(dto.getAddress2());
-		System.out.println(dto.getCerti_num());
-		System.out.println(dto.getGender());
-		System.out.println(dto.getId());
-		System.out.println(dto.getLicense_type());
-		System.out.println(dto.getMail());
-		System.out.println(dto.getMail_certi());
-		System.out.println(dto.getMem_type());
-		System.out.println(dto.getMfile());
-		System.out.println(dto.getName());
-		System.out.println(dto.getPassport());
-		System.out.println(dto.getPassport_certi());
-		System.out.println(dto.getPasswd());
-		System.out.println(dto.getPhone_certi());
-		System.out.println(dto.getPhone_num());
-		System.out.println(dto.getSns());
-		System.out.println(dto.getSns_certi());
-		System.out.println(dto.getZipcode());
-		System.out.println(dto.getMfileMF());
-		System.out.println(dto.getPassportMF());
 		    if(!flag){	    	
 		    	try {
 					if(memberDAO.create1(dto)>0){

@@ -1,5 +1,6 @@
 package spring.model.member;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,5 +69,16 @@ public class MemberDAO implements DAOMyBatisInter {
 	
 	public int duplicateEmail(String mail){
 		return mybatis.selectOne("member.duplicateEmail",mail);
+	}
+	
+	public int loginCheck(String id,String passwd){
+		Map map=new HashMap();
+		map.put("id", id);
+		map.put("passwd", passwd);
+		return mybatis.selectOne("member.loginCheck", map);
+	}
+	
+	public String getMem_type(String id){
+		return mybatis.selectOne("member.getMem_type", id);
 	}
 }
