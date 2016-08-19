@@ -5,6 +5,7 @@ a:hover { text-decoration:none; }
 	width: 25px;
 	margin-right: 180px;
 	margin-top: 20px;
+	cursor:pointer;
 }
 #top {
 	border: 0px solid;
@@ -20,7 +21,7 @@ a:hover { text-decoration:none; }
 	height: 50px;
 	float: right;
 }
-#sign {
+#sign1 {
 	border: 0px solid;
 	background-color: white;
 	width: 100px;
@@ -32,8 +33,29 @@ a:hover { text-decoration:none; }
 	font-weight:bold;
 	display: none;
 }
+#sign2 {
+	border: 0px solid;
+	background-color: white;
+	width: 100px;
+	height: 70px;
+	float: right;
+	margin-right: 150px;
+	cursor:pointer;
+	color:#535353;
+	font-weight:bold;
+	display: none;
+}
 #login {
 	cursor:pointer;
+	color:#535353;
+	font-weight:bold;
+	width: 100px;
+	height: 35px;
+	float: right;
+	margin:7px 10px 0px 10px;
+	padding-top: 10px;
+}
+#login_name {
 	color:#535353;
 	font-weight:bold;
 	width: 100px;

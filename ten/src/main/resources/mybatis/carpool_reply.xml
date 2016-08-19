@@ -15,7 +15,7 @@ values
 <select id="read" parameterType="int" resultType="Carpool_ReplyDTO">
 SELECT crep_no,crep_date,id,content,carpoolno 
 FROM carpool_reply 
-WHERE crep_no=#{crep_no}
+WHERE carpoolno=#{carpoolno}
 </select>
 
 <update id="update" parameterType="Carpool_ReplyDTO">

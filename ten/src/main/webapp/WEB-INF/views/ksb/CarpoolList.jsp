@@ -15,7 +15,11 @@ border-top:1px solid gray;
 }
 </style>
 <script type="text/javascript">
-function read(no){
+function read(no,type){
+	if(type=="여성전용카풀"&&'${sessionScope.gender}'!="여"){
+		alert("여성회원만 읽기가 가능합니다.")
+		return false;
+	}
 	var url = "read";
 	url = url + "?carpoolno=" + no;
 	url = url + "&nowPage=${nowPage}";
@@ -98,7 +102,7 @@ function read(no){
 			</c:when>
 			<c:otherwise>
 		<c:forEach items="${list}" var="carpoolDTO">
-		<tr onclick="read(${carpoolDTO.carpoolno})" style="cursor: pointer;">
+		<tr onclick="read('${carpoolDTO.carpoolno}','${carpoolDTO.c_type}')" style="cursor: pointer;">
 			<td style="text-align: center"><img alt="photo"
 				src="${pageContext.request.contextPath}/storage/${carpoolDTO.memberDTO.mfile}"
 				width="100%"><br>${carpoolDTO.memberDTO.name}</td>

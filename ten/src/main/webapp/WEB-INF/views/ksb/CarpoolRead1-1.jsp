@@ -137,9 +137,12 @@
 				  </div>
 				  </c:forEach>
 				  <div class="rcreate">
+				  <form>
+				  <button></button>
+				  </form>
 				  <form name="rform" id="rform" action="./rcreate" method="post" onsubmit="return input(this)">
 				  <textarea rows="3" cols="28" name="content" onclick="rcheck(this)"></textarea>
-				  <input type="button" name="rsubmit" id="rsubmit" value="등록">
+				  <input type="submit" name="rsubmit" id="rsubmit" value="등록">
 				  <input type="hidden" name="carpoolno" id='carpoolno' value="${carpoolDTO.carpoolno}">
 				  <input type="hidden" name="id" id="id" value="${sessionScope.id}">
 				  <input type="hidden" name="nowPage" id='nowPage' value="${param.nowPage}">
@@ -149,8 +152,6 @@
 				  <input type="hidden" name="word1" id="word1" value="${param.word1}">
 				  <input type="hidden" name="word2" id="word2" value="${param.word2}">
 				  <input type="hidden" name="crep_no" id="crep_no" value="0">
-				  
-				  
 				  </form>
 				  </div>
 				  <div class="bottom">

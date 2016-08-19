@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.carpool.CarpoolDAO;
 import spring.model.carpool.CarpoolDTO;
@@ -94,9 +97,9 @@ public class CarpoolController {
 		return "/carpool/create3";
 	}
 	@RequestMapping(value="/carpool/create",method=RequestMethod.POST)
-	public String create(CarpoolDTO dto,Model model){
+	public String create(CarpoolDTO dto,Model model,HttpSession session){
 		try {
-			dto.setId("ktw3722");
+			dto.setId((String)session.getAttribute("id"));
 			int cnt=carpoolDAO.create(dto);
 			if(cnt==1){
 				return "redirect:/carpool/list";
@@ -107,7 +110,6 @@ public class CarpoolController {
 		}
 		return "/error/error";
 	}
-	
 	
 	@RequestMapping("/carpool/read")
 	public String read1(int carpoolno,int nowPage,String kind1,String kind2,String word1,String word2,
@@ -302,30 +304,22 @@ public class CarpoolController {
 		return "error/error";
 	}
 	
-	@RequestMapping("/carpool/rcreate")
-	public String rcreate(Carpool_ReplyDTO dto,int nowPage,String kind1,String kind2, 
-			String word1,String word2,Model model){
+	@RequestMapping(value="/carpool/rcreate", method=RequestMethod.POST)
+	public @ResponseBody Carpool_ReplyDTO rcreate(Carpool_ReplyDTO dto,int nowPage,String kind1,String kind2, 
+			String word1,String word2,Model model,HttpSession session){
 	 
 	try {
-		dto.setId("ktw3722");
+		dto.setId((String)session.getAttribute("id"));
 		if(carpool_replyDAO.create(dto)>0){
-
-		model.addAttribute("carpoolno", dto.getCarpoolno());
-		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("kind1", kind1);
-		model.addAttribute("kind2", kind2);
-		model.addAttribute("word1", word1);
-		model.addAttribute("word2", word2);
-		return "redirect:./read";
-		}else{
-		return "error/error";
-		}
-	} catch (Exception e) {
+			Object pk=(Object)dto.getCarpoolno();
+			dto=(Carpool_ReplyDTO) carpool_replyDAO.read(pk);
+		return dto;
+	} 
+		}catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	 
-		return "error/error";
-	}
-	
+		return null;
+	}	
 }

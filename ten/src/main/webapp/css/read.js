@@ -104,10 +104,13 @@ function input(f) {
 	}
 }
 $("#rsubmit").click(function(){
-	    $.post("./rcreate",$("#rform").serialize(),
-	    function(data, status){
-	        alert("Data: " + data + "\nStatus: " + status);
-	    });
+	alert("ddd")
+	$.post("./rcreate",$("#rform").serialize(),
+			function(data){
+		var rawJsonData = JSON.parse(data);
+		console.log(rawJsonData);
+			});
+	alert("2")
 });
 function rupdate(crep_no, rcontent) {
 	var f = document.rform;

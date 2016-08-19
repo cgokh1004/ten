@@ -81,4 +81,16 @@ public class MemberDAO implements DAOMyBatisInter {
 	public String getMem_type(String id){
 		return mybatis.selectOne("member.getMem_type", id);
 	}
+	
+	public String getName(String id){
+		return mybatis.selectOne("member.getName", id);
+	}
+	
+	public String getMfile(String id){
+		return mybatis.selectOne("member.getMfile", id);
+	}
+	
+	public String getGender(String id){
+		return mybatis.selectOne("member.getGender", id);
+	}
 }

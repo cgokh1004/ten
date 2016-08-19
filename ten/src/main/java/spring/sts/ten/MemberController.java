@@ -32,15 +32,23 @@ public class MemberController {
 			HttpSession session,HttpServletResponse response,Model model){
 	
 		int cnt = 0;
-		String mem_type = ""; //회원 등급
-		
+		String mem_type = "U"; //회원 등급
+		String name = "";
+		String mfile = "사진.jsp";
+		String gender = "";
 		cnt = memberDAO.loginCheck(id, passwd);
 		
 		if(cnt==1){
 			
 			mem_type = memberDAO.getMem_type(id);
+			name = memberDAO.getName(id);
+			mfile = memberDAO.getMfile(id);
+			gender = memberDAO.getGender(id);
 			session.setAttribute("id", id);
 			session.setAttribute("mem_type", mem_type);
+			session.setAttribute("name", name);
+			session.setAttribute("mfile", mfile);
+			session.setAttribute("gender", gender);
 		    // ---------------------------------------------- 
 		    // Cookie 저장, Checkbox는 선택하지 않으면 null 임 
 		    // ---------------------------------------------- 
