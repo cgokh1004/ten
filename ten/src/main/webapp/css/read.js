@@ -79,45 +79,91 @@ function rcheck(tarea) {
 	}
 }
 
-function input(f) {
+$("#rsubmit").click(function(){
 	if ($("#id").val() == "") {
-		if (confirm("로그인후 댓글를 쓰세요")) {
-			var url = "../member/login";
-			url = url + "?carpoolno="+$("#carpoolno").val();
-			url = url + "&nowPage="+$("#nowPage").val();
-			url = url + "&nPage="+$("#nPage").val();
-			url = url + "&kind1="+$("#kind1").val();
-			url = url + "&kind2="+$("#kind2").val();
-			url = url + "&word1="+$("#word1").val();
-			url = url + "&word2="+$("#word2").val();
-			url = url + "&flag=../carpool/read";
-			location.href = url;
-			return false;
-		} else {
-
+		if(confirm("로그인후 댓글를 쓰세요")){
+		var url = "../member/login";
+		url = url + "?carpoolno="+$("#carpoolno").val();
+		url = url + "&nowPage="+$("#nowPage").val();
+		url = url + "&nPage="+$("#nPage").val();
+		url = url + "&kind1="+$("#kind1").val();
+		url = url + "&kind2="+$("#kind2").val();
+		url = url + "&word1="+$("#word1").val();
+		url = url + "&word2="+$("#word2").val();
+		url = url + "&flag=../carpool/read";
+		location.href = url;
+		}else{
+			tarea.blur();
+		}
+	}else{
+		if ($("#content").val()== "") {
+			alert("댓글 내용을 입력하세요.");
+			$("#content").focus();
 			return false;
 		}
-	} else if (f.content.value == "") {
-		alert("댓글 내용을 입력하세요.");
-		f.content.focus();
-		return false;
 	}
-}
-$("#rsubmit").click(function(){
-	alert("ddd")
+	
+	$("#reply").empty();
 	$.post("./rcreate",$("#rform").serialize(),
 			function(data){
-		var rawJsonData = JSON.parse(data);
-		console.log(rawJsonData);
+				if(data!=''){
+					
+				$.each(data,function(index,value){
+					var html = '<div class="rlist">'
+						html += value.id +"<br>"
+						html += "<p>"+value.content+"</p>"
+						html += value.crep_date
+						if($("#id").val()==value.id){
+						html +="<span style='float: right;'>"
+						html +="<a href='javascript:rupdate('${carpool_replyDTO.crep_no}','${carpool_replyDTO.content }')'>수정</a>|"
+						html +="<a href='javascript:rdelete("+"'${carpool_replyDTO.crep_no}'"+")'>삭제</a></span>"	
+						}
+						$("#reply").append(html)						
+				})
+					$("#content").val('').focus();
+				}
 			});
-	alert("2")
 });
+var cnt=0
 function rupdate(crep_no, rcontent) {
 	var f = document.rform;
 	f.content.value = rcontent;
 	f.crep_no.value = crep_no;
-	f.rsubmit.value = "수정";
-	f.action = "./rupdate"
+	cnt+=1;
+	alert(cnt)
+	$("#rsubmit").remove()
+	if(cnt==1){
+	$("#content").after("<input type='button'value='수정' id='rupdate'>")
+	}
+	$("#rupdate").click(function(){
+		if ($("#content").val()== "") {
+			alert("댓글 내용을 입력하세요.");
+			$("#content").focus();
+			return false;
+		}
+		$("#reply").empty();
+		$("#crep_no").val(crep_no)
+		$.post("./rupdate",$("#rform").serialize(),
+				function(data){
+			if(data!=''){
+				
+			$.each(data,function(index,value){
+				var html = '<div class="rlist">'
+					html += value.id +"<br>"
+					html += "<p>"+value.content+"</p>"
+					html += value.crep_date
+					if($("#id").val()==value.id){
+					html +="<span style='float: right;'>"
+					html +="<a href='javascript:rupdate('${carpool_replyDTO.crep_no}','${carpool_replyDTO.content }')'>수정</a>|"
+					html +="<a href='javascript:rdelete("+"'${carpool_replyDTO.crep_no}'"+")'>삭제</a></span>"	
+					}
+					$("#reply").append(html)						
+			})
+				$("#content").val('').focus();
+			}
+		});
+	})
+
 }
 function rdelete(crep_no) {
 	if (confirm("정말삭제 하겠습니까?")) {

@@ -282,44 +282,42 @@ public class CarpoolController {
 	}
 	 
 	@RequestMapping("/carpool/rupdate")
-	public String rupdate(Carpool_ReplyDTO dto,int nowPage,int nPage, String kind1,String kind2, 
+	public @ResponseBody List<Carpool_ReplyDTO> rupdate(Carpool_ReplyDTO dto,int nowPage,int nPage, String kind1,String kind2, 
 			String word1,String word2,Model model){
 	try {
 		if(carpool_replyDAO.update(dto)>0){
-		model.addAttribute("carpoolno", dto.getCarpoolno());
-		model.addAttribute("nowPage", nowPage);
-		model.addAttribute("nPage", nPage);
-		model.addAttribute("kind1", kind1);
-		model.addAttribute("kind2", kind2);
-		model.addAttribute("word1", word1);
-		model.addAttribute("word2", word2);
-		return "redirect:./read";
-		}else{
-		return "error/error";
+			Map map = new HashMap();
+			map.put("sno", 1);
+			map.put("eno", 3);
+			map.put("carpoolno", dto.getCarpoolno());
+			List<Carpool_ReplyDTO> list = carpool_replyDAO.list(map);
+		return list;
 		}
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}	 
-		return "error/error";
+		return null;
 	}
 	
 	@RequestMapping(value="/carpool/rcreate", method=RequestMethod.POST)
-	public @ResponseBody Carpool_ReplyDTO rcreate(Carpool_ReplyDTO dto,int nowPage,String kind1,String kind2, 
+	public @ResponseBody List<Carpool_ReplyDTO> rcreate(Carpool_ReplyDTO dto,int nowPage,String kind1,String kind2, 
 			String word1,String word2,Model model,HttpSession session){
 	 
 	try {
 		dto.setId((String)session.getAttribute("id"));
 		if(carpool_replyDAO.create(dto)>0){
-			Object pk=(Object)dto.getCarpoolno();
-			dto=(Carpool_ReplyDTO) carpool_replyDAO.read(pk);
-		return dto;
+			Map map = new HashMap();
+			map.put("sno", 1);
+			map.put("eno", 3);
+			map.put("carpoolno", dto.getCarpoolno());
+			List<Carpool_ReplyDTO> list = carpool_replyDAO.list(map);
+		return list;
 	} 
 		}catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	 
 		return null;
 	}	
 }

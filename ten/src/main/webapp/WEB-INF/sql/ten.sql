@@ -295,10 +295,10 @@ delete from carpool_reply
 where crep_no=2;
 
 --list--
-SELECT crep_no,name,crep_date,content,carpoolno , r
+SELECT crep_no,name,crep_date,content,carpoolno,id , r
 		from(
-			 SELECT crep_no,name,crep_date,content,carpoolno , rownum r  
-				from(SELECT crep_no,name,crep_date,content,carpoolno  
+			 SELECT crep_no,name,crep_date,content,carpoolno,id, rownum r  
+				from(SELECT crep_no,name,crep_date,content,carpoolno,carpool_reply.id 
 						FROM carpool_reply join member
 						on carpool_reply.id=member.id
 						where name like '%김%'
