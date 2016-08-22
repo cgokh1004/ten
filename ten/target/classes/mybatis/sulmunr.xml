@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sulmunr">
+<!-- 1. insert -->
+	<insert id="create" parameterType="SulmunrDTO">
+	INSERT INTO sulmunr (sulmunrno,    chono,   chocontent ,  sulno )
+	VALUES((SELECT NVL(MAX(sulmunrno), 0) + 1 as sulmunrno FROM sulmunr), #{chono}, #{chocontent}, #{sulno})
+	</insert>
+  
+   <!-- 2.update -->
+	<update id="update" parameterType="SulmunrDTO">	
+	 UPDATE sulmunr SET chocontent = #{chocontent} WHERE  chono=#{ chono}
+	</update>
+
+<!-- 3.read -->	
+   <select id="read" parameterType="int" resultType="SulmunrDTO">
+     SELECT * FROM sulmunr WHERE sulmunrno = #{sulmunrno}
+  </select>
+  
+  <!-- 4.delete -->  
+  <delete id="delete" parameterType="int">
+DELETE FROM  sulmunr WHERE  sulmunrno = #{ sulmunrno}
+</delete>
+
+<!-- 5.total -->
+	<select id="total" parameterType="Map" resultType="int">
+		select count(*) from sulmunr
+		<where>
+			<choose>
+				<when test="col=='chocontent'">
+					chocontent LIKE '%' || #{word} || '%'
+				</when>				
+				<when test="col=='chono'">
+					chono LIKE '%' || #{word} || '%'
+				</when>				
+			</choose>
+		</where>
+	</select>
+
+<!-- 6.list -->
+   <select id="list" parameterType="Map" resultType="int">
+   
+   select sulmunrno ,  chono , chocontent ,  sulno,r
+  FROM(
+       select sulmunrno ,  chono , chocontent ,  sulno, rownum r
+       FROM(
+            select  sulmunrno ,  chono , chocontent ,  sulno  
+            from sulmunr 
+            
+	<where>
+			<choose>
+				<when test="col=='chocontent'">
+					chocontent LIKE '%' || #{word} || '%'
+				</when>				
+			</choose>
+		</where>
+			ORDER BY sulmunrno asc
+
+		)
+		)                                                                            
+   <![CDATA[                                                                        
+   where r>=#{sno} and r<=#{eno}  
+   ]]>
+	</select>
+ 
+</mapper>
+ 

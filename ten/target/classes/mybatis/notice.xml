@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+
+	<insert id="create" parameterType="NoticeDTO">
+		INSERT INTO notice(noticeno, title, content, imgname, wdate)  
+		VALUES((SELECT NVL(MAX(noticeno), 0) + 1 as noticeno FROM notice), 
+		#{title}, #{content}, #{imgname}, sysdate)
+	</insert>
+	
+	<select id="read" resultType="NoticeDTO" parameterType="int">
+		SELECT *
+		FROM notice
+		WHERE noticeno = #{noticeno}
+	</select>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM notice
+		WHERE noticeno = #{noticeno}
+	</delete>
+
+	<update id="increaseViewcnt" parameterType="int">
+		UPDATE notice
+		SET viewcnt = viewcnt +1
+		WHERE noticeno = #{noticeno}
+	</update>
+	
+	<update id="update" parameterType="NoticeDTO">
+		UPDATE notice
+		SET title = #{title}, content = #{content}
+		WHERE noticeno = #{noticeno}
+	</update>
+
+	<select id="total" parameterType="map" resultType="int">
+		SELECT count(*) FROM notice
+		<where>
+			<choose>
+				<when test="col=='title'">
+					title LIKE '%' || #{word} || '%'
+				</when>
+				<when test="col=='content'">
+					content LIKE '%' || #{word} || '%'
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<select id="list" resultType="NoticeDTO" parameterType="Map">
+		SELECT noticeno, title, viewcnt, wdate, imgname, r
+		from(
+			SELECT noticeno, title, viewcnt, wdate, imgname, rownum r 
+			from(
+				SELECT noticeno, title, viewcnt, wdate, imgname
+				FROM notice
+				<where>
+					<choose>
+						<when test="col=='title'">
+							title like '%' || #{word} || '%'
+						</when>
+						<when test="col=='content'">
+							content like '%' || #{word} || '%'
+						</when>
+					</choose>
+				</where>
+				ORDER BY noticeno DESC
+
+				)
+			)                                                                            
+   		<![CDATA[                                                                        
+  		 where r>=#{sno} and r<=#{eno}  
+   		]]>
+	</select>
+
+</mapper>

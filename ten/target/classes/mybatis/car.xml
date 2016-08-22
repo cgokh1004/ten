@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="car">
+
+	<insert id="create" parameterType="CarDTO">
+	insert into car(carno, place, brand, placevalue, state) 
+	values(#{carno}, #{place}, #{brand}, #{placevalue}, #{state})
+	</insert>
+	
+	<update id="update" parameterType="CarDTO">
+	UPDATE car
+	SET  carno=#{carno},
+	 place=#{place}, 
+	 brand=#{brand}, 
+	 placevalue=#{placevalue}, 
+	 state=#{state}
+	WHERE carno = #{carno} 
+	</update>
+	
+	<select id="read" resultType="CarDTO" parameterType="String">
+	select carno, place, brand, placevalue, state
+	from car
+	where carno = #{carno}
+	</select>
+	
+	<select id="list" resultType="CarDTO" parameterType="Map">
+	select carno, place, brand, placevalue, state, r
+	from(
+		select carno, place, brand, placevalue, state, rownum r
+		from(
+			select carno, place, brand, placevalue, state
+			from car
+			order by carno desc
+		)
+	)
+	<![CDATA[
+	where r>=#{sno} and r<=#{eno}
+	]]>
+	</select>
+	
+	<delete id="delete" parameterType="String">
+	delete from car
+	where carno=#{carno}
+	</delete>
+	
+	<select id="total" resultType="int" parameterType="String">
+	select count(*)
+	from car
+	where carno like '%' || #{word} || '%'
+	</select>
+</mapper>

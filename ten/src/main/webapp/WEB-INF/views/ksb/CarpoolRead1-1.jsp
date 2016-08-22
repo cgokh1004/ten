@@ -123,7 +123,7 @@
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
 			<h3 align="left">댓글</h3>
-				  <div id="reply" name="reply">
+				  <div id="reply" name="reply" style="border: 1px solid red">
 				  <c:forEach var="carpool_replyDTO" items="${rlist}">
 				  <div class="rlist">
 				   ${carpool_replyDTO.id}<br>
@@ -144,7 +144,7 @@
 				  </form>
 				  <form name="rform" id="rform" method="post">
 				  <textarea rows="3" cols="28" name="content" id="content" onclick="rcheck(this)"></textarea>
-				  <input type="button" name="rsubmit" id="rsubmit" value="등록" onclick="return input(this)">
+				  <input type="button" name="rsubmit" id="rsubmit" value="등록">
 				  <input type="hidden" name="carpoolno" id='carpoolno' value="${carpoolDTO.carpoolno}">
 				  <input type="hidden" name="id" id="id" value="${sessionScope.id}">
 				  <input type="hidden" name="nowPage" id='nowPage' value="${param.nowPage}">

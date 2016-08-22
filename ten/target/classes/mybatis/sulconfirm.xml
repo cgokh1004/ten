@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sulconfirm">
+<!-- 1. insert -->
+	<insert id="create" parameterType="SulconfirmDTO">	 
+	INSERT INTO sulconfirm(confirmno, ID ,  sulno , selno )
+	VALUES((select nvl(max( confirmno ),0)+1 from  sulconfirm), #{ID}, #{sulno}, #{selno})
+	</insert>
+ <!-- 2.update -->
+	<update id="update" parameterType="SulconfirmDTO">		
+	 UPDATE sulconfirm SET selno = #{selno} WHERE  sulno=#{sulno}
+	</update>
+<!-- 3.read -->	
+   <select id="read" parameterType="int" resultType="SulconfirmDTO">
+     SELECT * FROM sulconfirm WHERE confirmno = #{confirmno}
+  </select>
+
+  <!-- 4.delete -->  
+  <delete id="delete" parameterType="int">
+DELETE FROM  sulconfirm WHERE  selno  = #{selno }
+</delete>	
+<!-- 5.total -->
+	<select id="total" parameterType="Map" resultType="int">
+	select count(*) from sulconfirm
+		<where>
+			<choose>
+				<when test="col=='sulno'">
+					sulno LIKE '%' || #{word} || '%'
+				</when>				
+			</choose>
+		</where>
+	</select>
+
+<!-- 6.list -->
+   <select id="list" parameterType="Map" resultType="int">    
+   select confirmno ,  ID , sulno ,  selno, r
+  FROM(
+       select confirmno ,  ID , sulno ,  selno, rownum r
+       FROM(
+            select  confirmno ,  ID , sulno ,  selno  
+            from sulconfirm                 
+	<where>
+			<choose>
+				<when test="col=='selno'">
+					selno LIKE '%' || #{word} || '%'
+				</when>				
+				<when test="col=='sulno'">
+					sulno LIKE '%' || #{word} || '%'
+				</when>				
+			</choose>
+		</where>
+			ORDER BY  confirmno asc
+
+		)
+		)                                                                            
+   <![CDATA[                                                                        
+   where r>=#{sno} and r<=#{eno}  
+   ]]>
+	</select>
+ 
+</mapper>
