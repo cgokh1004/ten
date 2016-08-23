@@ -121,22 +121,27 @@
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
 			<h3 align="left">댓글</h3>
-			<c:forEach var="carpool_replyDTO" items="${rlist}">
+				  <div id="reply" name="reply">
+				  <c:forEach var="carpool_replyDTO" items="${rlist}">
 				  <div class="rlist">
-				   ${carpool_replyDTO.id}<br/>
+				   ${carpool_replyDTO.id}<br>
 				   <p>${carpool_replyDTO.content}</p>
 				   ${carpool_replyDTO.crep_date}
 				   <c:if test="${sessionScope.id==carpool_replyDTO.id }">
 				   <span style="float: right;">
-				   <a href="javascript:rupdate('${carpool_replyDTO.crep_no}','${carpool_replyDTO.content }')">
-				   수정</a>|<a href="javascript:rdelete('${carpool_replyDTO.crep_no}')">삭제</a>
+				   <a href="javascript:rupdate('${carpool_replyDTO.crep_no}','${carpool_replyDTO.content }')">수정</a>|
+				   <a href="javascript:rdelete('${carpool_replyDTO.crep_no}')">삭제</a>
 				   </span>
 				   </c:if>
 				  </div>
 				  </c:forEach>
+				  </div>
 				  <div class="rcreate">
-				 <form name="rform" action="./rcreate" method="post" onsubmit="return input(this)">
-				  <textarea rows="3" cols="28" name="content" onclick="rcheck(this)"></textarea>
+				  <form>
+				  <button style="display: none;"></button>
+				  </form>
+				  <form name="rform" id="rform" method="post">
+				  <textarea rows="3" cols="28" name="content" id="content" onclick="rcheck(this)"></textarea>
 				  <input type="button" name="rsubmit" id="rsubmit" value="등록">
 				  <input type="hidden" name="carpoolno" id='carpoolno' value="${carpoolDTO.carpoolno}">
 				  <input type="hidden" name="id" id="id" value="${sessionScope.id}">
@@ -147,8 +152,6 @@
 				  <input type="hidden" name="word1" id="word1" value="${param.word1}">
 				  <input type="hidden" name="word2" id="word2" value="${param.word2}">
 				  <input type="hidden" name="crep_no" id="crep_no" value="0">
-				  
-				  
 				  </form>
 				  </div>
 				  <div class="bottom">
