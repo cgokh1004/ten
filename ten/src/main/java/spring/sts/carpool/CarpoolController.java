@@ -1,5 +1,4 @@
 package spring.sts.carpool;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import spring.model.carpool.CarpoolDAO;
 import spring.model.carpool.CarpoolDTO;
 import spring.model.carpool_reply.Carpool_ReplyDAO;
 import spring.model.carpool_reply.Carpool_ReplyDTO;
-import spring.model.carpool_review.Carpool_ReviewDAO;
 import spring.model.member.MemberDAO;
 import spring.utility.ten.Paging;
 import spring.utility.ten.Utility;
@@ -36,8 +34,6 @@ public class CarpoolController {
 	private MemberDAO memberDAO;
 	@Autowired
 	private Carpool_ReplyDAO carpool_replyDAO;
-	@Autowired
-	private Carpool_ReviewDAO carpool_reviewDAO;
 	
 	@RequestMapping("/carpool/list")
 	public String list(HttpServletRequest request,Model model){
@@ -191,7 +187,7 @@ public class CarpoolController {
 	
 	@RequestMapping(value="/carpool/update_s",method=RequestMethod.POST)
 	public String update_s(CarpoolDTO dto,Model model){
-		String c_comment=dto.getC_comment().replaceAll("<BR>", "\r\n");
+		String c_comment=dto.getC_comment().replaceAll("<BR>", "\n");
 		dto.setC_comment(c_comment);
 		model.addAttribute("carpoolDTO",dto);
 		return "/carpool/update_s";
@@ -288,6 +284,8 @@ public class CarpoolController {
 	public @ResponseBody List<Carpool_ReplyDTO> rupdate(Carpool_ReplyDTO dto,int nowPage,int nPage, String kind1,String kind2, 
 			String word1,String word2,Model model){
 	try {
+		dto.setContent(dto.getContent().replaceAll("\r\n", "<BR>"));
+		dto.setContent(dto.getContent().replaceAll("\u0020", "&nbsp"));
 		if(carpool_replyDAO.update(dto)>0){
 			Map map = new HashMap();
 			map.put("sno", 1);
@@ -309,7 +307,8 @@ public class CarpoolController {
 	 
 	try {
 		dto.setId((String)session.getAttribute("id"));
-		dto.setContent(dto.getContent().replaceAll("<BR>", "\r\n"));
+		dto.setContent(dto.getContent().replaceAll("\r\n", "<BR>"));
+		dto.setContent(dto.getContent().replaceAll("\u0020", "&nbsp"));
 		if(carpool_replyDAO.create(dto)>0){
 			Map map = new HashMap();
 			map.put("sno", 1);

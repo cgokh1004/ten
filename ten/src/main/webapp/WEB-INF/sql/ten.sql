@@ -283,12 +283,12 @@ values
 
 --read--
 SELECT crep_no,crep_date,id,content,carpoolno 
-FROM carpool_reply WHERE carpoolno=6;
+FROM carpool_reply WHERE carpoolno=2;
 
 --update--
 update carpool_reply
-set crep_date=(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),content='그날가능!'
-where crep_no=2;
+set crep_date=(SELECT TRUNC(SYSDATE , 'MI') as crep_date FROM DUAL),content='그날가능!'
+where crep_no=1;
 
 --delete--
 delete from carpool_reply 

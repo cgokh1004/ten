@@ -87,7 +87,9 @@ function rcheck(tarea) {
 var cnt=0
 function rupdate(crep_no, rcontent) {
 	var f = document.rform;
-	f.content.value = rcontent;
+	rcontent=rcontent.replace(/<br>/gi,"\r\n")
+	rcontent=rcontent.replace(/&nbsp/gi,"\u0020")
+	f.content.value = rcontent
 	f.crep_no.value = crep_no;
 	cnt+=1;
 	$("#rsubmit").remove()
@@ -108,6 +110,9 @@ function rupdate(crep_no, rcontent) {
 				
 			$.each(data,function(index,value){
 				cnt=0;
+				var no=value.crep_no;
+				var content=value.content;
+			    	content=encodeURIComponent(content)
 				var html = '<div class="rlist">'
 					html += value.id +"<br>"
 					html += "<p>"+value.content+"</p>"
@@ -115,10 +120,10 @@ function rupdate(crep_no, rcontent) {
 					if($("#id").val()==value.id){
 					html +="<span style='float: right;'>"
 					html +="<a href=javascript:rupdate('"
-					html +=	value.crep_no+"','"+value.content
+					html +=	no+"','"+content
 					html += "')>수정</a>|"
 					html +="<a href=javascript:rdelete('"
-					html +=	value.crep_no
+					html +=	no
 					html +="')>삭제</a></span>"	
 					}
 					$("#reply").append(html)						
@@ -126,7 +131,7 @@ function rupdate(crep_no, rcontent) {
 				$("#content").val('').focus();
 				$("#rupdate").remove()
 				$("#content").after("<input type='button' name='rsubmit' id='rsubmit' value='등록'>")
-				
+
 				$("#rsubmit").click(function(){
 					if ($("#id").val() == "") {
 						if(confirm("로그인후 댓글를 쓰세요")){
@@ -158,6 +163,9 @@ function rupdate(crep_no, rcontent) {
 							
 							$.each(data,function(index,value){
 								cnt=0;
+								var no=value.crep_no;
+								var content=value.content;
+									content=encodeURIComponent(content)
 								var html = '<div class="rlist">'
 									html += value.id +"<br>"
 									html += "<p>"+value.content+"</p>"
@@ -165,7 +173,7 @@ function rupdate(crep_no, rcontent) {
 									if($("#id").val()==value.id){
 									html +="<span style='float: right;'>"
 									html +="<a href=javascript:rupdate('"
-									html +=	value.crep_no+"','"+value.content
+									html +=	no+"','"+content
 									html += "')>수정</a>|"
 									html +="<a href=javascript:rdelete('"
 									html +=	value.crep_no
@@ -214,6 +222,9 @@ $("#rsubmit").click(function(){
 			
 			$.each(data,function(index,value){
 				cnt=0;
+				var no=value.crep_no;
+				var content=value.content;
+					content=encodeURIComponent(content)
 				var html = '<div class="rlist">'
 					html += value.id +"<br>"
 					html += "<p>"+value.content+"</p>"
@@ -221,7 +232,7 @@ $("#rsubmit").click(function(){
 					if($("#id").val()==value.id){
 					html +="<span style='float: right;'>"
 					html +="<a href=javascript:rupdate('"
-					html +=	value.crep_no+"','"+value.content
+					html +=	no+"','"+content
 					html += "')>수정</a>|"
 					html +="<a href=javascript:rdelete('"
 					html +=	value.crep_no

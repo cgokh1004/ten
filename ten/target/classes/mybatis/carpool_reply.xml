@@ -22,7 +22,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" parameterType="Carpool_ReplyDTO">
 		update carpool_reply
 		set
-		crep_date=to_date(SYSDATE,'YYYY-MM-DD HH24:MI'),content=#{content}
+		crep_date=(SELECT TRUNC(SYSDATE , 'MI') as crep_date FROM DUAL),
+		content=#{content}
 		where crep_no=#{crep_no}
 	</update>
 
