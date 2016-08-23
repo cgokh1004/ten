@@ -8,22 +8,74 @@
 
 	<definition name="main" template="/WEB-INF/views/templates/template.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/templates/top.jsp" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/templates/bottom.jsp" />
 	</definition>
 
 	<!-- definition의 이름은 Bbscontroller에서 리턴되는 뷰의 이름 -->
 	<definition name="/home" extends="main">
-		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="title" value="IT Share"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
-	
-	
-	<!--  여기 아래는 예제 -->
-<!-- 	<definition name="/img/createForm" extends="main"> -->
-<!-- 		<put-attribute name="title" value="Memo Create Page"></put-attribute> -->
-<!-- 		<put-attribute name="body" value="/WEB-INF/views/img/createForm.jsp" /> -->
-<!-- 	</definition> -->
-
+<!-- 	Member -->
+	<definition name="/member/agree" extends="main">
+		<put-attribute name="title" value="Agreement"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/member/agreement.jsp" />
+	</definition>
+	<definition name="/member/create" extends="main">
+		<put-attribute name="title" value="Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/member/create.jsp" />
+	</definition>
+	<definition name="/member/login" extends="main">
+		<put-attribute name="title" value="Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/member/login.jsp" />
+	</definition>
+<!-- 	카풀 -->
+	<definition name="/carpool/list" extends="main">
+		<put-attribute name="title" value="Carpool List"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolList.jsp" />
+	</definition>
+	<definition name="/carpool/create1" extends="main">
+		<put-attribute name="title" value="Carpool Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolCreate1.jsp" />
+	</definition>
+	<definition name="/carpool/create2" extends="main">
+		<put-attribute name="title" value="Carpool Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolCreate2.jsp" />
+	</definition>
+	<definition name="/carpool/create3" extends="main">
+		<put-attribute name="title" value="Carpool Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolCreate3.jsp" />
+	</definition>
+	<definition name="/carpool/create" extends="main">
+		<put-attribute name="title" value="Carpool Create"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolCreate3.jsp" />
+	</definition>
+	<definition name="/carpool/read1-1" extends="main">
+		<put-attribute name="title" value="Carpool Read"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead1-1.jsp" />
+	</definition>
+	<definition name="/carpool/read1-2" extends="main">
+		<put-attribute name="title" value="Carpool Read"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead1-2.jsp" />
+	</definition>
+	<definition name="/carpool/read2-1" extends="main">
+		<put-attribute name="title" value="Carpool Read"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead2-1.jsp" />
+	</definition>
+	<definition name="/carpool/read2-2" extends="main">
+		<put-attribute name="title" value="Carpool Read"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead2-2.jsp" />
+	</definition>
+	<definition name="/carpool/read3-1" extends="main">
+		<put-attribute name="title" value="Carpool Read"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead3-1.jsp" />
+	</definition>
+	<definition name="/carpool/read3-2" extends="main">
+		<put-attribute name="title" value="Carpool Read"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolRead3-2.jsp" />
+	</definition>
+	<definition name="/carpool/update_s" extends="main">
+		<put-attribute name="title" value="Carpool Update"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/ksb/CarpoolUpdate.jsp" />
+	</definition>	
 </tiles-definitions> 
 

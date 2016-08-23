@@ -32,7 +32,7 @@ $.jqplot ('graph', [[['첫번째', 50], ['두번째', 22], ['세번째', 38], ['
           //우측 색상별 타이틀 출력
           legend: { show:true, location: 'e' }
         }
-);
+)
 
 </script>
 </head>

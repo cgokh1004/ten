@@ -51,15 +51,16 @@ CREATE TABLE events (
   
   
  
- 
+ drop 
 
 CREATE TABLE member (
        id                   varchar2(12char) NOT NULL,
+       passwd				varchar2(30char) NOT NULL,
        name                 varchar2(10char) NOT NULL,
        gender               varchar2(12char) NOT NULL
                                    CHECK (gender IN ('남', '여')),
-       mem_type             varchar2(2char) DEFAULT '개인' NOT NULL
-                                   CHECK (mem_type IN ('개인', '법인')),
+       mem_type             varchar2(3char) DEFAULT '개인' NOT NULL
+                                   CHECK (mem_type IN ('개인', '법인' , '관리자')),
        mfile                 VARCHAR2(30char) NULL,
        license_type         VARCHAR2(30char) DEFAULT '없음' NOT NULL
                                    CHECK (license_type IN ('없음','1종대형', '1종보통', '2종보통')),
@@ -68,6 +69,7 @@ CREATE TABLE member (
        phone_num            VARCHAR2(15char) NOT NULL,
        phone_certi          NUMBER(1) DEFAULT 0 NOT NULL
                                    CHECK (phone_certi IN (0, 1)),
+       zipcode  			varchar2(7char)  NOT NULL,
        address1             VARCHAR2(50char) NOT NULL,
        address2             VARCHAR2(50char) NULL,
        addr_certi           NUMBER(1) DEFAULT 0 NOT NULL
@@ -86,19 +88,19 @@ CREATE TABLE member (
 
 --기본사항--
 select * from member;
-drop table member;
+drop table member cascade constraint;
 
 --------------------------------------insert--------------------------
 insert into member
 (id,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,
-sns,sns_certi,mail,mail_certi,passport,passport_certi)
+sns,sns_certi,mail,mail_certi,passport,passport_certi, passwd, zipcode)
 values
-('ktw3722','김성빈','남','개인','사진.jpg','2종보통','010-4017-7980',1,'여기','저기',1,
-'facebook',1,'ktw3722@naver.com',1,'여권.jpg',1);
+('admin','용조충','남','관리자','사진.jpg','2종보통','010-4017-7980',1,'여기','저기',1,
+'facebook',1,'ktw3722@naver.com',1,'여권.jpg',1,'1234','151078');
 --트랜잭션요망
 update member
-set certi_num=(select sum(phone_certi+addr_certi+sns_certi+mail_certi+passport_certi) from member where id='ktw3722')
-where id='ktw3722'
+set certi_num=(select sum(phone_certi+addr_certi+sns_certi+mail_certi+passport_certi) from member where id='admin')
+where id='admin'
 
 insert into member
 (id,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1,address2,addr_certi,

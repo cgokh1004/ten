@@ -7,6 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
+
+
 <!-- 1. insert -->
 	<insert id="create" parameterType="SurveyDTO">
 	INSERT INTO survey(sulno, askcontent ,  sulgroupname, sulstate )
@@ -43,6 +45,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   </select>  
 
+
+
 <!-- 3.read -->	 
   
  <resultMap type="SurveyDTO" id="resultSurveyDTOResultMap">
@@ -72,8 +76,6 @@ order by survey.sulno
 )
   
   </select>  
-
-
 
 
   

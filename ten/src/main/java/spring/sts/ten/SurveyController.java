@@ -1,12 +1,22 @@
 package spring.sts.ten;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -378,17 +388,71 @@ public class SurveyController {
 		return "/survey/delete";
 	}
 	
+	// 6. 결과보기
 	@RequestMapping(value = "/survey/result", method = RequestMethod.GET)
-	public String result(String sulgroupname, Model model) {
-		System.out.println(sulgroupname);
-		model.addAttribute("sulgroupname", sulgroupname);
+	public String result(SulconfirmDTO dto, String sulgroupname, Model model, HttpServletRequest request,
+			                             HttpServletResponse response)  {
 		
+		System.out.println(sulgroupname);
 		
 		List list = surveyDAO.resultreadlist(sulgroupname);		
 		model.addAttribute("list", list);
-		model.addAttribute("sulgroupname", sulgroupname);
+		model.addAttribute("sulgroupname", sulgroupname);		
+		
+		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out;			
+					
+		try {
+			out = response.getWriter();
+			
+			JSONObject joby = new JSONObject();
+			JSONArray jarray = new JSONArray();
+			JSONArray jchart = new JSONArray();
+			
+			
+			//포문돌며 제이손만들기			
+			for(int i = 0; i<list.size(); i++){			
+				//상위포문
+				for(int j=0; j<((SurveyDTO)list.get(i)).getSulmunrdtoList().size(); j++){
+				//하위포문
+					jchart = new JSONArray();
+					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getChono());
+					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getChocontent());
+					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getThenumber());
+					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getTheratio());
+					jarray.add(jchart);
+				}
+				
+				joby.put(((SurveyDTO)list.get(i)).getAskcontent(), jarray);
+				jarray = new JSONArray();
+			}
+			
+	       out.println(joby);
+	       
+	       model.addAttribute("joby", joby);
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return "/survey/result";
+	
 	}
 	
+//	@RequestMapping("/survey/result")
+//	public String result() {
+//		
+//		return "/survey/result";
+//	}
+
 }
+
+	
+	
+
 

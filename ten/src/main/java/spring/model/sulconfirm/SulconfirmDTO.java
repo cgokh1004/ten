@@ -39,7 +39,6 @@ public class SulconfirmDTO {
 		this.selno = selno;
 	}
 
-	
-	 
+ 
 	
 }

@@ -19,16 +19,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
  <update id="updateEvent" parameterType="SchedulerVO"> 
  	UPDATE events SET event_name=#{event_name}, 
- 	                                   start_date=TO_TIMESTAMP(#{start_date},'yyyy-MM-dd HH:MI:ss'), 
- 	                                   end_date= TO_TIMESTAMP(#{end_date},'yyyy-MM-dd HH:mi:ss')
+ 	                                   start_date=TO_TIMESTAMP(#{start_date},'yyyy-MM-dd HH24:MI:ss'), 
+ 	                                   end_date= TO_TIMESTAMP(#{end_date},'yyyy-MM-dd HH24:mi:ss')
  	                                                           WHERE event_id=#{event_id}
  </update>
  
  <insert id="insertEvent" parameterType="SchedulerVO"> 
  	INSERT INTO events (event_id, event_name, start_date, end_date,id) 
  	VALUES ((select nvl(max(event_id),0)+1 from events),
-   #{event_name},TO_TIMESTAMP(#{start_date},'yyyy-MM-dd HH:MI:ss'),
-   TO_TIMESTAMP(#{end_date},'yyyy-MM-dd HH:mi:ss'), #{id})
+   #{event_name},TO_TIMESTAMP(#{start_date},'yyyy-MM-dd HH24:MI:ss'),
+   TO_TIMESTAMP(#{end_date},'yyyy-MM-dd HH24:mi:ss'), #{id})
 
  </insert>
  

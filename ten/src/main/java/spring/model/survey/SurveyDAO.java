@@ -34,9 +34,14 @@ public void setMybatis(SqlSessionTemplate mybatis) {
 		return mybatis.selectList("survey.oneToManyList", pk);
 		}
 	
+	//jason 적용한 결과값임.
+	public List <HashMap<String, Object>>getList(String pk) {
+		return mybatis.selectList("survey.getList", pk);
+		}
+	
 	public List resultreadlist(String pk) {
 		return mybatis.selectList("survey.resultoneToManyList", pk);
-		}
+	}
 	
 	
 	@Override

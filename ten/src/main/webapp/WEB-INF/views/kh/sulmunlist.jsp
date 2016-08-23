@@ -8,6 +8,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>sulmunlist</title>
+<script type="text/javascript">
+table{
+	 
+}
+
+
+</script>
 
 <script type="text/javascript">
 	function del(sulgroupname) {
@@ -77,7 +84,7 @@
 		                 <input type="submit" value="검색" /> 
 	</FORM>
 	</div>
-	<TABLE border='2' align='center' width='70%'>
+	<TABLE border='2' align='center' width='70%' >
 		<TR>		
 			<TH width='10%'>설문주제</TH>
 			<TH width='10%'>상태</TH>	

@@ -1,15 +1,20 @@
 package spring.model.member;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberDTO {
-	private String id;             
+	private String id;
+	private String passwd;
 	private String gender;         	               
 	private String mem_type;       	               
 	private String name;           
-	private String mfile;           
+	private String mfile;                    
+	private MultipartFile mfileMF;                    
 	private String license_type;           
 	private int certi_num;    	               
 	private String phone_num;    	               
 	private int phone_certi;
+	private String zipcode;
 	private String address1;
 	private String address2;
 	private int addr_certi;
@@ -18,7 +23,36 @@ public class MemberDTO {
 	private String mail;
 	private int mail_certi;
 	private String passport;
+	private MultipartFile passportMF; 
 	private int passport_certi;
+	
+	
+	
+
+	public MultipartFile getPassportMF() {
+		return passportMF;
+	}
+	public void setPassportMF(MultipartFile passportMF) {
+		this.passportMF = passportMF;
+	}
+	public MultipartFile getMfileMF() {
+		return mfileMF;
+	}
+	public void setMfileMF(MultipartFile mfileMF) {
+		this.mfileMF = mfileMF;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
 	public String getId() {
 		return id;
 	}

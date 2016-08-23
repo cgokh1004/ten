@@ -64,13 +64,25 @@ function list(){
 
 </script>
 
+<style type="text/css">
+
+/* 하단 메뉴 */
+.bottom{
+  margin: 20px auto;
+  text-align: center;
+  width: 100%;
+  padding: 10px;  /* 위 오른쪽 아래 왼쪽 */
+}
+
+</style>
 
 </head>
 <body>
 
-<h2>설문등록</h2>
+<h2 align="center">설문등록</h2>
 <FORM name='frm' method='POST' action='/ten/survey/create'>
 <input type="hidden" name="numscore" value="1">
+<div align="center">
 <table>
 <tr>
 <td>
@@ -111,14 +123,16 @@ function list(){
        </table>
       </td>
    </tr>
- </table>
-  
- 
-  <DIV class='bottom' style="padding-left: 25%">
-     <input type='submit' value='저장' onclick="list()">
-     <input type='button' value='종료'  onclick="location.href='./list'">
 
-    
+
+ </table>
+
+  <DIV class='bottom' style="padding-center: 1%" >
+      <input type='submit' value='저장' onclick="list()">
+     <input type='button' value='종료'  onclick="location.href='./list'">
+  </div>
+
+ 
   </DIV>
 </FORM>
 </body>
