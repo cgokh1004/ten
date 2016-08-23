@@ -1,5 +1,7 @@
 package spring.sts.carpool;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +32,9 @@ public class CarpoolReviewController {
 		return "ksb/CarpoolReview";
 	}
 	@RequestMapping(value="/carpool_review/create", method=RequestMethod.POST)
-	public String createReview(Carpool_ReviewDTO dto,Model model){
+	public String createReview(Carpool_ReviewDTO dto,Model model,HttpSession session){
 		try {
-			dto.setId("ktw3722");
+			dto.setId((String)session.getAttribute("id"));
 			int cnt=carpool_reviewDAO.create(dto);
 			if(cnt==1){
 				model.addAttribute("cnt", 1);

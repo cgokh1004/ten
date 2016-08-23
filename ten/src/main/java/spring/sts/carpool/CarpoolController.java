@@ -19,6 +19,7 @@ import spring.model.carpool.CarpoolDAO;
 import spring.model.carpool.CarpoolDTO;
 import spring.model.carpool_reply.Carpool_ReplyDAO;
 import spring.model.carpool_reply.Carpool_ReplyDTO;
+import spring.model.carpool_review.Carpool_ReviewDAO;
 import spring.model.member.MemberDAO;
 import spring.utility.ten.Paging;
 import spring.utility.ten.Utility;
@@ -35,6 +36,8 @@ public class CarpoolController {
 	private MemberDAO memberDAO;
 	@Autowired
 	private Carpool_ReplyDAO carpool_replyDAO;
+	@Autowired
+	private Carpool_ReviewDAO carpool_reviewDAO;
 	
 	@RequestMapping("/carpool/list")
 	public String list(HttpServletRequest request,Model model){
@@ -306,6 +309,7 @@ public class CarpoolController {
 	 
 	try {
 		dto.setId((String)session.getAttribute("id"));
+		dto.setContent(dto.getContent().replaceAll("<BR>", "\r\n"));
 		if(carpool_replyDAO.create(dto)>0){
 			Map map = new HashMap();
 			map.put("sno", 1);

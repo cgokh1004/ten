@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/read.css">  
+	href="${pageContext.request.contextPath}/css/read.css">
 </head>
 <body>
 <form action="../carpool/update_s" method="post">
@@ -123,7 +123,7 @@
 		<tr>
 			<td colspan="4" style="border-top: 1px solid gray">
 			<h3 align="left">댓글</h3>
-				  <div id="reply" name="reply" style="border: 1px solid red">
+				  <div id="reply" name="reply">
 				  <c:forEach var="carpool_replyDTO" items="${rlist}">
 				  <div class="rlist">
 				   ${carpool_replyDTO.id}<br>
@@ -170,8 +170,8 @@
 		src="//apis.daum.net/maps/maps3.js?apikey=dfb4b6ea4ce68e78f0cb653cf043d987
 		&libraries=services"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/css/read.js"></script>
-	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/css/read_map.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/css/read.js"></script>
 </body>
 </html>

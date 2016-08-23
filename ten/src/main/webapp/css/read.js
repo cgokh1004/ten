@@ -13,8 +13,13 @@ function find() {
 	url = url + "&eName=" + end
 	window.open(url, "실제경로검색");
 }
-
+var cnt=0;
 function score(score) {
+	    cnt+=1;
+	if(cnt>1){
+		alert("평가는 한번만 하실수 있습니다.")
+		return false;
+	}
 	var url = "../carpool_review/create"
 	url = url + "?score=" + score
 	url = url + "&carpoolno=" + $("#carpoolno").val()
@@ -85,7 +90,6 @@ function rupdate(crep_no, rcontent) {
 	f.content.value = rcontent;
 	f.crep_no.value = crep_no;
 	cnt+=1;
-	alert(cnt)
 	$("#rsubmit").remove()
 	if(cnt==1){
 	$("#content").after("<input type='button'value='수정' id='rupdate'>")
@@ -97,27 +101,83 @@ function rupdate(crep_no, rcontent) {
 			return false;
 		}
 		$("#reply").empty();
-		alert("empty")
 		$("#crep_no").val(crep_no)
 		$.post("./rupdate",$("#rform").serialize(),
 				function(data){
 			if(data!=''){
 				
 			$.each(data,function(index,value){
+				cnt=0;
 				var html = '<div class="rlist">'
 					html += value.id +"<br>"
 					html += "<p>"+value.content+"</p>"
 					html += value.crep_date
 					if($("#id").val()==value.id){
 					html +="<span style='float: right;'>"
-					html +="<a href='javascript:rupdate('${carpool_replyDTO.crep_no}','${carpool_replyDTO.content }')'>수정</a>|"
-					html +="<a href='javascript:rdelete("+"'${carpool_replyDTO.crep_no}'"+")'>삭제</a></span>"	
+					html +="<a href=javascript:rupdate('"
+					html +=	value.crep_no+"','"+value.content
+					html += "')>수정</a>|"
+					html +="<a href=javascript:rdelete('"
+					html +=	value.crep_no
+					html +="')>삭제</a></span>"	
 					}
 					$("#reply").append(html)						
 			})
 				$("#content").val('').focus();
 				$("#rupdate").remove()
 				$("#content").after("<input type='button' name='rsubmit' id='rsubmit' value='등록'>")
+				
+				$("#rsubmit").click(function(){
+					if ($("#id").val() == "") {
+						if(confirm("로그인후 댓글를 쓰세요")){
+							var url = "../member/login";
+							url = url + "?carpoolno="+$("#carpoolno").val();
+							url = url + "&nowPage="+$("#nowPage").val();
+							url = url + "&nPage="+$("#nPage").val();
+							url = url + "&kind1="+$("#kind1").val();
+							url = url + "&kind2="+$("#kind2").val();
+							url = url + "&word1="+$("#word1").val();
+							url = url + "&word2="+$("#word2").val();
+							url = url + "&flag=../carpool/read";
+							location.href = url;
+						}else{
+							tarea.blur();
+						}
+					}else{
+						if ($("#content").val()== "") {
+							alert("댓글 내용을 입력하세요.");
+							$("#content").focus();
+							return false;
+						}
+					}
+					
+					$("#reply").empty();
+					$.post("./rcreate",$("#rform").serialize(),
+							function(data){
+						if(data!=''){
+							
+							$.each(data,function(index,value){
+								cnt=0;
+								var html = '<div class="rlist">'
+									html += value.id +"<br>"
+									html += "<p>"+value.content+"</p>"
+									html += value.crep_date
+									if($("#id").val()==value.id){
+									html +="<span style='float: right;'>"
+									html +="<a href=javascript:rupdate('"
+									html +=	value.crep_no+"','"+value.content
+									html += "')>수정</a>|"
+									html +="<a href=javascript:rdelete('"
+									html +=	value.crep_no
+									html +="')>삭제</a></span>"
+									}
+								$("#reply").append(html)						
+							})
+							$("#content").val('').focus();
+						}
+					});
+				});
+
 			}
 		});
 	})}
@@ -153,14 +213,19 @@ $("#rsubmit").click(function(){
 		if(data!=''){
 			
 			$.each(data,function(index,value){
+				cnt=0;
 				var html = '<div class="rlist">'
 					html += value.id +"<br>"
 					html += "<p>"+value.content+"</p>"
 					html += value.crep_date
 					if($("#id").val()==value.id){
-						html +="<span style='float: right;'>"
-							html +="<a href='javascript:rupdate('${carpool_replyDTO.crep_no}','${carpool_replyDTO.content }')'>수정</a>|"
-								html +="<a href='javascript:rdelete("+"'${carpool_replyDTO.crep_no}'"+")'>삭제</a></span>"	
+					html +="<span style='float: right;'>"
+					html +="<a href=javascript:rupdate('"
+					html +=	value.crep_no+"','"+value.content
+					html += "')>수정</a>|"
+					html +="<a href=javascript:rdelete('"
+					html +=	value.crep_no
+					html +="')>삭제</a></span>"
 					}
 				$("#reply").append(html)						
 			})
