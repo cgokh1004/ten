@@ -2,11 +2,9 @@ package spring.sts.ten;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -395,7 +391,8 @@ public class SurveyController {
 		
 		System.out.println(sulgroupname);
 		
-		List list = surveyDAO.resultreadlist(sulgroupname);		
+		List list = surveyDAO.resultreadlist(sulgroupname);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("sulgroupname", sulgroupname);		
 		
@@ -406,31 +403,38 @@ public class SurveyController {
 		try {
 			out = response.getWriter();
 			
-			JSONObject joby = new JSONObject();
+
 			JSONArray jarray = new JSONArray();
 			JSONArray jchart = new JSONArray();
 			
+			List jsonlist = new ArrayList();
+			
+			
 			
 			//포문돌며 제이손만들기			
-			for(int i = 0; i<list.size(); i++){			
+			for(int i = 0; i<list.size(); i++){
+				jchart = new JSONArray();
+				jchart.add("분야");
+				jchart.add("퍼센트");
+				jarray.add(jchart);
 				//상위포문
 				for(int j=0; j<((SurveyDTO)list.get(i)).getSulmunrdtoList().size(); j++){
 				//하위포문
 					jchart = new JSONArray();
-					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getChono());
 					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getChocontent());
 					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getThenumber());
-					jchart.add(((SulmunrDTO)((SurveyDTO)list.get(i)).getSulmunrdtoList().get(j)).getTheratio());
 					jarray.add(jchart);
 				}
-				
-				joby.put(((SurveyDTO)list.get(i)).getAskcontent(), jarray);
+				JSONObject joby = new JSONObject();
+				joby.put("title", ((SurveyDTO)list.get(i)).getAskcontent());
+				joby.put("chart", jarray);
+				jsonlist.add(joby);
 				jarray = new JSONArray();
 			}
 			
-	       out.println(joby);
+
 	       
-	       model.addAttribute("joby", joby);
+	       model.addAttribute("jsonlist", jsonlist);
 			
 			
 			
