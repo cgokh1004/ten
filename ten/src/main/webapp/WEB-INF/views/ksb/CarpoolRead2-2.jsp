@@ -38,14 +38,21 @@
 			<td valign="top" rowspan="5" width="20%" style="padding-left: 100px">
 				<table border="1" style="width: 200px; border-collapse: collapse;">
 					<tr>
-						<td align="center"><img alt="사진" src="../images/photo.jpg">
-							<br>홍길동 <br>인증내역 1개 <br>-이메일</td>
+						<td align="center"><img alt="사진" src="${pageContext.request.contextPath}/storage/${memberDTO.mfile}">
+							<br>${memberDTO.name} <br>인증 단계 : ${memberDTO.certi_num} <br>
+							인증 내역:<br>
+							<c:if test="${memberDTO.phone_certi==1}">-휴대폰번호<br></c:if>
+							<c:if test="${memberDTO.addr_certi==1}">-주소<br></c:if>
+							<c:if test="${memberDTO.sns_certi==1}">-SNS<br></c:if>
+							<c:if test="${memberDTO.mail_certi==1}">-E-mail<br></c:if>
+							<c:if test="${memberDTO.passport_certi==1}">-여권<br></c:if>
+							</td>
 					</tr>
 					<tr>
 						<td><a>프로필</a></td>
 					</tr>
 					<tr>
-						<td><a>등록글 1개</a></td>
+						<td><a>등록글 ${writecnt}개</a></td>
 					</tr>
 					<tr>
 						<td><a>평가</a></td>

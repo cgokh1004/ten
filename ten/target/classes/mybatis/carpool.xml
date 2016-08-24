@@ -111,25 +111,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*)
 		from carpool
 		<where>
-			c_start like'%'||#{word1}||'%'
-			and c_end like'%'||#{word2}||'%'
 			<choose>
-				<when test="kind1=='regularly'">
-					and c_type like '정기카풀'
-				</when>
-				<when test="kind1=='short'">
-					and c_type like '단기카풀'
-				</when>
-				<when test="kind1=='woman'">
-					and c_type like '여성전용카풀'
-				</when>
-			</choose>
-			<choose>
-				<when test="kind2=='take_it'">
-					and kind like '타세요'
-				</when>
-				<when test="kind2=='plz_ride'">
-					and kind like '태워주세요'
+				<when test="col=='id'">
+					id like'%'||#{word}||'%'
 				</when>
 			</choose>
 		</where>

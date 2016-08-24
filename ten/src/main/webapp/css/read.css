@@ -34,6 +34,7 @@
   color: #000000;        /* 글자 색깔 */
   width: 35%;            /* 화면의 30% */ 
   padding: 10px;         /* 위 오른쪽 아래 왼쪽: 시간 방향 적용 */
+  word-break:break-all;  /* 자동 줄바꿈 */
   
   /* padding: 50px 10px;  50px: 위 아래, 10px: 좌우 */
   /* padding-top: 30px;  상단만 간격을 30px 지정   */

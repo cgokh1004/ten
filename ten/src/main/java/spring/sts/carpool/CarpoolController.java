@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.carpool.CarpoolDAO;
@@ -19,6 +18,7 @@ import spring.model.carpool.CarpoolDTO;
 import spring.model.carpool_reply.Carpool_ReplyDAO;
 import spring.model.carpool_reply.Carpool_ReplyDTO;
 import spring.model.member.MemberDAO;
+import spring.model.member.MemberDTO;
 import spring.utility.ten.Paging;
 import spring.utility.ten.Utility;
 
@@ -34,7 +34,6 @@ public class CarpoolController {
 	private MemberDAO memberDAO;
 	@Autowired
 	private Carpool_ReplyDAO carpool_replyDAO;
-	
 	@RequestMapping("/carpool/list")
 	public String list(HttpServletRequest request,Model model){
 		int nowPage=1;//현재페이지
@@ -148,7 +147,18 @@ public class CarpoolController {
 			String c_comment=carpoolDTO.getC_comment().replaceAll("\r\n", "<BR>");
 			carpoolDTO.setC_comment(c_comment);
 			carpoolDTO.setCarpoolno(carpoolno);
+			
+			Object mpk=(Object)carpoolDTO.getId();
+			MemberDTO memberDTO= (MemberDTO) memberDAO.read(mpk);
+			Map map2= new HashMap();
+			map2.put("col", "id");
+			map2.put("word", carpoolDTO.getId());
+			int writecnt= carpoolDAO.total(map2);
+			System.out.println(writecnt);
+			
+			model.addAttribute("writecnt",writecnt);
 			model.addAttribute("carpoolDTO",carpoolDTO);
+			model.addAttribute("memberDTO",memberDTO);
 			model.addAttribute("kind1",kind1);
 			model.addAttribute("kind2",kind2);
 			model.addAttribute("word1",word1);
@@ -167,7 +177,7 @@ public class CarpoolController {
 					return "/carpool/read2-1";
 				}
 				if(carpoolDTO.getKind().equals("태워주세요")){
-					return "/carpool/read2-1";
+					return "/carpool/read2-2";
 				}
 			}
 			if(carpoolDTO.getC_type().equals("여성전용카풀")){				

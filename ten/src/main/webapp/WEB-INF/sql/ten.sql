@@ -94,7 +94,7 @@ SELECT id,name,gender,mem_type,mfile,license_type,phone_num,phone_certi,address1
 --------------------------------------total--------------------------
 select count(*)
 from member
-where name like '%김%' 
+where id like '%user2%' 
 
 
 
