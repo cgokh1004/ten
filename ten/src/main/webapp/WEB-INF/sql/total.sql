@@ -419,7 +419,8 @@ CREATE TABLE carpool_booked (
                                    CHECK (kind IN ('타세요', '태워주세요')),
        type                 VARCHAR2(6char) NOT NULL
                                    CHECK (type IN ('정기카풀', '단기카풀', '여성전용카풀')),
-       appli_seat           NUMBER(1) NOT NULL,
+       appli_seat           NUMBER(3) NOT NULL,
+       now_seat           NUMBER(3) NOT NULL,
        PRIMARY KEY (booked_no), 
        FOREIGN KEY (carpoolno)
                              REFERENCES carpool

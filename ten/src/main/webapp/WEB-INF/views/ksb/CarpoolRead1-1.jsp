@@ -23,7 +23,7 @@
 	<input type="hidden" value="${carpoolDTO.c_end}"  name="c_end">
 	<input type="hidden" value="${carpoolDTO.purpose}"  name="purpose">
 	<input type="hidden" value="${carpoolDTO.startdate}"  name="startdate">
-	<input type="hidden" value="${carpoolDTO.seat}"  name="seat">
+	<input type="hidden" value="${carpoolDTO.seat}"  name="seat" id="seat">
 	<input type="hidden" value="${carpoolDTO.price}"  name="price">
 	<input type="hidden" value="${carpoolDTO.smoke}"  name="smoke">
 	<input type="hidden" value="${carpoolDTO.c_comment}"  name="c_comment">
@@ -58,8 +58,21 @@
 					</tr>
 					<tr>
 						<td>
-						<input type="text" style="border: none; border: 1px solid #d8d8d8; width: 60px; height: 35px">
-							명<button style="width: 90px; height: 35px;margin-left: 5px">예약하기</button></td>
+						잔여석 : 
+						<span class="yseat">${yseat}</span>명
+						<form>
+				  		<button style="display: none;"></button>
+				 		 </form>
+						<form id="frm3" name="frm3" method="post">
+						<input type="hidden" name="appli_id" value="${sessionScope.id}">
+						<input type="hidden" name="writer_id" value="${memberDTO.id}">
+						<input type="hidden" name="type" value="정기카풀">
+						<input type="hidden" name="kind" value="타세요">
+						<input type="hidden" name="carpoolno" value="${carpoolDTO.carpoolno}">
+						<input type="text" name="appli_seat" id="appli_seat" style="border: none; border: 1px solid #d8d8d8; width: 60px; height: 35px">명
+						<input type="button" id="resv" name="resv" style="width: 90px; height: 35px;margin-left: 5px" value="예약하기">
+						</form>
+						</td>
 					</tr>
 				</table>
 			</td>
@@ -79,7 +92,7 @@
 					</tr>
 					<tr>
 						<td>인원 수 :</td>
-						<td>${carpoolDTO.seat}</td>
+						<td>${carpoolDTO.seat}명</td>
 						<td>금액(1인당)</td>
 						<td>${carpoolDTO.price}원</td>
 					</tr>

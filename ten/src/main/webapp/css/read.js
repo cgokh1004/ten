@@ -13,6 +13,57 @@ function find() {
 	url = url + "&eName=" + end
 	window.open(url, "실제경로검색");
 }
+//예약하기
+$("#resv").click(function(){
+	if ($("#appli_seat").val()== "") {
+		alert("인원수를 입력해주세요");
+		$("#appli_seat").focus();
+		return false;
+	}
+	if($(".yseat").text()==0){
+		alert("잔여좌석이 없습니다.");
+		$("#appli_seat").attr("disabled",true)
+		return false;
+	}
+	if (parseInt($("#appli_seat").val())>parseInt($(".yseat").text())) {
+		alert("예약가능한 좌석보다 많습니다.");
+		$("#appli_seat").focus();
+		$("#appli_seat").val("")
+		return false;
+	}
+	if($.isNumeric($("#appli_seat").val())==false){
+		alert("숫자를 입력해주세요")
+		$("#appli_seat").focus()
+		$("#appli_seat").val("")
+		return false;
+	}
+	if($("#appli_seat").val()<1){
+		alert("0보다 큰숫자를 입력해주세요")
+		$("#appli_seat").focus()
+		$("#appli_seat").val("")
+		return false;
+	}
+	if(confirm($("#appli_seat").val()+"명 예약하시겠습니까?")){
+	}else{
+		return false;
+	}
+	$.post("/ten/carpool_booked/create",$("#frm3").serialize(),
+			function(data){
+		if(data>=0){
+			alert("예약이 완료되었습니다");
+			$("#appli_seat").val("")
+			$(".yseat").empty()
+			$(".yseat").append(data)
+		}else{
+			alert("예약을 실패하였습니다")
+		}
+		
+	});
+
+});
+
+
+//별점평가
 var cnt=0;
 function score(score) {
 	    cnt+=1;
@@ -84,7 +135,6 @@ function rcheck(tarea) {
 	}
 }
 
-var cnt=0
 function rupdate(crep_no, rcontent) {
 	var f = document.rform;
 	rcontent=rcontent.replace(/<br>/gi,"\r\n")

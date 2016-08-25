@@ -31,6 +31,9 @@ public class CarpoolDAO implements DAOMyBatisInter {
 	public Object read(Object pk) throws Exception {
 		return mybatis.selectOne("carpool.read", pk);
 	}
+	public int now_seat(Map map) throws Exception {
+		return mybatis.update("carpool.now_seat", map);
+	}
 
 	@Override
 	public int update(Object dto) throws Exception {

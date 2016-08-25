@@ -7,20 +7,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="CarpoolDTO">
 		insert into carpool
 		(carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
-		purpose,c_type,kind,startdate,seat,price,smoke,c_comment)
+		purpose,c_type,kind,startdate,seat,now_seat,price,smoke,c_comment)
 		values (
 		(SELECT NVL(MAX(carpoolno), 0) + 1 as carpoolno FROM carpool),
 		#{id},
 		(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from
 		dual),
 		#{c_start},#{c_startv},#{c_end},#{c_endv},#{via},#{viav},#{purpose},#{c_type},
-		#{kind},to_date(#{startdate},'yyyy-mm-dd hh24:mi'),#{seat},#{price},#{smoke},#{c_comment})
+		#{kind},to_date(#{startdate},'yyyy-mm-dd hh24:mi'),#{seat},#{now_seat},#{price},#{smoke},#{c_comment})
 	</insert>
 
 	<select id="read" parameterType="int" resultType="CarpoolDTO">
 		SELECT
 		carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
-		purpose,c_type,kind,startdate,seat,price,smoke,c_comment
+		purpose,c_type,kind,startdate,seat,now_seat,price,smoke,c_comment
 		FROM carpool
 		WHERE carpoolno =#{carpoolno}
 	</select>
@@ -30,7 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		c_start=#{c_start},c_startv=#{c_startv},c_end=#{c_end},c_endv=#{c_endv},
 		via=#{via},viav=#{viav},
 		purpose=#{purpose},c_type=#{c_type},kind=#{kind},startdate=to_date(#{startdate},'yyyy-mm-dd hh24:mi'),
-		seat=#{seat},price=#{price},smoke=#{smoke},c_comment=#{c_comment}
+		seat=#{seat},now_seat=#{now_seat},price=#{price},smoke=#{smoke},c_comment=#{c_comment}
+		where carpoolno=#{carpoolno}
+	</update>
+	
+	<update id="now_seat" parameterType="Map">
+		update carpool set now_seat=#{now_seat}
 		where carpoolno=#{carpoolno}
 	</update>
 
@@ -50,6 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="kind" property="kind" />
 		<result column="price" property="price" />
 		<result column="seat" property="seat" />
+		<result column="now_seat" property="now_seat" />
 		<result column="carpooldate" property="carpooldate" />
 		<result column="name" property="memberDTO.name" />
 		<result column="mfile" property="memberDTO.mfile" />
@@ -64,15 +70,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="list" parameterType="Map" resultMap="CarpoolDTOResultMap">
 		SELECT
-		carpoolno,mfile,name,certi_num,seat,price,startdate,c_start,c_end,purpose,
+		carpoolno,mfile,name,certi_num,seat,now_seat,price,startdate,c_start,c_end,purpose,
 		c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,r
 			from(
 				SELECT
-				carpoolno,mfile,name,certi_num,seat,price,startdate,c_start,c_end,purpose,
+				carpoolno,mfile,name,certi_num,seat,now_seat,price,startdate,c_start,c_end,purpose,
 				c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,
 				rownum r
 					from(SELECT
-						carpoolno,mfile,certi_num,name,seat,price,startdate,c_start,c_end,purpose,
+						carpoolno,mfile,certi_num,name,seat,now_seat,price,startdate,c_start,c_end,purpose,
 						c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi
 			FROM carpool join member
 			on carpool.id = member.id

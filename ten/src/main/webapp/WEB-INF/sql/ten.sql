@@ -121,6 +121,7 @@ CREATE TABLE carpool (
        								CHECK (kind IN ('타세요', '태워주세요')),
        startdate            DATE NOT NULL,
        seat                 NUMBER(10) NOT NULL,
+       now_seat           NUMBER(3) default 0 NOT NULL,
        price                NUMBER(10) NOT NULL,
        smoke                varchar2(10char) NOT NULL
       								CHECK (smoke IN ('흡연', '비흡연')),
@@ -142,8 +143,8 @@ insert into carpool
 purpose,c_type,kind,startdate,seat,price,smoke,c_comment) 
 values ( (SELECT NVL(MAX(carpoolno), 0) + 1 as carpoolno FROM carpool),
 'ktw3722', (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from dual),
-'동서울터미널','127.123124', '우리집','142.123124','','','출퇴근','단기카풀',
-'타세요',to_date('2007-05-25 08:42', 'yyyy-mm-dd hh24:mi'),'1','5000','비흡연','같이가실분구합니다.');
+'동서울터미널','127.123124', '우리집','142.123124','','','출퇴근','정기카풀',
+'타세요',to_date('2007-05-25 08:42', 'yyyy-mm-dd hh24:mi'),'10','5000','비흡연','같이가실분구합니다.');
 
 --read--
 SELECT carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
@@ -330,7 +331,7 @@ CREATE TABLE carpool_booked (
                                    CHECK (kind IN ('타세요', '태워주세요')),
        type                 VARCHAR2(6char) NOT NULL
                                    CHECK (type IN ('정기카풀', '단기카풀', '여성전용카풀')),
-       appli_seat           NUMBER(1) NOT NULL,
+       appli_seat           NUMBER(3) NOT NULL,
        PRIMARY KEY (booked_no), 
        FOREIGN KEY (carpoolno)
                              REFERENCES carpool
@@ -345,7 +346,7 @@ insert into carpool_booked
 (booked_no,appli_id,writer_id,type,kind,appli_seat,carpoolno)
 values
 ((SELECT NVL(MAX(booked_no), 0) + 1 as booked_no FROM carpool_booked),
-'ktw3722','user1','단기카풀','타세요',1,1);
+'ktw3722','user1','단기카풀','타세요',1,1,1);
 
 --read--
 select booked_no,appli_id,writer_id,type,kind,appli_seat,carpoolno

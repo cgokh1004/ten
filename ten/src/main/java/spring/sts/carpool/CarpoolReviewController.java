@@ -20,8 +20,6 @@ public class CarpoolReviewController {
 	
 	@Autowired
 	private Carpool_ReviewDAO carpool_reviewDAO;
-	@Autowired
-	private MemberDAO memberDAO;
 	
 	@RequestMapping(value="/carpool_review/create", method=RequestMethod.GET)
 	public String createReview(int carpoolno, int score,Model model){

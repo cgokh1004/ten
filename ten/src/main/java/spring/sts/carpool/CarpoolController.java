@@ -154,8 +154,8 @@ public class CarpoolController {
 			map2.put("col", "id");
 			map2.put("word", carpoolDTO.getId());
 			int writecnt= carpoolDAO.total(map2);
-			System.out.println(writecnt);
-			
+			int yseat= carpoolDTO.getSeat()-carpoolDTO.getNow_seat();
+			model.addAttribute("yseat",yseat);
 			model.addAttribute("writecnt",writecnt);
 			model.addAttribute("carpoolDTO",carpoolDTO);
 			model.addAttribute("memberDTO",memberDTO);
@@ -216,7 +216,7 @@ public class CarpoolController {
 		}
 		if(dto.getC_type().equals("정기카풀")){
 			if(dto.getKind().equals("타세요")){
-				return "/carpool/read1-1";
+				return "redirect:/carpool/read1-1";
 			}
 			if(dto.getKind().equals("태워주세요")){
 				return "/carpool/read1-2";
