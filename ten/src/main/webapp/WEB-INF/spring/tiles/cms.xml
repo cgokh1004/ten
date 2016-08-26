@@ -6,10 +6,8 @@
 <tiles-definitions>
 
 
-	<definition name="main" template="/WEB-INF/views/templates/template.jsp">
+	<definition name="main" template="/WEB-INF/views/templates/template1.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/templates/top.jsp" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/templates/bottom.jsp" />
 	</definition>
 
 	<!-- definition의 이름은 Bbscontroller에서 리턴되는 뷰의 이름 -->

@@ -1,0 +1,30 @@
+#photo {
+	border-radius:50%;
+	margin-top:5px;
+	margin:0 auto;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+}
+#side_menu {
+	text-align:center;
+	list-style: none;
+    margin: 0px;
+    padding: 10px;
+    max-width: 200px;
+    width: 100%;
+}
+#side_menu li {
+	border:1px solid #eaeaea ;
+    padding: 10px;
+    max-width: 200px;
+    width: 100%;
+}
+side{
+	position:absolute;
+	top:100px;
+	right:20%;
+	z-index:0;
+	width:250px;
+	background-color:white;
+}

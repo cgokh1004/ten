@@ -67,8 +67,8 @@
 						<input type="hidden" name="type" value="정기카풀">
 						<input type="hidden" name="kind" value="태워주세요">
 						<input type="hidden" name="carpoolno" value="${carpoolDTO.carpoolno}">
-						<input type="text" name="appli_seat" id="appli_seat" value="${carpoolDTO.seat}">
-						<input type="button" id="resv" name="resv" style="width: 150px; height: 150px;margin-left: -10px" value="태우기">
+						<input type="hidden" name="appli_seat" id="appli_seat" value="${carpoolDTO.seat}">
+						<input type="button" id="pickup" name="pickup" style="width: 150px; height: 150px;margin-left: -10px" value="태우기">
 						</form>
 						</td>
 					</tr>

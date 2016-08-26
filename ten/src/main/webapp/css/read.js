@@ -61,6 +61,26 @@ $("#resv").click(function(){
 	});
 
 });
+//태우기
+$("#pickup").click(function(){
+	if(confirm($("#appli_seat").val()+"명 예약하시겠습니까?")){
+	}else{
+		return false;
+	}
+	$.post("/ten/carpool_booked/create",$("#frm3").serialize(),
+			function(data){
+		if(data>=0){
+			alert("예약이 완료되었습니다");
+			$("#appli_seat").val("")
+			$(".yseat").empty()
+			$(".yseat").append(data)
+		}else{
+			alert("예약을 실패하였습니다")
+		}
+		
+	});
+	
+});
 
 
 //별점평가

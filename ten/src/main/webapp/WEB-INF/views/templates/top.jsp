@@ -37,9 +37,9 @@
 	<div id="sign1"><a style="text-decoration:none" href="/ten/member/agree">회원가입</a></div>
 	</c:when>
 	<c:otherwise>
-	<div id="sign2">
+	<div id="sign2" style="position:relative ; z-index: 10">
 	<div style="margin: 8px"><a style="text-decoration:none" href="/ten/member/logout">로그아웃</a></div>
-	<div style="margin: 8px"><a style="text-decoration:none" href="/ten/member/mypage">마이페이지</a></div>
+	<div style="margin: 8px"><a style="text-decoration:none" href="/ten/mypage">마이페이지</a></div>
 	</div>
 	</c:otherwise>
 	</c:choose>
