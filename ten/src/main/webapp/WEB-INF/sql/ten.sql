@@ -65,9 +65,9 @@ where id='ktw3722'
 --------------------------------------update--------------------------
 update member
 set
-mfile='홍길동.jpg', license_type='1종대형', phone_num='010-4563-4235', phone_certi='1',address1='거기',address2='요기',addr_certi='1',
-sns='instagram',sns_certi='1',mail='ktw3722@naver.com',mail_certi='1',passport='여권.jpg',passport_certi='0'
-where id='ktw3722'
+mfile='사진.jpg', license_type='1종대형', phone_num='010-4563-4235', phone_certi='1',address1='거기',address2='요기',addr_certi='1',
+sns='instagram',sns_certi='1',mail='ktw3722@naver.com',mail_certi='1',passport='passport.jpg',passport_certi='0'
+where id='user2'
 --트랜잭션요망
 update member
 set certi_num=(select sum(phone_certi+addr_certi+sns_certi+mail_certi+passport_certi) from member where id='ktw3722')

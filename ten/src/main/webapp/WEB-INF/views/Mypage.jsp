@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,24 +12,6 @@
   // 입력 값 검사후 서버로 전송 
   function inputCheck(){
 	  var f=document.frm; // <FORM>태그 객체 
-	 if(f.mem_type.value ==""){ 
-	    	alert("회원종류를 선택해주세요"); 
-	      f.mem_type[0].focus(); // 폼이름.input 태그명.커서 셋팅    
-	      return false;       // 프로그램 종료, 값을 돌려줌 
-	    } 
-	  
-    if(f.id.value ==""){ 
-    	alert("아이디를 입력해 주세요."); 
-      f.id.focus(); // 폼이름.input 태그명.커서 셋팅    
-      return false;       // 프로그램 종료, 값을 돌려줌 
-    } 
-    
-    if(f.click.value==0){ 
-        alert("아이디 중복체크를 해주세요"); 
-        f.confirm.focus();  
-        return false;
-      }
-    
     if(f.passwd.value == ""){ 
       alert("비밀번호를 입력해 주세요."); 
       f.passwd.focus(); 
@@ -48,18 +31,6 @@
       f.repasswd.focus(); 
       return false; 
     } 
-     
-    if(f.name.value == ""){ 
-      alert("이름을 입력해 주세요."); 
-      f.name.focus(); 
-      return false; 
-    } 
-    
-    if(f.gender.value == ""){ 
-        alert("성별을 선택해주세요"); 
-        f.gender[0].focus(); 
-        return false; 
-      }
     
     if(f.phone_num.value == ""){ 
         alert("전화번호를 입력해주세요"); 
@@ -70,33 +41,21 @@
     if(f.mail.value==""){ 
 		
 	}else{
-		if(f.eclick.value==0){
+		 if(f.mail.value=='${memberDTO.mail}'){
+		    	f.eclick.value==1
+		 }else if(f.eclick.value==0){
     	alert("이메일 중복체크를 해주세요"); 
         f.emailclick.focus();  
         return false;
 			}
 		}
 	
-	if(f.up.value == 0||f.zipcode.value==""||f.address1.value==""){ 
+	if(f.zipcode.value==""||f.address1.value==""){ 
         alert("우편번호 찾기를 해주세요"); 
         f.btnPost.focus(); 
         return false; 
       }
      
-  } 
- 
-  
-  // 중복 아이디를 검사합니다. 
-  function idCheck(idv){
-	  var f=document.frm; // <FORM>태그 객체 
-    if(idv == ""){ 
-      window.alert("아이디를 입력해 주세요."); 
-      f.id.focus(); // 커서 이동 
-    }else{
-      url="./id_proc?id=" + idv;  // GET 
-      wr = window.open(url,"아이디검색","width=500,height=400"); 
-      wr.moveTo((window.screen.width-500)/2, (window.screen.height-400)/2);// x, y //윈도우창을 x,y좌표로 움직이겠다.
-    } 
   } 
  
   //중복 이메일을 검사합니다. 
@@ -106,7 +65,7 @@
       window.alert("이메일을 입력해 주세요."); 
       f.mail.focus(); 
     }else{ 
-      url="./email_proc?mail=" + mail;  // GET 
+      url="/ten/member/email_proc?mail=" + mail;  // GET 
       wr = window.open(url,"이메일검색","width=500,height=400"); 
       wr.moveTo((window.screen.width-500)/2, (window.screen.height - 400)/2);// x, y 
     } 
@@ -120,83 +79,87 @@
 
 <body>
 <div style="width: 1000px;margin-left: 5%;margin-top: 2%" >
-<DIV align="center" style="color: #3366cc;font-weight: bold;font-size: 30px">회원가입</DIV>
+<DIV align="center" style="color: #3366cc;font-weight: bold;font-size: 30px">내 프로필</DIV>
 <DIV align="right" style="color: #cc0000;font-weight: bold;margin-right: 180px">(*필수입력)</DIV>
  
 <FORM name='frm' 
       method='POST' 
-      action='./create'
+      action='./mypage'
       enctype='multipart/form-data'
       onsubmit="return inputCheck()">
       <input type="hidden" name="click" value=0>
       <input type="hidden" name="eclick" value=0>
       <input type="hidden" name="up" value=0>
+      <input type="hidden" name="mem_type" value="${memberDTO.mem_type}">
+      <input type="hidden" name="id" value="${memberDTO.id}">
+      <input type="hidden" name="name" value="${memberDTO.name }">
+      <input type="hidden" name="gender" value="${memberDTO.gender }">
+      <input type="hidden" name="old_mfile" value="${memberDTO.mfile}">
+      <input type="hidden" name="old_passport" value="${memberDTO.passport}">
+      
   <center>
   <TABLE class='table'>
   	 <tr> 
        <th align="left">*회원종류</th>
-       <td>
-    	 <input type="radio" name="mem_type" value="개인">개인
-		 <input type="radio" name="mem_type" value="법인">법인
-	   </td>
+       <td>${memberDTO.mem_type}</td>
      </tr> 
     <tr> 
        <th align="left"> 사진</th> 
-       <td ><input type='file' name='mfileMF' style="border:none;width:313px;height: 30px;border-radius:3px"></td> 
+       <td > 
+       <img src="${pageContext.request.contextPath}/storage/${memberDTO.mfile }" width="100px"><br>
+       원본파일명:${memberDTO.mfile }<br>
+       <input type='file' name='mfileMF' style="border:none;width:200px;height: 30px;border-radius:3px">
+       </td> 
      </tr> 
      <tr>  
        <th align="left">*아이디</th> 
        <td> 
-           <input type="text" name="id" size="15" placeholder='userID'style="border:none;border:1px solid #d8d8d8;width:240px;height: 30px;border-radius:3px"> 
-           <input id='white'type="button" name="confirm" value="중복확인"  
-                  onclick="idCheck(document.frm.id.value)"style="border-radius:5px;font-size: 12px"> 
+           ${memberDTO.id}
        </td> 
      </tr> 
     <tr>  
        <th align="left">*패스워드</th> 
-       <td> <input type="password" name="passwd" size="15" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> </td> 
+       <td> <input type="password" name="passwd" size="15" value="${memberDTO.passwd}" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> </td> 
      </tr> 
      <tr>  
        <th align="left" width="100px">*패스워드 확인</th> 
-       <td> <input type="password" name="repasswd" size="15" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> </td>  
+       <td> <input type="password" name="repasswd" size="15" value="${memberDTO.passwd}" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> </td>  
      </tr> 
      <tr>  
        <th align="left">*이름</th> 
-       <td> <input type="text" name="name" size="15" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> </td> 
+       <td> ${memberDTO.name } </td> 
      </tr> 
      <tr>
      <tr>  
        <th align="left">*성별</th> 
        <td>
-		<input type="radio" name="gender" value="남">남자
-		<input type="radio" name="gender" value="여">여자
+           ${memberDTO.gender}
 		</td>
      </tr> 
      <tr>
        <th align="left">*전화번호</th> 
-       <td><input type="text" name="phone_num" placeholder="010-XXXX-XXXX" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"></td> 
+       <td><input type="text" name="phone_num" placeholder="010-XXXX-XXXX" value="${memberDTO.phone_num }" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"></td> 
        <td> </td> 
      </tr>           
      <tr>  
        <th align="left">이메일</th> 
        <td> 
-           <input type="email" name="mail" size="27"  placeholder='email@mail.com'style="border:none;border:1px solid #d8d8d8;width:240px;height: 30px;border-radius:3px"> 
+           <input type="email" name="mail" size="27"  placeholder='email@mail.com' value="${memberDTO.mail }" style="border:none;border:1px solid #d8d8d8;width:240px;height: 30px;border-radius:3px"> 
            <input id='white'type="button" name="emailclick" value="중복확인"  
                    onclick="javascript:emailCheck(document.frm.mail.value)"style="border-radius:5px;font-size: 12px"> 
-        
        </td> 
      </tr> 
      <tr>   
        <th align="left">*우편번호</th> 
-       <td> <input type="text" id="sample6_postcode" name="zipcode" size="10" style="border:none;border:1px solid #d8d8d8;width:240px;height: 30px;border-radius:3px"> 
+       <td> <input type="text" id="sample6_postcode" name="zipcode" size="10" value="${memberDTO.zipcode }" style="border:none;border:1px solid #d8d8d8;width:240px;height: 30px;border-radius:3px"> 
             <input id='white'type="button" name="btnPost" value="우편번호찾기"  
                   onclick="sample5_execDaumPostcode()"style="border-radius:5px;font-size: 10px"></td> 
      </tr> 
      <tr>   
        <th align="left">*주소</th> 
        <td> 
-       <input type="text" name="address1" size="45" id="sample5_address" placeholder="주소"style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"><br/> 
-       <input type="text" name="address2" size="45" id="sample6_address2" placeholder="상세주소"style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> 
+       <input type="text" name="address1" size="45" id="sample5_address" placeholder="주소" value="${memberDTO.address1 }" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"><br/> 
+       <input type="text" name="address2" size="45" id="sample6_address2" placeholder="상세주소" value="${memberDTO.address2 }" style="border:none;border:1px solid #d8d8d8;width:313px;height: 30px;border-radius:3px"> 
 <div id="map" name="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 				<script src="//apis.daum.net/maps/maps3.js?apikey=5010e38594b50b718b45691e3f0c3609&libraries=services"></script>
@@ -277,7 +240,7 @@
      <tr>
      <th align="left">SNS 계정</th>
      <td>
-     <input type="text" id="sns" name="sns">
+     <input type="text" id="sns" name="sns" value="${memberDTO.sns }">
      </td>
      </tr>
      <tr>
@@ -285,24 +248,34 @@
      <td>
      <select name='license_type' id='license_type'
 	   style="border: none; border: 1px solid #a9a9a9; width: 81%; height: 35px; float: left;">
-		<option value="없음">없음</option>
-		<option value="1종대형">1종 대형</option>
-		<option value="1종보통">1종 보통</option>
-		<option value="2종보통">2종 보통</option>
+		<option value="없음" 
+		<c:if test="${memberDTO.license_type==''}">selected="selected"</c:if>
+		>없음</option>
+		<option value="1종대형"
+		<c:if test="${memberDTO.license_type=='1종대형'}">selected="selected"</c:if>
+		>1종 대형</option>
+		<option value="1종보통"
+		<c:if test="${memberDTO.license_type=='1종보통'}">selected="selected"</c:if>
+		>1종 보통</option>
+		<option value="2종보통"
+		<c:if test="${memberDTO.license_type=='2종보통'}">selected="selected"</c:if>
+		>2종 보통</option>
 	</select>
      </td>
      </tr>
       <tr>
      <th align="left">여권 인증</th>
      <td>
-     <input type="file" id="passport" name="passportMF">
+     <img src="${pageContext.request.contextPath}/storage/${memberDTO.passport}" width="100px"><br>
+       원본파일명:${memberDTO.passport}<br>
+     <input type="file" id="passport" name="passportMF" style="width: 200px">
      </td>
      </tr>
   </TABLE>
   <br>
   <DIV>
-    <input  type='submit' value='회원가입'>
-    <input  type='reset' value='취소'>
+    <input  type='submit' value='수정'>
+    <input  type="reset"  value='되돌리기'>
   </DIV>
 </FORM>
 	</div>
