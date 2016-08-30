@@ -1,3 +1,10 @@
+.list.on{
+	background-color:  #afcae4;
+}
+.list{
+	background-color:  #ffffff;
+	cursor:  pointer;
+}
 #photo {
 	border-radius:50%;
 	margin-top:5px;
@@ -23,7 +30,7 @@
 side{
 	position:absolute;
 	top:100px;
-	right:20%;
+	right:200px;
 	z-index:0;
 	width:250px;
 	background-color:white;

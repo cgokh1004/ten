@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			passwd=#{passwd},mfile=#{mfile}, license_type=#{license_type}, phone_num=#{phone_num}, phone_certi=#{phone_certi},
 			zipcode=#{zipcode},address1=#{address1},address2=#{address2},addr_certi=#{addr_certi},sns=#{sns},sns_certi=#{sns_certi},
 			mail=#{mail},mail_certi=#{mail_certi},passport=#{passport},passport_certi=#{passport_certi}
-			where id='ktw3722'
+			where id=#{id}
 	</update>
 	<update id="update2" parameterType="String">
 		update member

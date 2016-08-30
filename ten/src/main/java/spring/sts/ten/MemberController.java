@@ -146,8 +146,8 @@ public class MemberController {
 		}
 		int filesize1=(int)dto.getMfileMF().getSize();
 		int filesize2=(int)dto.getPassportMF().getSize();
-		String mfile="photo.jpg";
-		String passport="photo.jpg";
+		String mfile="사진.jpg";
+		String passport="passport.jpg";
 		String basePath=request.getRealPath("/storage");
 		if(filesize1>0&&!flag){
 			mfile=Utility.saveFile(dto.getMfileMF(), basePath);

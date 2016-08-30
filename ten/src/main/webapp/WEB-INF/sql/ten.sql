@@ -6,7 +6,7 @@ CREATE TABLE member (
                                    CHECK (gender IN ('남', '여')),
        mem_type             varchar2(3char) DEFAULT '개인' NOT NULL
                                    CHECK (mem_type IN ('개인', '법인' , '관리자')),
-       mfile                 VARCHAR2(30char) NULL,
+       mfile                 VARCHAR2(30char) DEFAULT '사진.jpg' NULL,
        license_type         VARCHAR2(30char) DEFAULT '없음' NOT NULL
                                    CHECK (license_type IN ('없음','1종대형', '1종보통', '2종보통')),
        certi_num            NUMBER(1) DEFAULT 0 NOT NULL
@@ -25,7 +25,7 @@ CREATE TABLE member (
        mail                 VARCHAR2(40char) NULL,
        mail_certi           NUMBER(1) DEFAULT 0 NOT NULL
                                    CHECK (mail_certi IN (0, 1)),
-       passport             VARCHAR2(40char) NULL,
+       passport             VARCHAR2(40char) DEFAULT 'passport.jpg' NULL,
        passport_certi       NUMBER(1) DEFAULT 0 NOT NULL
                                    CHECK (passport_certi IN (0, 1)),
        PRIMARY KEY (id)

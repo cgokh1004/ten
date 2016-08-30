@@ -33,31 +33,25 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mypage",method=RequestMethod.POST)
-	public String mypage_update(Model model,MemberDTO dto,HttpServletRequest request,HttpSession session,
+	public String mypage_update(MemberDTO dto,HttpServletRequest request,HttpSession session,
 			MultipartFile mfileMF,MultipartFile passportMF,String old_mfile,String old_passport){
 		 try {
 			 String basePath=request.getRealPath("/storage");
 				int msize = (int)mfileMF.getSize();
 				int psize = (int)passportMF.getSize();
-				System.out.println(msize+","+psize);
 				String mfile="사진.jpg";
 				String passport="passport.jpg";
 				if(msize>0){
-					System.out.println("m0아님");
 					if(old_mfile!=null&&!old_mfile.equals("사진.jpg")){
 						Utility.deleteFile(basePath, old_mfile);
-						System.out.println("m지움");
 					}
 					mfile=Utility.saveFile(mfileMF, basePath);
-					System.out.println("m저장");
 				}else{
-					System.out.println("m0임");
 					if(!old_mfile.equals("사진.jpg")){
 						mfile=old_mfile;
 					}
 				}
 				dto.setMfile(mfile);
-				System.out.println(dto.getMfile());
 				session.setAttribute("mfile", mfile);
 				if(psize>0){
 					if(old_passport!=null&&!old_passport.equals("passport.jpg")){
@@ -73,10 +67,7 @@ public class MypageController {
 				dto.setPassport(passport);
 			 
 			if(memberDAO.update1(dto)>0){
-				System.out.println(dto.getPassport());
-				System.out.println(dto.getMfile());
 				if(memberDAO.loginCheck(dto.getId(), dto.getPasswd())>0){
-					model.addAttribute("memberDTO", dto);
 					return "redirect:/mypage";
 				}
 			}

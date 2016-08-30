@@ -8,6 +8,25 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/side.css">
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('li').click(function() {
+		 $('li').removeClass('on');
+		 $(this).addClass('on');
+		})
+	$('li').hover(function(){
+		$(this).css("color","orange")
+	},function(){
+		$(this).css("color","black")
+	}
+	)
+	$("#mypage").click(function(){
+		$(location).attr('href', "/ten/mypage");
+	})
+})
+</script>
 </head>
 <body>
 <side> 
@@ -25,11 +44,11 @@
 	</p>
 </div>
 <ul id="side_menu">
-<li>내 프로필</li>
-<li>인증 센터</li>
-<li>등록 글</li>
-<li>예약</li>
-<li>평가</li>
+<li class="list" id="mypage">내 프로필</li>
+<li class="list">인증 센터</li>
+<li class="list">내가 쓴 글</li>
+<li class="list">예약</li>
+<li class="list">평가</li>
 
 </ul>
 </side>

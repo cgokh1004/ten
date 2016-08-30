@@ -7,7 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
+<style type="text/css">
+#mypage {
+background-color:  #afcae4;
+}
+</style>
 	<script type="text/javascript"> 
   // 입력 값 검사후 서버로 전송 
   function inputCheck(){
@@ -67,12 +71,9 @@
     }else{ 
       url="/ten/member/email_proc?mail=" + mail;  // GET 
       wr = window.open(url,"이메일검색","width=500,height=400"); 
-      wr.moveTo((window.screen.width-500)/2, (window.screen.height - 400)/2);// x, y 
+      wr.moveTo((window.screen.width-500)/2, (window.screen.height - 400)/2));// x, y 
     } 
   } 
- 
- 
- 
 </script> 
  
 </head> 
