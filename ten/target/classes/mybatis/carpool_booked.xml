@@ -51,7 +51,7 @@ SELECT  carpoolno,booked_no,type,kind,c_start,c_end,appli_id,name,writer_id,appl
 			from(
 				SELECT b.carpoolno,b.booked_no,b.type,b.kind,c.c_start,c.c_end,b.appli_id,k.name,b.writer_id,b.appli_seat
 					FROM carpool_booked b join carpool c
-						on b.writer_id=c.id
+						on b.carpoolno=c.carpoolno
 						join member k on k.id=b.writer_id
 
 						<where>
@@ -70,10 +70,10 @@ SELECT  carpoolno,booked_no,type,kind,c_start,c_end,appli_id,name,writer_id,appl
 									and type like'%'||#{word}||'%'
 								</when>
 								<when test="col=='kind'">
-									and kind like'%'||#{word}||'%'
+									and b.kind like'%'||#{word}||'%'
 								</when>
 								<when test="col=='writer_id'">
-									and kind like'%'||#{word}||'%'
+									and writer_id like'%'||#{word}||'%'
 								</when>
 							</choose>
 						</where>

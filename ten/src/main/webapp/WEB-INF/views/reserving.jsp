@@ -10,7 +10,7 @@
 #list{
 box-shadow : 2px 2px 10px silver;
 }
-#mywrite {
+#reserving {
 background-color:  #afcae4;
 }
 table tr td{
@@ -60,7 +60,7 @@ function read(no){
 				>글쓴이 아이디</option>
 			</select>
 					<input type="search" name="word"
-					value="${word}"  size="10" maxlength="100" placeholder="부산"
+					value="${word}"  size="10" maxlength="100" 
 					style="border: none; border: 1px solid #d8d8d8; width: 20%; height: 35px">
 		
 			<input style="height: 35px;width: 50px" type="submit" name="" value="검색" title="검색">
@@ -70,12 +70,13 @@ function read(no){
 <table id="list" style="border: 1px solid gray;width: 70%;background-color: white;
 	Border-collapse: collapse" align="center">
 		<tr >
-			<th style="width: 7%;border:1px solid gray">프로필</th>
-			<th style="width: 7%;border:1px solid gray">인증단계</th>
-			<th style="width: 20%;border:1px solid gray">출발</th>
-			<th style="width: 20%;border:1px solid gray">도착</th>
+			<th style="width: 12%;border:1px solid gray">글쓴이</th>
+			<th style="width: 12%;border:1px solid gray">아이디</th>
 			<th style="width: 12%;border:1px solid gray">유형</th>
-			<th style="width: 9%;border:1px solid gray">자리/금액</th>
+			<th style="width: 12%;border:1px solid gray">종류</th>
+			<th style="width: 20%;border:1px solid gray">출발지</th>
+			<th style="width: 20%;border:1px solid gray">목적지</th>
+			<th style="width: 7%;border:1px solid gray">신청<br>자리수</th>
 		</tr>
 		<c:choose>
 			<c:when test="${empty list}">
@@ -84,23 +85,15 @@ function read(no){
 				</TR>
 			</c:when>
 			<c:otherwise>
-		<c:forEach items="${list}" var="carpoolDTO">
-		<tr onclick="read('${carpoolDTO.carpoolno}')" style="cursor: pointer;">
-			<td style="text-align: center"><img alt="photo"
-				src="${pageContext.request.contextPath}/storage/${carpoolDTO.memberDTO.mfile}"
-				width="100%"><br>${carpoolDTO.memberDTO.name}</td>
-			<td style="text-align: center">
-			<span style="font-weight: bolder;">${carpoolDTO.memberDTO.certi_num}단계</span><br>
-			<c:if test="${carpoolDTO.memberDTO.phone_certi==1}">휴대폰번호<br></c:if>
-			<c:if test="${carpoolDTO.memberDTO.addr_certi==1}">주소<br></c:if>
-			<c:if test="${carpoolDTO.memberDTO.sns_certi==1}">SNS<br></c:if>
-			<c:if test="${carpoolDTO.memberDTO.mail_certi==1}">E-mail<br></c:if>
-			<c:if test="${carpoolDTO.memberDTO.passport_certi==1}">여권<br></c:if>
-			</td>			
-			<td style="text-align: left">${carpoolDTO.c_start}<br>${carpoolDTO.startdate.substring(0,16)}</td>
-			<td style="text-align: left">${carpoolDTO.c_end}</td>
-			<td style="text-align: left">${carpoolDTO.c_type}<br>${carpoolDTO.kind}</td>
-			<td style="text-align: left">${carpoolDTO.seat}자리/<br>${carpoolDTO.price}원/인당</td>
+		<c:forEach items="${list}" var="carpool_bookedDTO">
+		<tr onclick="read('${carpool_bookedDTO.carpoolno}')" style="cursor: pointer;height: 80px">
+			<td style="text-align: center">${carpool_bookedDTO.memberDTO.name}</td>
+			<td style="text-align: center">${carpool_bookedDTO.writer_id}</td>			
+			<td style="text-align: center">${carpool_bookedDTO.type}</td>
+			<td style="text-align: center">${carpool_bookedDTO.kind}</td>
+			<td style="text-align: center">${carpool_bookedDTO.carpoolDTO.c_start}</td>
+			<td style="text-align: center">${carpool_bookedDTO.carpoolDTO.c_end}</td>
+			<td style="text-align: center">${carpool_bookedDTO.appli_seat}</td>
 		</tr>
 		</c:forEach>
 			</c:otherwise>

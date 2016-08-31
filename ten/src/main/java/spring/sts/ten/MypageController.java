@@ -137,7 +137,6 @@ public class MypageController {
 			model.addAttribute("word1", word1);
 			model.addAttribute("word2", word2);
 			model.addAttribute("nowPage", nowPage);
-
 			return "/mywrite";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -158,7 +157,7 @@ public class MypageController {
 		//검색관련 변수 선언
 		String col=Utility.nullCheck(request.getParameter("col"));
 		String word=Utility.nullCheck(request.getParameter("word"));
-
+		
 		Map map = new HashMap();
 		map.put("id", session.getAttribute("id"));
 		map.put("col", col);
@@ -168,16 +167,18 @@ public class MypageController {
 		
 		try {
 			List<Carpool_BookedDTO> list = carpool_bookedDAO.read_reserving(map);
-			
 			model.addAttribute("list",list);
 			
-			int total = carpoolDAO.total(map);
+			int total = carpool_bookedDAO.total(map);
 			String paging=new Paging().paging3(total, nowPage, recordPerPage, col,word);
 			model.addAttribute("paging", paging);
 			
+			if(col==""){
+				word="";
+			}
 			model.addAttribute("col", col);
 			model.addAttribute("word", word);
-			
+			model.addAttribute("nowPage", nowPage);
 			return "/reserving";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
