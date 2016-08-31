@@ -34,6 +34,7 @@ public class CarpoolController {
 	private MemberDAO memberDAO;
 	@Autowired
 	private Carpool_ReplyDAO carpool_replyDAO;
+	
 	@RequestMapping("/carpool/list")
 	public String list(HttpServletRequest request,Model model){
 		int nowPage=1;//현재페이지

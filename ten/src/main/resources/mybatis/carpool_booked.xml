@@ -30,6 +30,61 @@ delete from carpool_booked
 where booked_no=#{booked_no}
 </delete>
 
+
+<resultMap type="Carpool_BookedDTO" id="ReadResultMap">
+<result column="booked_no" property="booked_no"/>
+<result column="carpoolno" property="carpoolno"/>
+<result column="appli_id" property="appli_id"/>
+<result column="writer_id" property="writer_id"/>
+<result column="appli_seat" property="appli_seat"/>
+<result column="type" property="type"/>
+<result column="kind" property="kind"/>
+<result column="name" property="memberDTO.name"/>
+<result column="c_start" property="carpoolDTO.c_start"/>
+<result column="c_end" property="carpoolDTO.c_end"/>
+</resultMap>
+
+<select id="read_reserving" parameterType="Map" resultMap="ReadResultMap">
+SELECT  carpoolno,booked_no,type,kind,c_start,c_end,appli_id,name,writer_id,appli_seat, r
+	from(
+		SELECT carpoolno,booked_no,type,kind,c_start,c_end,appli_id,name,writer_id,appli_seat, rownum r  
+			from(
+				SELECT b.carpoolno,b.booked_no,b.type,b.kind,c.c_start,c.c_end,b.appli_id,k.name,b.writer_id,b.appli_seat
+					FROM carpool_booked b join carpool c
+						on b.writer_id=c.id
+						join member k on k.id=b.writer_id
+
+						<where>
+							appli_id=#{id}
+							<choose>
+								<when test="col=='name'">
+									and name like'%'||#{word}||'%'
+								</when>
+								<when test="col=='c_start'">
+									and c_start like'%'||#{word}||'%'
+								</when>
+								<when test="col=='c_end'">
+									and c_end like'%'||#{word}||'%'
+								</when>
+								<when test="col=='type'">
+									and type like'%'||#{word}||'%'
+								</when>
+								<when test="col=='kind'">
+									and kind like'%'||#{word}||'%'
+								</when>
+								<when test="col=='writer_id'">
+									and kind like'%'||#{word}||'%'
+								</when>
+							</choose>
+						</where>
+						ORDER BY carpoolno
+				)
+		)
+<![CDATA[
+	where r>=#{sno} AND r<=#{eno}
+	]]>
+</select>
+
 <resultMap type="Carpool_BookedDTO" id="Carpool_BookedDTOResultMap">
 <result column="type" property="type"/>
 <result column="kind" property="kind"/>

@@ -23,10 +23,14 @@ public class Carpool_BookedDAO implements DAOMyBatisInter {
 	}
 
 	@Override
-	public List list(Map map) throws Exception {
+	public List<Carpool_BookedDTO> list(Map map) throws Exception {
 		return mybatis.selectList("carpool_booked.list", map);
 	}
 
+	public List<Carpool_BookedDTO> read_reserving(Map map) throws Exception {
+		return mybatis.selectList("carpool_booked.read_reserving", map);
+	}
+	
 	@Override
 	public Object read(Object pk) throws Exception {
 		return mybatis.selectOne("carpool_booked.read", pk);
