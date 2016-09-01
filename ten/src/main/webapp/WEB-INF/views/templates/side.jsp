@@ -31,6 +31,12 @@ $(function(){
 	$("#reserving").click(function(){
 		$(location).attr('href', "/ten/reserving");
 	})
+	$("#reserved").click(function(){
+		$(location).attr('href', "/ten/reserved");
+	})
+	$("#review").click(function(){
+		$(location).attr('href', "/ten/review");
+	})
 })
 </script>
 </head>
@@ -54,8 +60,8 @@ $(function(){
 <li class="list">인증 센터</li>
 <li class="list" id="mywrite">내가 쓴 글</li>
 <li class="list" id="reserving">예약한 글</li>
-<li class="list">예약받은 글</li>
-<li class="list">평가</li>
+<li class="list" id="reserved">예약받은 글</li>
+<li class="list" id="review">평가</li>
 
 </ul>
 </side>

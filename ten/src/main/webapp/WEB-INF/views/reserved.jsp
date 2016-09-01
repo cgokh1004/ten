@@ -10,7 +10,7 @@
 #list{
 box-shadow : 2px 2px 10px silver;
 }
-#reserving {
+#reserved {
 background-color:  #afcae4;
 }
 table tr td{
@@ -42,7 +42,7 @@ function read(no){
 				>전체</option>
 				<option value="name"
 				<c:if test="${col=='name'}">selected</c:if>
-				>글쓴이 이름</option>
+				>신청자 이름</option>
 				<option value="c_start"
 				<c:if test="${col=='c_start'}">selected</c:if>
 				>출발지</option>
@@ -55,9 +55,9 @@ function read(no){
 				<option value="kind"
 				<c:if test="${col=='kind'}">selected</c:if>
 				>종류</option>
-				<option value="writer_id"
-				<c:if test="${col=='writer_id'}">selected</c:if>
-				>글쓴이 아이디</option>
+				<option value="appli_id"
+				<c:if test="${col=='appli_id'}">selected</c:if>
+				>신청자 아이디</option>
 			</select>
 					<input type="search" name="word"
 					value="${word}"  size="10" maxlength="100" 
@@ -70,7 +70,7 @@ function read(no){
 <table id="list" style="border: 1px solid gray;width: 70%;background-color: white;
 	Border-collapse: collapse" align="center">
 		<tr >
-			<th style="width: 12%;border:1px solid gray">글쓴이</th>
+			<th style="width: 12%;border:1px solid gray">신청자</th>
 			<th style="width: 12%;border:1px solid gray">아이디</th>
 			<th style="width: 12%;border:1px solid gray">유형</th>
 			<th style="width: 12%;border:1px solid gray">종류</th>
@@ -88,7 +88,7 @@ function read(no){
 		<c:forEach items="${list}" var="carpool_bookedDTO">
 		<tr onclick="read('${carpool_bookedDTO.carpoolno}')" style="cursor: pointer;height: 80px">
 			<td style="text-align: center">${carpool_bookedDTO.memberDTO.name}</td>
-			<td style="text-align: center">${carpool_bookedDTO.writer_id}</td>			
+			<td style="text-align: center">${carpool_bookedDTO.appli_id}</td>			
 			<td style="text-align: center">${carpool_bookedDTO.type}</td>
 			<td style="text-align: center">${carpool_bookedDTO.kind}</td>
 			<td style="text-align: center">${carpool_bookedDTO.carpoolDTO.c_start}</td>

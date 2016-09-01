@@ -159,6 +159,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
+	<select id="total_id" parameterType="String" resultType="int">
+		select count(*)
+		from carpool
+		 where id=#{id}
+	</select>
+	
 	<select id="total" parameterType="Map" resultType="int">
 		select count(*)
 		from carpool

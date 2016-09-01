@@ -23,7 +23,7 @@ public class Carpool_ReviewDAO implements DAOMyBatisInter {
 	}
 
 	@Override
-	public List list(Map map) throws Exception {
+	public List<Carpool_ReviewDTO> list(Map map) throws Exception {
 		return mybatis.selectList("carpool_review.list", map);
 	}
 
@@ -45,6 +45,9 @@ public class Carpool_ReviewDAO implements DAOMyBatisInter {
 	@Override
 	public int total(Map map) throws Exception {
 		return mybatis.selectOne("carpool_review.total", map);
+	}
+	public int total_id(String id) throws Exception {
+		return mybatis.selectOne("carpool_review.total", id);
 	}
 
 }

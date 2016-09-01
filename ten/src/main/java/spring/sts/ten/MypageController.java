@@ -18,6 +18,8 @@ import spring.model.carpool.CarpoolDAO;
 import spring.model.carpool.CarpoolDTO;
 import spring.model.carpool_booked.Carpool_BookedDAO;
 import spring.model.carpool_booked.Carpool_BookedDTO;
+import spring.model.carpool_review.Carpool_ReviewDAO;
+import spring.model.carpool_review.Carpool_ReviewDTO;
 import spring.model.member.MemberDAO;
 import spring.model.member.MemberDTO;
 import spring.utility.ten.Paging;
@@ -34,6 +36,9 @@ public class MypageController {
 	
 	@Autowired
 	Carpool_BookedDAO carpool_bookedDAO;
+	
+	@Autowired
+	Carpool_ReviewDAO carpool_reviewDAO;
 	
 	@RequestMapping(value="/mypage",method=RequestMethod.GET)
 	public String mypage(HttpSession session,Model model){
@@ -128,7 +133,7 @@ public class MypageController {
 
 			model.addAttribute("list",list);
 			
-			int total = carpoolDAO.total(map);
+			int total = carpoolDAO.total_id((String) session.getAttribute("id"));
 			String paging=new Paging().paging1(total, nowPage, recordPerPage, kind1, kind2, word1, word2);
 			model.addAttribute("paging", paging);
 			
@@ -169,7 +174,7 @@ public class MypageController {
 			List<Carpool_BookedDTO> list = carpool_bookedDAO.read_reserving(map);
 			model.addAttribute("list",list);
 			
-			int total = carpool_bookedDAO.total(map);
+			int total = carpool_bookedDAO.total_reserving(map);
 			String paging=new Paging().paging3(total, nowPage, recordPerPage, col,word);
 			model.addAttribute("paging", paging);
 			
@@ -180,6 +185,90 @@ public class MypageController {
 			model.addAttribute("word", word);
 			model.addAttribute("nowPage", nowPage);
 			return "/reserving";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "error/error";
+	}
+	
+	@RequestMapping("/reserved")
+	public String reserved(HttpSession session,HttpServletRequest request,Model model){
+		int nowPage=1;//현재페이지
+		if(request.getParameter("nowPage")!=null){
+			nowPage=Integer.parseInt(request.getParameter("nowPage"));
+		}
+		int recordPerPage = 5;//한페이지당 보여줄 레코드 개수
+		int sno=((nowPage-1)*recordPerPage)+1;
+		int eno= nowPage*recordPerPage;
+		//검색관련 변수 선언
+		String col=Utility.nullCheck(request.getParameter("col"));
+		String word=Utility.nullCheck(request.getParameter("word"));
+		
+		Map map = new HashMap();
+		map.put("id", session.getAttribute("id"));
+		map.put("col", col);
+		map.put("word", word);
+		map.put("sno", sno);
+		map.put("eno", eno);
+		
+		try {
+			List<Carpool_BookedDTO> list = carpool_bookedDAO.read_reserved(map);
+			model.addAttribute("list",list);
+			
+			int total = carpool_bookedDAO.total_reserved(map);
+			String paging=new Paging().paging4(total, nowPage, recordPerPage, col,word);
+			model.addAttribute("paging", paging);
+			
+			if(col==""){
+				word="";
+			}
+			model.addAttribute("col", col);
+			model.addAttribute("word", word);
+			model.addAttribute("nowPage", nowPage);
+			return "/reserved";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "error/error";
+	}
+	
+	@RequestMapping("/review")
+	public String review(HttpSession session,HttpServletRequest request,Model model){
+		int nowPage=1;//현재페이지
+		if(request.getParameter("nowPage")!=null){
+			nowPage=Integer.parseInt(request.getParameter("nowPage"));
+		}
+		int recordPerPage = 5;//한페이지당 보여줄 레코드 개수
+		int sno=((nowPage-1)*recordPerPage)+1;
+		int eno= nowPage*recordPerPage;
+		//검색관련 변수 선언
+		String col=Utility.nullCheck(request.getParameter("col"));
+		String word=Utility.nullCheck(request.getParameter("word"));
+		
+		Map map = new HashMap();
+		map.put("id", session.getAttribute("id"));
+		map.put("col", col);
+		map.put("word", word);
+		map.put("sno", sno);
+		map.put("eno", eno);
+		
+		try {
+			List<Carpool_ReviewDTO> list = carpool_reviewDAO.list(map);
+			model.addAttribute("list",list);
+			
+			int total = carpool_reviewDAO.total_id((String) session.getAttribute("id"));
+			String paging=new Paging().paging4(total, nowPage, recordPerPage, col,word);
+			model.addAttribute("paging", paging);
+			
+			if(col==""){
+				word="";
+			}
+			model.addAttribute("col", col);
+			model.addAttribute("word", word);
+			model.addAttribute("nowPage", nowPage);
+			return "/review";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

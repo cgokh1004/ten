@@ -20,10 +20,20 @@
 		<put-attribute name="body" value="/WEB-INF/views/Mypage.jsp" />
 	</definition>
 	
+<!-- 	평가 -->
+	<definition name="/review" extends="mypage" >
+		<put-attribute name="title" value="평가"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/review.jsp" />
+	</definition>
 <!-- 	예약한 글 -->
 	<definition name="/reserving" extends="mypage" >
 		<put-attribute name="title" value="예약한 글"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/reserving.jsp" />
+	</definition>
+<!-- 	예약받은 글 -->
+	<definition name="/reserved" extends="mypage" >
+		<put-attribute name="title" value="예약받은 글"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/reserved.jsp" />
 	</definition>
 	
 <!-- 	내가쓴글 -->

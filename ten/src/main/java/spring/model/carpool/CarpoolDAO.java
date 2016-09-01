@@ -53,5 +53,9 @@ public class CarpoolDAO implements DAOMyBatisInter {
 	public int total(Map map) throws Exception {
 		return mybatis.selectOne("carpool.total", map);
 	}
+	
+	public int total_id(String id) throws Exception {
+		return mybatis.selectOne("carpool.total_id", id);
+	}
 
 }
