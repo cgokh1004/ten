@@ -41,11 +41,6 @@
 		<put-attribute name="title" value="내가 쓴 글"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/Mywrite.jsp" />
 	</definition>
-<!-- home -->
-	<definition name="/home" extends="main" >
-		<put-attribute name="title" value="IT Share"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
-	</definition>
 <!-- 	Member -->
 	<definition name="/member/agree" extends="main">
 		<put-attribute name="title" value="Agreement"></put-attribute>

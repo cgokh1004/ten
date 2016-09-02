@@ -40,32 +40,49 @@
 	<div id="sign2" style="position:relative ; z-index: 10">
 	<div style="margin: 8px"><a style="text-decoration:none" href="/ten/member/logout">로그아웃</a></div>
 	<div style="margin: 8px"><a style="text-decoration:none" href="/ten/mypage">마이페이지</a></div>
+	<div style="margin: 8px"><a style="text-decoration:none" href="/ten/schedule">일정 관리</a></div>
 	</div>
 	</c:otherwise>
 	</c:choose>
 	<div id="effect"></div>
 	<div id="menu">
-		<div style="padding-left: 40px;">
-			<div id="logo" style="z-index: 10; margin-left: -20px">
+		<div>
+			<div id="logo" style="z-index: 10; margin-left: -20px;padding:25px;background-color: #3d3d3d">
 				<a href="/ten"><img alt="logo"
 					src="${pageContext.request.contextPath}/images/로고.png" width="200px"></a>
 			</div>
-			<div>
-				<a href="/ten/carpool/list">Carpool</a>
-			</div>
-			<div>
-				<a href="http://www.google.co.kr"
-					style="text-decoration: none; color: #3c3c3c">구글</a>
-			</div>
-			<div>
-				<a href="http://www.daum.net"
-					style="text-decoration: none; color: #3c3c3c">다음</a>
-			</div>
-			<c:if test="${sessionScope.mem_type=='관리자'}">
-			<div >
-				<a href="/ten/member/read" style="color: red;">회원목록</a>
-			</div>
-			</c:if>
+			
+			<div style="margin-top: 50px">
+				<div id="list">
+					<a href="/ten/carpool/list">카풀</a>
+				</div>
+				<div id="list">
+					<a href="/ten/ktx/list"
+						style="text-decoration: none; color: #3c3c3c">KTX</a>
+				</div>
+				<div id="list">
+					<a href="/ten/food/list"
+						style="text-decoration: none; color: #3c3c3c">맛집</a>
+				</div>
+				<div id="list">
+					<a href="/ten/travel/list"
+						style="text-decoration: none; color: #3c3c3c">여행 정보</a>
+				</div>
+				<div id="list">
+					<a href="/ten/center/list"
+						style="text-decoration: none; color: #3c3c3c">고객센터</a>
+				</div>
+				<div id="list">
+					<a href="/ten/research/list"
+						style="text-decoration: none; color: #3c3c3c">설문조사</a>
+				</div>
+	<%-- 			<c:if test="${sessionScope.mem_type=='관리자'}"> --%>
+	<!-- 			<div > -->
+	<!-- 				<a href="/ten/member/read" style="color: red;">회원목록</a> -->
+	<!-- 			</div> -->
+	<%-- 			</c:if> --%>
+			</div>	
+	<div id="footer">Copyright © Ten 2016</div>
 		</div>
 	</div>
 	<div id="button"></div>

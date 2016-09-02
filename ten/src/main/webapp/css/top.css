@@ -1,5 +1,16 @@
 a:link, a:visited, a:active { text-decoration:none; color:#535353;} 
 a:hover { text-decoration:none; } 
+#list {
+	box-shadow : 0 -1px 5px gray;
+	padding:15px;
+}
+#footer {
+	position: relative;
+	margin-top:280px;
+	padding : 15px;
+	text-align: center;
+	box-shadow : 0 0 5px gray;
+}
 #down {
 	float: right;
 	width: 25px;
@@ -97,6 +108,7 @@ a:hover { text-decoration:none; }
 	top: 0px;
 	width: 250px;
 	height: 100%;
+	box-shadow : 0 0 5px gray;
 }
 
 #effect {		
