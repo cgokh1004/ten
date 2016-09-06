@@ -82,73 +82,107 @@ function surveyupdate(sulno){
 	alert(sulno)
 }
 </script>
+
+<!-- table -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
+
 <form action="/ten/survey/read" method="post" name="frm">
+
 <input type="hidden" name="nowPage" value="${nowPage }" >
 <input type="hidden" name="col" value="${col }">
 <input type="hidden" name="word" value="${word}">
-<input type="hidden" name="hapresult" style="width: 1000px">
+<input type="hidden" name="id" value="${sessionScope.id}">
+<input type="hidden" name="hapresult">
 
-
+   <c:if test="${sessionScope.id == 'admin'}"> 
 현재 설문 상태는 ${sulstate } 입니다.
 <c:if test="${sulstate=='진행'}"><a href="./sulstateno?sulgroupname=${sulgroupname }"><input type="button" value="설문끝내기"></a></c:if>
 <c:if test="${sulstate=='완료'}"><a href="./sulstateyes?sulgroupname=${sulgroupname }"><input type="button" value="설문재시작하기"></a></c:if>
+</c:if>
 
-
-
-	<h1>리서치 작성이 시작됩니다.</h1>
-	<h2>
-		<p>본 리서치의 주제는	${sulgroupname }이며, 본 리서치결과는 상업적인 목적으로 사용하지 않으며</p>
-		<p>기업 마케팅에만 적용되어 고객들에게 더 나은 서비스를 위해 시행하는 것입니다.</p>
-	</h2>
-  <TABLE border="1px solid" bordercolor="green" width="1000px">
+  <table>
+  <tr>
+    <td>
+	<h3>리서치 작성이 시작됩니다.</h3>	
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<textarea rows="5" cols="5" name="contents" style="width: 1310px" >
+	   
+		본 리서치의 주제는${sulgroupname }이며, 본 리서치결과는 상업적인 목적으로 사용하지 않으며 기업 마케팅에만 적용되어 고객들에게 더 나은 서비스를 위해 시행하는 것입니다.
+	        개인 고객님들의 개인정보는 항상 보호되며, 이를 어길실 저희 회사에서 배상을 하며, 어떤 불이익이 일어나지않음을 알려드립니다. 고객 개개인의 리서치 결과를 통해서 성향들을
+                파악하여 더 나은 서비스를 제공하는데 최선을 다하도록 하겠습니다.
+      
+	</textarea>
+	</td>
+	</tr>
+	</table>
+	
+  <TABLE border="1px solid" bordercolor="green" align="center"  class="table table-striped table-bordered table-hover table-condensed" >
   
   <form></form>
   
 	<c:forEach items="${list}" var="surveydto">
 	
-	
-<tr>
-   <th>	질문</th>
+<thead>	
+<tr >
+   <th style="text-align: center" >질문/보기</th>
    <td width="50%">${surveydto.askcontent}</td>
    
  <FORM method="get" action="surveyupdate">
-   <td>		
-   <input type="hidden" size="35%" name="sulgroupname" value="${sulgroupname }"></input>
-	   <input type="text" size="35%" name="askcontent"></input>
-	 </td>  	
-	 <td>  <input type="hidden" name="sulno" value="${surveydto.sulno }"> <input type="submit" value="질문 수정하기"></td>		
+   
+ <c:if test="${sessionScope.id == 'admin'}"> 
+   <td>	   
+       <input type="hidden" size="35%" name="sulgroupname" value="${sulgroupname }"></input>
+       <input type="text" size="35%" name="askcontent"></input>
+	 </td> 
+	 <td>  <input type="hidden" name="sulno" value="${surveydto.sulno }"> <input type="submit" value="질문 수정"></td>
+	 </c:if>		
 </tr> 
+</thead>
 </FORM>
 
+
     	<c:forEach items="${surveydto.sulmunrdtoList}" var="sulmunrdto">
+ 	  <tbody>
    <tr>
 
     <td>	
-		<c:if test="${sulstate=='진행'}"><input type="radio" name="radio${surveydto.sulno }" value="${sulmunrdto.chono}" onclick="checklistclick(${surveydto.sulno },${sulmunrdto.chono})">${sulmunrdto.chono}번</c:if>
+		<c:if test="${sulstate=='진행'}"><input type='radio' name='radio${surveydto.sulno }' value='${sulmunrdto.chono}' onclick='checklistclick(${surveydto.sulno },${sulmunrdto.chono})'>${sulmunrdto.chono}번</c:if>
 	</td>
 	<td>	
 			${sulmunrdto.chocontent}
 	</td>
 	
 	 <FORM method="get" action="sulmunrupdate">
+    <c:if test="${sessionScope.id == 'admin'}"> 
  <td>
   <input type="hidden" size="35%" name="sulgroupname" value="${sulgroupname }"></input>
   <input type="text" size="35%" name="chocontent"></input>
  </td>
- <td> <input type="hidden" name="sulmunrno" value="${sulmunrdto.sulmunrno }"> <input type="submit" value="보기 수정하기" > </td>   
+  </c:if>
+ <c:if test="${sessionScope.id == 'admin'}"> 
+ <td> <input type="hidden" name="sulmunrno" value="${sulmunrdto.sulmunrno }"> <input type="submit" value="보기 수정" > </td>  
+ </c:if> 
 </tr>
 </FORM>
 	    	</c:forEach>
 			<br>
 	</c:forEach>
+	    </tbody>
 	</table>		
 	
 	<br>
 	<div align="center">
 	<input type='button' value='돌아가기' onclick="location.href='./list'">
-	<c:if test="${sulstate=='진행'}"><input type="submit" value='저장'></c:if>
+	<c:if test="${sulstate=='진행'}"> <c:if test="${sessionScope.id != null }"> <input type="submit" value='저장'></c:if></c:if>
 	</div>	
 </form>
 </body>

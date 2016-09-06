@@ -6,14 +6,40 @@
 <tiles-definitions>
 
 
-	<definition name="main" template="/WEB-INF/views/templates/template.jsp">
+	<definition name="main" template="/WEB-INF/views/templates/template1.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/templates/top.jsp" />
 	</definition>
+	<definition name="mypage" template="/WEB-INF/views/templates/template2.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/templates/top.jsp" />
+		<put-attribute name="side" value="/WEB-INF/views/templates/side.jsp" />
+	</definition>
 
-	<!-- definition의 이름은 Bbscontroller에서 리턴되는 뷰의 이름 -->
-	<definition name="/home" extends="main">
-		<put-attribute name="title" value="IT Share"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+<!-- 	마이페이지 -->
+	<definition name="/mypage" extends="mypage" >
+		<put-attribute name="title" value="내 프로필"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/Mypage.jsp" />
+	</definition>
+	
+<!-- 	평가 -->
+	<definition name="/review" extends="mypage" >
+		<put-attribute name="title" value="평가"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/review.jsp" />
+	</definition>
+<!-- 	예약한 글 -->
+	<definition name="/reserving" extends="mypage" >
+		<put-attribute name="title" value="예약한 글"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/reserving.jsp" />
+	</definition>
+<!-- 	예약받은 글 -->
+	<definition name="/reserved" extends="mypage" >
+		<put-attribute name="title" value="예약받은 글"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/reserved.jsp" />
+	</definition>
+	
+<!-- 	내가쓴글 -->
+	<definition name="/mywrite" extends="mypage" >
+		<put-attribute name="title" value="내가 쓴 글"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/Mywrite.jsp" />
 	</definition>
 <!-- 	Member -->
 	<definition name="/member/agree" extends="main">

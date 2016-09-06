@@ -4,45 +4,53 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import spring.model.ktx.KtxDTO;
 import spring.model.ten.DAOMyBatisInter;
 
 public class Ktx_ReviewDAO implements DAOMyBatisInter {
 
-	@Override
-	public boolean create(Object dto, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List list(Map map, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@Autowired
+	private SqlSessionTemplate mybatis;
 	
-	@Override
-	public Object read(Object pk, SqlSessionTemplate mybatis) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public void setMybatis(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
 	}
 
 	@Override
-	public boolean update(Object dto, SqlSessionTemplate mybatis) throws Exception {
+	public int create(Object dto) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return mybatis.insert("ktx_review.create", dto);
 	}
 
 	@Override
-	public boolean delete(Object pk, SqlSessionTemplate mybatis) throws Exception {
+	public List list(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return mybatis.selectList("ktx_review.list",map);
 	}
 
 	@Override
-	public int total(Map map, SqlSessionTemplate mybatis) throws Exception {
+	public Object read(Object pk) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return mybatis.selectOne("ktx_review.read", pk);
 	}
 
+	@Override
+	public int update(Object dto) throws Exception {
+		// TODO Auto-generated method stub
+		return mybatis.update("ktx_review.update", dto);
+	}
+
+	@Override
+	public int delete(Object pk) throws Exception {
+		// TODO Auto-generated method stub
+		return mybatis.delete("ktx_review.delete", pk);
+	}
+
+	@Override
+	public int total(Map map) throws Exception {
+		// TODO Auto-generated method stub
+		return mybatis.selectOne("ktx_review.total", map);
+	}
 }

@@ -1,6 +1,5 @@
 package spring.model.carpool;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,13 +23,20 @@ public class CarpoolDAO implements DAOMyBatisInter {
 	}
 
 	@Override
-	public List list(Map map) throws Exception {
+	public List<CarpoolDTO> list(Map map) throws Exception {
 		return mybatis.selectList("carpool.list", map);
 	}
 
 	@Override
 	public Object read(Object pk) throws Exception {
 		return mybatis.selectOne("carpool.read", pk);
+	}
+	
+	public List<CarpoolDTO> read_id(Map map) throws Exception {
+		return mybatis.selectList("carpool.read_id", map);
+	}
+	public int now_seat(Map map) throws Exception {
+		return mybatis.update("carpool.now_seat", map);
 	}
 
 	@Override
@@ -46,6 +52,10 @@ public class CarpoolDAO implements DAOMyBatisInter {
 	@Override
 	public int total(Map map) throws Exception {
 		return mybatis.selectOne("carpool.total", map);
+	}
+	
+	public int total_id(String id) throws Exception {
+		return mybatis.selectOne("carpool.total_id", id);
 	}
 
 }

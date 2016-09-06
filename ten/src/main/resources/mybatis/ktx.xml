@@ -6,62 +6,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="ktx">
 
 	<delete id="delete" parameterType="int">
-		DELETE FROM member 
-		WHERE ID= #{id}
+		DELETE FROM ktx
+		WHERE ktx_no=#{ktx_no}
 	</delete>
 		
 	<update id="update" parameterType="ktxDTO">
-		UPDATE member
-		SET name=#{name}, mem_type=#{mem_type} 
-		WHERE ID = #{id}
+		UPDATE ktx
+		SET s_point = #{s_point}, s_address = #{s_address}, r_point = #{r_point}, r_address = #{r_address},purpose = #{purpose}, s_date = TO_DATE(#{s_date}, 'yyyy-mm-dd-hh24') ,
+		seat = #{seat}, price = #{price}, content = #{content}, apply_seat =#{apply_seat}
+		WHERE ktx_no = #{ktx_no}
+	</update>
+	
+	<update id="now_seat" parameterType="Map">
+	UPDATE ktx
+	SET apply_seat =#{apply_seat}
+	WHERE ktx_no = #{ktx_no}
 	</update>
 	
 	<insert id="create" parameterType="ktxDTO">
-		INSERT INTO member(ID, gender, mem_type, name,certi_num,
-		phone_certi, addr_certi, sns_certi, mail_certi, passport_certi)  
-		VALUES(#{id}, #{gender}, #{mem_type} ,#{name}, #{phone_certi}, #{addr_certi}, 
-		#{sns_certi},#{mail_certi},#{mail_certi},#{passport_certi});
+		INSERT INTO ktx(ktx_no, s_point, s_address, r_point, r_address, purpose,s_date, seat, price, content, reg_date,ID,apply_seat)  
+		VALUES((SELECT NVL(MAX(ktx_no), 0) + 1 as ktx_no FROM ktx),#{s_point},#{s_address},#{r_point},#{r_address},#{purpose},TO_DATE(#{s_date}, 'yyyy-mm-dd-hh24') ,
+		#{seat},#{price},#{content},sysdate,#{id},#{apply_seat})   
+
 	</insert>
 
-	<select id="total" parameterType="Map" resultType="int">
-		select count(*) from member
-		<where>
-			<choose>
-				<when test="col=='name'">
-					name LIKE '%' || #{word} || '%'
-				</when>
-				<when test="col=='gender'">
-					gender LIKE '%'|| #{word} || '%'
-				</when>
-				<when test="col=='id'">
-					id LIKE '%' || #{word} || '%'
-				</when>
-				
-			</choose>
-		</where>
-	</select>
 
-	<select id="list" resultType="MemberDTO" parameterType="Map">
+	<select id="list" resultType="ktxDTO" parameterType="Map">
 	
-		SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID, r
+		SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID,apply_seat, r
 		FROM(
-			SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID, rownum r
+			SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID,apply_seat, rownum r
 			  FROM(
-				SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID
+				SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID,apply_seat
 				FROM ktx  
-		<where>
-			<choose>
-				<when test="col=='name'">
-					name LIKE '%' || #{word} || '%'
-				</when>
-				<when test="col=='gender'">
-					gender LIKE '%'|| #{word} || '%'
-				</when>
-				<when test="col=='id'">
-					id LIKE '%' || #{word} || '%'
-				</when>
-			</choose>
-		</where>
 			ORDER BY ktx_no DESC
 			)
 			)                                                                            
@@ -70,15 +47,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   ]]>
 		</select>                                          
 						
-						
 
-
-
-
-	<select id="read" resultType="MemberDTO" parameterType="int">
-		SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID
+	<select id="read" resultType="ktxDTO" parameterType="int">
+		SELECT ktx_no, s_point, r_point, purpose,s_date, seat,price, content, reg_date,ID,apply_seat
 		FROM ktx
 		WHERE ktx_no = #{ktx_no}
+	</select>
+
+	<select id="total" parameterType="map" resultType="int">
+		select count(*)
+		from ktx
 	</select>
 
 </mapper>

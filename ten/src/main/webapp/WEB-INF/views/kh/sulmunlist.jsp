@@ -69,12 +69,18 @@ table{
 	
 </script>
 
+<!-- table -->
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
 	<h2 align="center">마이리서치</h2>
 
-<div align="center">
+<div class="container">
 	<FORM method="POST" action="list">
 		<select name="col">		
 			<option value="sulgroupname" <c:if test="${col=='sulgroupname'}">selected</c:if>>설문주제</option>
@@ -84,27 +90,37 @@ table{
 		                 <input type="submit" value="검색" /> 
 	</FORM>
 	</div>
-	<TABLE border='2' align='center' width='70%' >
+	<TABLE class="table" border='2' align='center' style="width: 70%">
+	 <thead>
 		<TR>		
-			<TH width='10%'>설문주제</TH>
-			<TH width='10%'>상태</TH>	
-			<TH width='10%'>삭제</TH>
-			<TH width='10%'>결과보기</TH>
+			<TH width='10%' style="text-align: center">설문주제</TH>
+			<TH width='10%' style="text-align: center">상태</TH>	
+			<c:if test="${sessionScope.id == 'admin'}"> 
+				<TH width='10%' style="text-align: center">삭제</TH>
+			</c:if>
+			<TH width='10%' style="text-align: center">결과보기</TH>
 		</TR>
+		 </thead>
+		 <tbody>
 		<c:forEach items="${list}" var="dto">
-			<TR>
+			<tr class="info">
 				<TD><a href="javascript:read('${dto.sulgroupname}','${dto.sulstate}')"> ${dto.sulgroupname}</a></TD>
 				<TD>${dto.sulstate}	</TD>
+				<c:if test="${sessionScope.id == 'admin'}"> 
 				<TD><input type="button" value="삭제하기" onclick="del('${dto.sulgroupname}')"></TD>
+				</c:if>
 				<TD><input type="button" value="결과보기" onclick="result('${dto.sulgroupname}')"></TD>
 			</TR>
 
 			<br>
 		</c:forEach>
+		  </tbody>
 	</TABLE>
 	<br>
 	<div align="center">
+	<c:if test="${sessionScope.id == 'admin'}"> 
 	<input type='button' value='설문지등록' onclick="location.href='./create'">
+	</c:if>
 	</div>
 	<br>
 	${paging}

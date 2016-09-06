@@ -15,22 +15,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="id" column="id" />
 	</resultMap>
 
-	<select id="list" parameterType="String" resultMap="Food_ReviewDTOResultMap">
-		select food_review.frev_no as frev_no, food.foodname as foodname, food_review.faddress as faddress, food_review.score as score,
-		food_review.content as content, food_review.fooddate as fooddate, food_review.id as id
-		from food_review join food
-		on food_review.faddress = food.faddress
-		where food_review.faddress = #{faddress}
-		order by food_review.frev_no desc
+	<select id="list" parameterType="Map" resultMap="Food_ReviewDTOResultMap">
+	SELECT frev_no, foodname, faddress, score, content, fooddate, id, r
+	from(
+		select frev_no, foodname, faddress, score, content, fooddate, id, rownum as r
+		from(
+			select food_review.frev_no as frev_no, food.foodname as foodname, food_review.faddress as faddress, food_review.score as score,
+			food_review.content as content, to_char(food_review.fooddate, 'yy-mm-dd hh24:mi') as fooddate, food_review.id as id
+			from food_review join food
+			on food_review.faddress = food.faddress
+			where food_review.faddress = #{faddress}
+			order by food_review.frev_no desc
+		)
+	)
+	<![CDATA[
+		where r>=#{sno} and r<=#{eno} 
+	]]>
 	</select>
 
 	<insert id="create" parameterType="Food_ReviewDTO">
 		insert into food_review
 		values((SELECT NVL(MAX(frev_no), 0) + 1 FROM food_review),
-		#{faddress}, #{score}, #{content}, (select to_char(sysdate,'yyyy-mm-dd') from dual), #{id})
+		#{faddress}, #{score}, #{content}, to_date((SELECT TO_CHAR(SYSDATE, 'YYYYMMDD HH24MISS') FROM DUAL), 'yyyymmddhh24miss'), #{id})
 	</insert>
 	
-	<select id="total" parameterType="String" resultType="int">
+	<select id="total" parameterType="Map" resultType="int">
 		select count(*)
 		from food_review
 		where faddress = #{faddress}
@@ -39,7 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" parameterType="Food_ReviewDTO">
 		update food_review
 		set content = #{content},
-			score = #{score}
+			score = #{score},
+			fooddate = to_date((SELECT TO_CHAR(SYSDATE, 'YYYYMMDD HH24MISS') FROM DUAL), 'yyyymmddhh24miss')
 		where frev_no = #{frev_no}
 	</update>
 	
@@ -47,6 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete food_review
 		where frev_no=#{frev_no}
 	</delete>
+	
+	<select id="avgscore" parameterType="Map" resultType="Double">
+		select avg(score)
+		from food_review
+		where faddress = #{faddress}
+	</select>
 </mapper>
 
 

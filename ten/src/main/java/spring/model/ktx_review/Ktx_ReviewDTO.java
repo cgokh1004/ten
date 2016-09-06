@@ -2,6 +2,8 @@ package spring.model.ktx_review;
 
 public class Ktx_ReviewDTO {
 
+	private int krev_no;
+	
 	private int score;
 	
 	private String content;
@@ -9,6 +11,15 @@ public class Ktx_ReviewDTO {
 	private int ktx_no;
 	
 	private String id;
+
+
+	public int getKrev_no() {
+		return krev_no;
+	}
+
+	public void setKrev_no(int krev_no) {
+		this.krev_no = krev_no;
+	}
 
 	public int getScore() {
 		return score;

@@ -17,6 +17,7 @@ public class CarpoolDTO {
 	private String kind;       				
 	private String startdate;  
 	private int seat;       
+	private int now_seat;       
 	private int price;      
 	private String smoke;      				
 	private String c_comment;
@@ -25,6 +26,12 @@ public class CarpoolDTO {
 	
 	
 
+	public int getNow_seat() {
+		return now_seat;
+	}
+	public void setNow_seat(int now_seat) {
+		this.now_seat = now_seat;
+	}
 	public MemberDTO getMemberDTO() {
 		return memberDTO;
 	}

@@ -7,30 +7,81 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="CarpoolDTO">
 		insert into carpool
 		(carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
-		purpose,c_type,kind,startdate,seat,price,smoke,c_comment)
+		purpose,c_type,kind,startdate,seat,now_seat,price,smoke,c_comment)
 		values (
 		(SELECT NVL(MAX(carpoolno), 0) + 1 as carpoolno FROM carpool),
 		#{id},
 		(SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS carpooldate from
 		dual),
 		#{c_start},#{c_startv},#{c_end},#{c_endv},#{via},#{viav},#{purpose},#{c_type},
-		#{kind},#{startdate},#{seat},#{price},#{smoke},#{c_comment})
+		#{kind},to_date(#{startdate},'yyyy-mm-dd hh24:mi'),#{seat},#{now_seat},#{price},#{smoke},#{c_comment})
 	</insert>
 
 	<select id="read" parameterType="int" resultType="CarpoolDTO">
 		SELECT
 		carpoolno,id,carpooldate,c_start,c_startv,c_end,c_endv,via,viav,
-		purpose,c_type,kind,startdate,seat,price,smoke,c_comment
+		purpose,c_type,kind,startdate,seat,now_seat,price,smoke,c_comment
 		FROM carpool
 		WHERE carpoolno =#{carpoolno}
+	</select>
+
+	<select id="read_id" parameterType="Map" resultMap="CarpoolDTOResultMap">
+		SELECT
+		carpoolno,mfile,name,certi_num,seat,now_seat,price,startdate,c_start,c_end,purpose,
+		c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,r
+			from(
+				SELECT
+				carpoolno,mfile,name,certi_num,seat,now_seat,price,startdate,c_start,c_end,purpose,
+				c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,
+				rownum r
+					from(SELECT
+						carpoolno,mfile,certi_num,name,seat,now_seat,price,startdate,c_start,c_end,purpose,
+						c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi
+			FROM carpool join member
+			on carpool.id = member.id
+		<where>
+			carpool.id = #{id} and
+			c_start like'%'||#{word1}||'%'
+			and c_end like'%'||#{word2}||'%'
+			<choose>
+				<when test="kind1=='regularly'">
+					and c_type like '정기카풀'
+				</when>
+				<when test="kind1=='short'">
+					and c_type like '단기카풀'
+				</when>
+				<when test="kind1=='woman'">
+					and c_type like '여성전용카풀'
+				</when>
+			</choose>
+			<choose>
+				<when test="kind2=='take_it'">
+					and kind like '타세요'
+				</when>
+				<when test="kind2=='plz_ride'">
+					and kind like '태워주세요'
+				</when>
+			</choose>
+		</where>
+		ORDER BY carpooldate desc, carpoolno desc
+		)
+		)
+<![CDATA[
+	where r>=#{sno} AND r<=#{eno}
+	]]>
 	</select>
 
 	<update id="update" parameterType="CarpoolDTO">
 		update carpool set
 		c_start=#{c_start},c_startv=#{c_startv},c_end=#{c_end},c_endv=#{c_endv},
 		via=#{via},viav=#{viav},
-		purpose=#{purpose},c_type=#{c_type},kind=#{kind},startdate=#{startdate},
-		seat=#{seat},price=#{price},smoke=#{smoke},c_comment=#{c_comment}
+		purpose=#{purpose},c_type=#{c_type},kind=#{kind},startdate=to_date(#{startdate},'yyyy-mm-dd hh24:mi'),
+		seat=#{seat},now_seat=#{now_seat},price=#{price},smoke=#{smoke},c_comment=#{c_comment}
+		where carpoolno=#{carpoolno}
+	</update>
+	
+	<update id="now_seat" parameterType="Map">
+		update carpool set now_seat=#{now_seat}
 		where carpoolno=#{carpoolno}
 	</update>
 
@@ -39,46 +90,68 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 		carpoolno=#{carpoolno}
 	</delete>
-	
+
 	<resultMap type="CarpoolDTO" id="CarpoolDTOResultMap">
-	<result column="carpoolno" property="carpoolno"/>
-	<result column="startdate" property="startdate"/>
-	<result column="c_start" property="c_start"/>
-	<result column="c_end" property="c_end"/>
-	<result column="purpose" property="purpose"/>
-	<result column="c_type" property="c_type"/>
-	<result column="kind" property="kind"/>
-	<result column="carpooldate" property="carpooldate"/>
-	<result column="name" property="memberDTO.name"/>
+		<result column="carpoolno" property="carpoolno" />
+		<result column="startdate" property="startdate" />
+		<result column="c_start" property="c_start" />
+		<result column="c_end" property="c_end" />
+		<result column="purpose" property="purpose" />
+		<result column="c_type" property="c_type" />
+		<result column="kind" property="kind" />
+		<result column="price" property="price" />
+		<result column="seat" property="seat" />
+		<result column="now_seat" property="now_seat" />
+		<result column="carpooldate" property="carpooldate" />
+		<result column="name" property="memberDTO.name" />
+		<result column="mfile" property="memberDTO.mfile" />
+		<result column="certi_num" property="memberDTO.certi_num" />
+		<result column="phone_certi" property="memberDTO.phone_certi" />
+		<result column="addr_certi" property="memberDTO.addr_certi" />
+		<result column="sns_certi" property="memberDTO.sns_certi" />
+		<result column="mail_certi" property="memberDTO.mail_certi" />
+		<result column="passport_certi" property="memberDTO.passport_certi" />
+
 	</resultMap>
-	
+
 	<select id="list" parameterType="Map" resultMap="CarpoolDTOResultMap">
 		SELECT
-		carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate,r
-		from(
+		carpoolno,mfile,name,certi_num,seat,now_seat,price,startdate,c_start,c_end,purpose,
+		c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,r
+			from(
 				SELECT
-				carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate,rownum r
-				from(SELECT
-						carpoolno,name,startdate,c_start,c_end,purpose,c_type,kind,carpooldate
-						FROM carpool c,member k
-							<where>
-								c.id=k.id
-								<choose>
-									<when test="col=='c_type'">
-										c_type like'%'||#{word}||'%'
-									</when>
-									<when test="col=='kind'">
-										kind like'%'||#{word}||'%'
-									</when>
-									<when test="col=='c_start'">
-										c_start like'%'||#{word}||'%'
-									</when>
-									<when test="col=='c_end'">
-										c_end like'%'||#{word}||'%'
-									</when>
-								</choose>
-							</where>
-		ORDER BY carpoolno, carpooldate desc
+				carpoolno,mfile,name,certi_num,seat,now_seat,price,startdate,c_start,c_end,purpose,
+				c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi,
+				rownum r
+					from(SELECT
+						carpoolno,mfile,certi_num,name,seat,now_seat,price,startdate,c_start,c_end,purpose,
+						c_type,kind,carpooldate,phone_certi,addr_certi,sns_certi,mail_certi,passport_certi
+			FROM carpool join member
+			on carpool.id = member.id
+		<where>
+			c_start like'%'||#{word1}||'%'
+			and c_end like'%'||#{word2}||'%'
+			<choose>
+				<when test="kind1=='regularly'">
+					and c_type like '정기카풀'
+				</when>
+				<when test="kind1=='short'">
+					and c_type like '단기카풀'
+				</when>
+				<when test="kind1=='woman'">
+					and c_type like '여성전용카풀'
+				</when>
+			</choose>
+			<choose>
+				<when test="kind2=='take_it'">
+					and kind like '타세요'
+				</when>
+				<when test="kind2=='plz_ride'">
+					and kind like '태워주세요'
+				</when>
+			</choose>
+		</where>
+		ORDER BY carpooldate desc, carpoolno desc
 		)
 		)
 <![CDATA[
@@ -86,22 +159,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
+	<select id="total_id" parameterType="String" resultType="int">
+		select count(*)
+		from carpool
+		 where id=#{id}
+	</select>
+	
 	<select id="total" parameterType="Map" resultType="int">
 		select count(*)
 		from carpool
 		<where>
 			<choose>
-				<when test="col=='c_type'">
-					c_type like'%'||#{word}||'%'
-				</when>
-				<when test="col=='kind'">
-					kind like'%'||#{word}||'%'
-				</when>
-				<when test="col=='c_start'">
-					c_start like'%'||#{word}||'%'
-				</when>
-				<when test="col=='c_end'">
-					c_end like'%'||#{word}||'%'
+				<when test="col=='id'">
+					id like'%'||#{word}||'%'
 				</when>
 			</choose>
 		</where>

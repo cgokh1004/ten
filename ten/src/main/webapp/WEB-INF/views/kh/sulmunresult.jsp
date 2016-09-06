@@ -4,9 +4,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
+
+<!--테이블 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- 구글차트 -->
  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+
+
+
 new google.charts.load('current', {'packages':['corechart']});
 
 var data = null;
@@ -34,49 +45,57 @@ function drawChart() {
 <!-- 구글차트 -->
 </head>
 
-<body align ="center">
-${sulgroupname }
-<h2 align="center">결과보기</h2>
-<table border="2px solid" bordercolor="blue" align="center">
+<body >
+
+<div class="container">
+
+<h2 align="center">결과보기(주제:&nbsp ${sulgroupname })</h2>
+<table class="table table-bordered" align="center" width="50%">
 <c:forEach items="${list}" var="surveydto" varStatus = "status">
-<tr>
-    <td colspan="6">
-	${surveydto.askcontent}
-	</td>
+<thead>
+<tr class="danger">
+    <th colspan="6" >
+	Q) ${surveydto.askcontent}
+	</th>	
 </tr>
 
+</thead>
+<tbody>
+	<tr>
+	  <td>  번호 </td>
+	  <td>  보기 </td>
+	  <td>  응답자수 </td>
+	  <td>  응답률 (%)</td>
+	</tr>
 	<c:forEach items="${surveydto.sulmunrdtoList}" var="sulmunrdto">
-   <tr>
+
+    <tr >
        <td>
 			${sulmunrdto.chono}번
 		</td>
 		<td>	
-			 선택한 보기항목은${sulmunrdto.chocontent} 이며
+			 ${sulmunrdto.chocontent}
 	   </td>
 	   <td>
-			 선택자수는 ${sulmunrdto.thenumber}명 이며, 
+			  ${sulmunrdto.thenumber}명 
 		</td>
 		<td>	 
-			 그룹내 비율은 ${sulmunrdto.theratio} 입니다!.
+			  ${sulmunrdto.theratio}
       </td>
-      <td>
-			${sulmunrdto.chocontent}
-	</td>
-	<td>		
-			${sulmunrdto.theratio}
-	<br>	
-   </td>
 </tr>	
+
 			</c:forEach>
 		
 <tr >
-  <td colspan="6" height="80px">
+  <td colspan="6" >
 <!-- 그래프나타나는 곳 -->
-<div id='${status.index}' style="height: 500px; width: 500px">${surveydto.askcontent}</div>
+<div id='${status.index}' style="height: 500px; width: 1200px">${surveydto.askcontent}</div>
   </td>
   </tr>
 </c:forEach>
+  </tbody>
 </table>
+</div>
 <br><br>
   <DIV class='bottom' style="padding-center: 1%" >
      <input type='button' value='종료'  onclick="location.href='./list'">
@@ -85,6 +104,6 @@ ${sulgroupname }
  google.charts.setOnLoadCallback(drawChart);
 </script>
 
-
 </body>
+
 </html>

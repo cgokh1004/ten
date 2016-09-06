@@ -23,9 +23,9 @@ function logincheck(){
 </head> 
 <body>
 
- 
-<DIV class="title">로그인</DIV>
- 
+ <div style="margin-top: 160px">
+<DIV style="font-size: 30px">로그인</DIV>
+ <br>
 <FORM name='frm' method='POST' action='../member/login' onsubmit="return logincheck()">
   <input type="hidden" name="flag" value="${param.flag}">
   <input type="hidden" name="carpoolno" value="${carpoolno}">
@@ -33,10 +33,11 @@ function logincheck(){
   <input type="hidden" name="nPage" value="${nPage}">
   <input type="hidden" name="col" value="${param.col}">
   <input type="hidden" name="word" value="${param.word}">
-  <TABLE class='table'>
+<center> 
+<TABLE class='table' >
     <TR>
       <TH>아이디</TH>
-      <TD><input type="text" name="id" autofocus value='${c_id_val}'>
+      <TD><input type="text" name="id" autofocus value='${c_id_val}' style="height: 35px;width: 220px">
        <c:choose>
        <c:when test="${c_id=='Y'}">
        <input type='checkbox' name='c_id' value='Y' checked='checked'> ID 저장
@@ -50,16 +51,17 @@ function logincheck(){
     </TR>
      <TR>
       <TH>비밀번호</TH>
-      <TD><input type="password" name="passwd"></TD>
+      <TD><input type="password" name="passwd" style="height: 35px;width: 220px"></TD>
     </TR>
   </TABLE>
-  
+  </center>
+  <br>
   <DIV class='bottom'>
     <input type='submit' value='확인'>
     <input type='button' value='회원가입' onclick="location.href='agree'">
   </DIV>
 </FORM>
- 
+ </div>
  
 <!-- *********************************************** -->
 

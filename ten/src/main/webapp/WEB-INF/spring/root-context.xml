@@ -73,9 +73,7 @@
 				<value>/WEB-INF/spring/tiles/kh.xml</value>
 				<value>/WEB-INF/spring/tiles/ssh.xml</value>
 				<value>/WEB-INF/spring/tiles/rjm.xml</value>
-				<value>/WEB-INF/spring/tiles/cms.xml</value>
-				<value>/WEB-INF/spring/tiles/ksa.xml</value>
-				<value>/WEB-INF/spring/tiles/jgs.xml</value>
+				<value>/WEB-INF/spring/tiles/bbs.xml</value>
 			</list>
 		</property>
 	</bean>

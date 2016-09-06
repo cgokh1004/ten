@@ -76,6 +76,13 @@ function list(){
 
 </style>
 
+<!-- table -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+
 </head>
 <body>
 
@@ -83,17 +90,16 @@ function list(){
 <FORM name='frm' method='POST' action='/ten/survey/create'>
 <input type="hidden" name="numscore" value="1">
 <div align="center">
-<table>
-<tr>
-<td>
-  <TABLE border="1px solid" bordercolor="green" width="600px">
-          
+<table  class="table">
+
+    
       <TR>
       
       <TD >설문제목: &nbsp;<input type="text" name="sulgroupname" style="width:500px; height:20px;"  value="${sulgroupname}" placeholder="설문제목을 입력해주세요">
       
       </TD>
       </TR>    
+
       
       <TR>     
       <TD >진행상태: &nbsp;<select name="sulstate" style="width:20%;" >
@@ -123,6 +129,7 @@ function list(){
        </table>
       </td>
    </tr>
+
 
 
  </table>

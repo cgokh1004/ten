@@ -58,7 +58,7 @@ public class SchedulerController {
 	   model.addAttribute("schedule", planner.render());
 	   this.request = request;
 	   
-      return "scheduler";
+      return "/scheduler";
    }
    
    @RequestMapping("/events")
@@ -203,8 +203,7 @@ public class SchedulerController {
         	schedulerService.updateEvent(schedule);
 
         } else if (status == DHXStatus.INSERT) {
-      //  	String id =(String) this.request.getSession().getAttribute("id");
-        	String id = "ktw3722";
+        	String id =(String) this.request.getSession().getAttribute("id");
         	schedule.setId(id);
         	schedulerService.insertEvent(schedule);
         	event.setId(schedule.getEvent_id()); //pk저장:수정 삭제를 위해서

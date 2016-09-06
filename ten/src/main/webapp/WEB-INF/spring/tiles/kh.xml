@@ -10,12 +10,6 @@
 		<put-attribute name="header" value="/WEB-INF/views/templates/top.jsp" />
 	</definition>
 
-<!-- definition의 이름은 Surveycontroller에서 리턴되는 뷰의 이름 -->
-   <!-- 1. home -->
-	<definition name="/home" extends="main">
-		<put-attribute name="title" value="Default Page"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
-	</definition>
   <!-- 2. list -->
 	<definition name="/survey/list" extends="main">
 		<put-attribute name="title" value="Default Page"></put-attribute>
@@ -45,6 +39,10 @@
 	<definition name="/survey/result" extends="main">
 		<put-attribute name="title" value="Default Page"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/views/kh/sulmunresult.jsp" />
+	</definition>
+	<definition name="/scheduler" extends="main">
+		<put-attribute name="title" value="Default Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/scheduler.jsp" />
 	</definition>
 
 	

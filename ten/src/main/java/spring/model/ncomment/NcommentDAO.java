@@ -19,9 +19,9 @@ public class NcommentDAO {
 		this.mybatis = mybatis;
 	}
 
-	public int total(Map map){
+	public int total(int noticeno){
 		
-		return mybatis.selectOne("ncomment.total", map);
+		return mybatis.selectOne("ncomment.total", noticeno);
 	}
 	
 	public List<NcommentDTO> list(Map map){// 밑에 where r>=? and r<=?가 map에 들어감

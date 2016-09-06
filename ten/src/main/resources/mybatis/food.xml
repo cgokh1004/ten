@@ -7,7 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="FoodDTO">
 		insert into food
 		values(#{faddress}, #{foodname})
-	</insert>	
+	</insert>
+	
+	<select id="madecheckread" resultType="int" parameterType="String">
+		select count(*)
+		from food
+		where faddress = #{faddress}
+	</select>
+
 </mapper>
 
 

@@ -104,10 +104,11 @@ public class SurveyController {
 		return "/survey/read";
 	}
 	@RequestMapping(value = "/survey/read" ,method=RequestMethod.POST)
-	public String read(SulconfirmDTO dto, String hapresult, int nowPage, Model model, String col, String word) {
+	public String read(SulconfirmDTO dto, String hapresult, int nowPage, Model model, String col, String word, String id) {
+		
 				
 				//밑에가 슬러시가 몇갠지 뽑아오는 작업(총 몇번의 크레이트를 결정하기 위하여)
-				System.out.println(hapresult);
+		System.out.println(hapresult);
 				int slushhap=0;
 				char temphapresult[] = hapresult.toCharArray();
 				
@@ -122,7 +123,7 @@ public class SurveyController {
 				
 				// 슬러시 갯수만큼 크리에이트를 하는 포문
 				for(int i=0; i<slushhap; i++){
-					dto.setId("ktw3722");
+					dto.setId(id);
 					int commaloc =  hapresult.indexOf(",");
 					int slushloc = hapresult.indexOf("/",1);
 					dto.setSulno(Integer.parseInt(hapresult.substring(2, commaloc)));

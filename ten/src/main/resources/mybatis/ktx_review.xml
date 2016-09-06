@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<delete id="delete" parameterType="int">
 		DELETE FROM ktx_review
-		WHERE ktxrep_no=#{ktxrep_no}
+		WHERE krev_no=#{krev_no}
 	</delete>
 		
 	<update id="update" parameterType="Ktx_ReviewDTO">
@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="Ktx_ReviewDTO">
 		INSERT INTO ktx_review(krev_no,score,content,ktx_no,ID )  
 		VALUES((SELECT NVL(MAX(krev_no), 0) + 1 as krev_no FROM ktx_review),
-		#{score},#{content},#{ktx_no},#{id});   
+		#{score},#{content},#{ktx_no},#{id})   
 
 	</insert>
 
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  FROM(
 				SELECT krev_no,score,content,ktx_no,ID
 				FROM ktx_review
-				ORDER BY ktxrep_no DESC
+				ORDER BY krev_no DESC
 			)
 			)                                                                            
 	   <![CDATA[                                                                        
@@ -39,7 +39,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   ]]>
 		</select>  
                                       
-						
+	<select id="total" parameterType="map" resultType="int">
+		select count(*)
+		from ktx_review
+	</select>				
 						
 
 

@@ -1,3 +1,4 @@
+
 package spring.utility.ten;
 
 import java.io.File;
@@ -13,16 +14,12 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class Utility {
-	
-	  private static final String root ="/blog";
-	  
-	  public static synchronized String getRoot(){
-	    return root;
-	  }
-	
+import spring.model.bbs.ReplyDAO;
 
-	  /** 
+
+public class Utility {
+	 
+	 /** 
 	  * 댓글용 페이징 메소드
 	  * @param totalRecord 전체 레코드수 
 	  * @param nowPage     현재 페이지 
@@ -31,7 +28,7 @@ public class Utility {
 	  * @param bbsno 상위글번호
 	  * @return 페이징 생성 문자열
 	  */ 
-	 public static String paging(int totalRecord, int nPage, int recordPerPage,String url,int bbsno,int nowPage, String col, String word){ 
+	 public static String paging(int totalRecord, int nPage, int recordPerPage,String url,int carpoolno,int nowPage, String kind1,String kind2, String word1,String word2){ 
 	   int pagePerBlock = 10; // 블럭당 페이지 수 
 	   int totalPage = (int)(Math.ceil((double)totalRecord/recordPerPage)); // 전체 페이지  
 	   int totalGrp = (int)(Math.ceil((double)totalPage/pagePerBlock));// 전체 그룹 
@@ -72,7 +69,7 @@ public class Utility {
 	 
 	   int _nowPage = (nowGrp-1) * pagePerBlock; // 10개 이전 페이지로 이동 
 	   if (nowGrp >= 2){ 
-	     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+bbsno+"&nPage="+_nowPage+"'>이전</A></span>"); 
+	     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&kind1="+kind1+"&kind2="+kind2+"&word1="+word1+"&word2="+word2+"&carpoolno="+carpoolno+"&nPage="+_nowPage+"'>이전</A></span>"); 
 	   } 
 	 
 	   for(int i=startPage; i<=endPage; i++){ 
@@ -83,20 +80,169 @@ public class Utility {
 	     if (nPage == i){ 
 	       str.append("<span class='span_box_2'>"+i+"</span>"); 
 	     }else{ 
-	       str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+bbsno+"&nPage="+i+"'>"+i+"</A></span>");   
+	       str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&kind1="+kind1+"&kind2="+kind2+"&word1="+word1+"&word2="+word2+"&carpoolno="+carpoolno+"&nPage="+i+"'>"+i+"</A></span>");   
 	     } 
 	   } 
 	    
 	   _nowPage = (nowGrp * pagePerBlock)+1; // 10개 다음 페이지로 이동 
 	   if (nowGrp < totalGrp){ 
-	     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+bbsno+"&nPage="+_nowPage+"'>다음</A></span>"); 
+	     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&kind1="+kind1+"&kind2="+kind2+"&word1="+word1+"&word2="+word2+"&carpoolno="+carpoolno+"&nPage="+_nowPage+"'>다음</A></span>"); 
 	   } 
 	   str.append("</DIV>"); 
 	    
 	   return str.toString(); 
 	 } 
 	 
+	 public static String paging1(int totalRecord, int nPage, int recordPerPage,String url,int bbsno,int nowPage, String col, String word){ 
+		   int pagePerBlock = 10; // 블럭당 페이지 수 
+		   int totalPage = (int)(Math.ceil((double)totalRecord/recordPerPage)); // 전체 페이지  
+		   int totalGrp = (int)(Math.ceil((double)totalPage/pagePerBlock));// 전체 그룹 
+		   int nowGrp = (int)(Math.ceil((double)nPage/pagePerBlock));    // 현재 그룹 
+		   int startPage = ((nowGrp - 1) * pagePerBlock) + 1; // 특정 그룹의 페이지 목록 시작  
+		   int endPage = (nowGrp * pagePerBlock);             // 특정 그룹의 페이지 목록 종료   
+		    
+		   StringBuffer str = new StringBuffer(); 
+		    
+		   str.append("<style type='text/css'>"); 
+		   str.append("  #paging {text-align: center; margin-top: 5px; font-size: 1em;}"); 
+		   str.append("  #paging A:link {text-decoration:none; color:black; font-size: 1em;}"); 
+		   str.append("  #paging A:hover{text-decoration:none; background-color: #CCCCCC; color:black; font-size: 1em;}"); 
+		   str.append("  #paging A:visited {text-decoration:none;color:black; font-size: 1em;}"); 
+		   str.append("  .span_box_1{"); 
+		   str.append("    text-align: center;");    
+		   str.append("    font-size: 1em;"); 
+		   str.append("    border: 1px;"); 
+		   str.append("    border-style: solid;"); 
+		   str.append("    border-color: #cccccc;"); 
+		   str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("  }"); 
+		   str.append("  .span_box_2{"); 
+		   str.append("    text-align: center;");    
+		   str.append("    background-color: #668db4;"); 
+		   str.append("    color: #FFFFFF;"); 
+		   str.append("    font-size: 1em;"); 
+		   str.append("    border: 1px;"); 
+		   str.append("    border-style: solid;"); 
+		   str.append("    border-color: #cccccc;"); 
+		   str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("  }"); 
+		   str.append("</style>"); 
+		   str.append("<DIV id='paging'>"); 
+//		     str.append("현재 페이지: " + nowPage + " / " + totalPage + "  "); 
+		 
+		   int _nowPage = (nowGrp-1) * pagePerBlock; // 10개 이전 페이지로 이동 
+		   if (nowGrp >= 2){ 
+		     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+bbsno+"&nPage="+_nowPage+"'>이전</A></span>"); 
+		   } 
+		 
+		   for(int i=startPage; i<=endPage; i++){ 
+		     if (i > totalPage){ 
+		       break; 
+		     } 
+		 
+		     if (nPage == i){ 
+		       str.append("<span class='span_box_2'>"+i+"</span>"); 
+		     }else{ 
+		       str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+bbsno+"&nPage="+i+"'>"+i+"</A></span>");   
+		     } 
+		   } 
+		    
+		   _nowPage = (nowGrp * pagePerBlock)+1; // 10개 다음 페이지로 이동 
+		   if (nowGrp < totalGrp){ 
+		     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+bbsno+"&nPage="+_nowPage+"'>다음</A></span>"); 
+		   } 
+		   str.append("</DIV>"); 
+		    
+		   return str.toString(); 
+		 } 
+	 public static String paging2(int totalRecord, int nPage, int recordPerPage,String url,int tra_no,int nowPage, String col, String word){ 
+		   int pagePerBlock = 10; // 블럭당 페이지 수 
+		   int totalPage = (int)(Math.ceil((double)totalRecord/recordPerPage)); // 전체 페이지  
+		   int totalGrp = (int)(Math.ceil((double)totalPage/pagePerBlock));// 전체 그룹 
+		   int nowGrp = (int)(Math.ceil((double)nPage/pagePerBlock));    // 현재 그룹 
+		   int startPage = ((nowGrp - 1) * pagePerBlock) + 1; // 특정 그룹의 페이지 목록 시작  
+		   int endPage = (nowGrp * pagePerBlock);             // 특정 그룹의 페이지 목록 종료   
+		    
+		   StringBuffer str = new StringBuffer(); 
+		    
+		   str.append("<style type='text/css'>"); 
+		   str.append("  #paging {text-align: center; margin-top: 5px; font-size: 1em;}"); 
+		   str.append("  #paging A:link {text-decoration:none; color:black; font-size: 1em;}"); 
+		   str.append("  #paging A:hover{text-decoration:none; background-color: #CCCCCC; color:black; font-size: 1em;}"); 
+		   str.append("  #paging A:visited {text-decoration:none;color:black; font-size: 1em;}"); 
+		   str.append("  .span_box_1{"); 
+		   str.append("    text-align: center;");    
+		   str.append("    font-size: 1em;"); 
+		   str.append("    border: 1px;"); 
+		   str.append("    border-style: solid;"); 
+		   str.append("    border-color: #cccccc;"); 
+		   str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("  }"); 
+		   str.append("  .span_box_2{"); 
+		   str.append("    text-align: center;");    
+		   str.append("    background-color: #668db4;"); 
+		   str.append("    color: #FFFFFF;"); 
+		   str.append("    font-size: 1em;"); 
+		   str.append("    border: 1px;"); 
+		   str.append("    border-style: solid;"); 
+		   str.append("    border-color: #cccccc;"); 
+		   str.append("    padding:1px 6px 1px 6px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("    margin:1px 2px 1px 2px; /*위, 오른쪽, 아래, 왼쪽*/"); 
+		   str.append("  }"); 
+		   str.append("</style>"); 
+		   str.append("<DIV id='paging'>"); 
+//		     str.append("현재 페이지: " + nowPage + " / " + totalPage + "  "); 
+		 
+		   int _nowPage = (nowGrp-1) * pagePerBlock; // 10개 이전 페이지로 이동 
+		   if (nowGrp >= 2){ 
+		     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+tra_no+"&nPage="+_nowPage+"'>이전</A></span>"); 
+		   } 
+		 
+		   for(int i=startPage; i<=endPage; i++){ 
+		     if (i > totalPage){ 
+		       break; 
+		     } 
+		 
+		     if (nPage == i){ 
+		       str.append("<span class='span_box_2'>"+i+"</span>"); 
+		     }else{ 
+		       str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+tra_no+"&nPage="+i+"'>"+i+"</A></span>");   
+		     } 
+		   } 
+		    
+		   _nowPage = (nowGrp * pagePerBlock)+1; // 10개 다음 페이지로 이동 
+		   if (nowGrp < totalGrp){ 
+		     str.append("<span class='span_box_1'><A href='./"+url+"?nowPage="+nowPage+"&col="+col+"&word="+word+"&bbsno="+tra_no+"&nPage="+_nowPage+"'>다음</A></span>"); 
+		   } 
+		   str.append("</DIV>"); 
+		    
+		   return str.toString(); 
+		 }
+		
 	
+	 
+	 /**
+	   * 2010-12-14 형식의 날짜를 리턴합니다.
+	   * @return 2008-01-30 형식의 문자열 리턴
+	   */
+	  public static String getDate6(int year, int month, int day){
+	      SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+	      
+	      new Date();
+	      String date = sd.format(new Date(year-1900, month, day));
+	 
+	      // System.out.println(date);        
+	      return date;
+	  }
+	  private static final String root ="/blog";
+	  
+	  public static synchronized String getRoot(){
+	    return root;
+	  }
+		 
 	/** 
      * 파일업로드 처리(model1,mvc) 
      * @param fileItem 
@@ -177,14 +323,13 @@ public class Utility {
 		if(file.exists()){
 			file.delete();
 		}
-		
 	}
-	 /** 
+	/** 
 	   * 직업 코드를 받아서 해당하는 값(레이블)을 리턴 
 	   * @param key 
 	   * @return 
 	   */ 
-	  public static String getCodeValue(String key) { 
+	  public static String  getCodeValue(String key) { 
 	    Hashtable codes = new Hashtable(); 
 
 	    codes.put("A01", "회사원"); 
@@ -195,7 +340,7 @@ public class Utility {
 	    codes.put("A11", "공무원"); 
 	    codes.put("A13", "의료인"); 
 	    codes.put("A15", "법조인"); 
-	    codes.put("A17", "종교.언론/예술인"); 
+	       codes.put("A17", "종교.언론/예술인"); 
 	    codes.put("A19", "농업"); 
 	    codes.put("A23", "축산업"); 
 	    codes.put("A25", "수산업"); 
@@ -210,62 +355,54 @@ public class Utility {
 	  } 
 
 	/**
-    * 오늘,어제,그제 날짜 가져오기
-    * @return List- 날짜들 저장
-    */
-   public static List<String> getDay(){
-       List<String> list = new ArrayList<String>();
-       
-       SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-       Calendar cal = Calendar.getInstance();
-       for(int j = 0; j < 3; j++){
-           list.add(sd.format(cal.getTime()));
-           cal.add(Calendar.DATE, -1);
-       }
-       
-       return list;
-   }
-   /**
-    * 등록날짜와 오늘,어제,그제날짜와 비교
-    * @param wdate - 등록날짜
-    * @return - true:오늘,어제,그제중 등록날짜와 같음
-    *           false:오늘,어제,그제 날짜가 등록날짜와 다 다름
-    */
-   public static boolean compareDay(String wdate){
-       boolean flag = false;
-       List<String> list = getDay();
-       if(wdate.equals(list.get(0)) 
-          || wdate.equals(list.get(1))
-          || wdate.equals(list.get(2))){
-           flag = true;
-       }
-         
-       return flag;
-   }
+	 * 오늘,어제,그제 날짜 가져오기
+	 * 
+	 * @return List- 날짜들 저장
+	 */
+	public static List<String> getDay() {
+		List<String> list = new ArrayList<String>();
 
- 
-	public static String nullCheck(String str){
-		if(str==null){
-			str="";
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();// 추상클래스라서 new안함.날짜불러오기
+		for (int j = 0; j < 3; j++) {
+			list.add(sd.format(cal.getTime()));// 오늘 날짜
+			cal.add(Calendar.DATE, -1);// 어제날짜
 		}
-		
+
+		return list;
+	}
+
+	/**
+	 * 등록날짜와 오늘,어제,그제날짜와 비교
+	 * 
+	 * @param wdate
+	 *            - 등록날짜
+	 * @return - true:오늘,어제,그제중 등록날짜와 같음 false:오늘,어제,그제 날짜가 등록날짜와 다 다름
+	 */
+	public static boolean compareDay(String wdate) {// wdate등록날짜
+		boolean flag = false;
+		List<String> list = getDay();
+		if (wdate.equals(list.get(0)) || wdate.equals(list.get(1)) || wdate.equals(list.get(2))) {
+			flag = true;
+		}
+
+		return flag;
+	}
+
+	public static String nullCheck(String str) {
+		if (str == null) {
+			str = "";
+		}
 		return str;
 	}
 	
-
-	 
-	  /**
-	   * 2010-12-14 형식의 날짜를 리턴합니다.
-	   * @return 2008-01-30 형식의 문자열 리턴
-	   */
-	  public static String getDate6(int year, int month, int day){
-	      SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-	      
-	      new Date();
-	      String date = sd.format(new Date(year-1900, month, day));
-	 
-	      // System.out.println(date);        
-	      return date;
-	  }
-	  
+	   /**
+	    * 댓글개수
+	    * @param bbsno 글번호
+	    * @param rdao 댓글갯수 가져올 rdao
+	    * @return 댓글개수
+	    */
+		public static int rcount(int bbsno,ReplyDAO rdao){
+	        return rdao.rcount(bbsno);
+		}
 }
