@@ -58,17 +58,28 @@ public class MemberDAOTest {
 	@Test @Ignore
 	public void testCreate2() {
 		MemberDAO dao= (MemberDAO) beans.getBean("memberdao");
-		assertEquals(1, dao.create2("user1"));
+		try {
+			assertEquals(1, dao.create2("user1"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
 	public void testRead() {
 		MemberDAO dao= (MemberDAO) beans.getBean("memberdao");
-		MemberDTO dto=dao.read("user1");
-		assertEquals("user1",dto.getId());
-		assertEquals("남",dto.getGender());
-		assertEquals("개인",dto.getMem_type());
-		assertEquals("홍길동",dto.getName());
+		MemberDTO dto;
+		try {
+			dto = (MemberDTO) dao.read("user1");
+			assertEquals("user1",dto.getId());
+			assertEquals("남",dto.getGender());
+			assertEquals("개인",dto.getMem_type());
+			assertEquals("홍길동",dto.getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
@@ -81,19 +92,34 @@ public class MemberDAOTest {
 		dto.setPassport_certi(1);
 		dto.setSns_certi(0);
 		dto.setId("user1");
-		assertEquals(1, dao.update1(dto));
+		try {
+			assertEquals(1, dao.update1(dto));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
 	public void testUpdate2() {
 		MemberDAO dao= (MemberDAO) beans.getBean("memberdao");
-		assertEquals(1, dao.update2("user1"));
+		try {
+			assertEquals(1, dao.update2("user1"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
 	public void testDelete() {
 		MemberDAO dao= (MemberDAO) beans.getBean("memberdao");
-		assertEquals(1, dao.delete("user1"));
+		try {
+			assertEquals(1, dao.delete("user1"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
@@ -104,14 +130,28 @@ public class MemberDAOTest {
 		map.put("word", "");
 		map.put("sno", 1);
 		map.put("eno", 5);
-		List<MemberDTO> list= dao.list(map);
-		assertEquals(1, list.size());
+		List<MemberDTO> list;
+		try {
+			list = dao.list(map);
+			assertEquals(1, list.size());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test //@Ignore
 	public void testTotal() {
 		MemberDAO dao= (MemberDAO) beans.getBean("memberdao");
-		assertEquals(1, dao.total("", ""));
+		Map map= new HashMap();
+		map.put("col", "");
+		map.put("word", "");
+		try {
+			assertEquals(1, dao.total(map));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

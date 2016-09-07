@@ -51,18 +51,29 @@ public class Carpool_ReviewDAOTest {
 		dto.setCarpoolno(1);
 		dto.setId("ktw3722");
 		
-		assertEquals(1,dao.create(dto));
+		try {
+			assertEquals(1,dao.create(dto));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
 	public void testRead() {
 		Carpool_ReviewDAO dao=(Carpool_ReviewDAO) beans.getBean("carpool_reviewdao");
-		Carpool_ReviewDTO dto=dao.read(2);
-		assertEquals(2, dto.getCrev_no());
-		assertEquals(4, dto.getScore());
-		assertEquals(1, dto.getCarpoolno());
-		assertEquals("ktw3722", dto.getId());
-		assertEquals("좋아요", dto.getContent());
+		Carpool_ReviewDTO dto;
+		try {
+			dto = (Carpool_ReviewDTO) dao.read(2);
+			assertEquals(2, dto.getCrev_no());
+			assertEquals(4, dto.getScore());
+			assertEquals(1, dto.getCarpoolno());
+			assertEquals("ktw3722", dto.getId());
+			assertEquals("좋아요", dto.getContent());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -74,13 +85,23 @@ public class Carpool_ReviewDAOTest {
 		dto.setContent("좋아요");
 		dto.setScore(5);
 		dto.setCrev_no(2);
-		assertEquals(1, dao.update(dto));
+		try {
+			assertEquals(1, dao.update(dto));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
 	public void testDelete() {
 		Carpool_ReviewDAO dao=(Carpool_ReviewDAO) beans.getBean("carpool_reviewdao");
-		assertEquals(1, dao.delete(1));
+		try {
+			assertEquals(1, dao.delete(1));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
@@ -91,14 +112,27 @@ public class Carpool_ReviewDAOTest {
 		map.put("word", "");
 		map.put("sno", 1);
 		map.put("eno", 5);
-		List<Carpool_ReviewDTO> list=dao.list(map);
-		assertEquals(1, list.size());
+		List<Carpool_ReviewDTO> list;
+		try {
+			list = dao.list(map);
+			assertEquals(1, list.size());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test @Ignore
 	public void testTotal() {
 		Carpool_ReviewDAO dao=(Carpool_ReviewDAO) beans.getBean("carpool_reviewdao");
-		assertEquals(1, dao.total("", ""));
+		Map map = new HashMap();
+		map.put("id", "admin");
+		try {
+			assertEquals(1, dao.total(map));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
